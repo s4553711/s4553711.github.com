@@ -15,7 +15,23 @@ sub post {
 
     # Get DateTime for the title of the post
     my $now = DateTime->now(time_zone  => 'Asia/Taipei');
-    print "Log> Create Post .. ".$now->ymd." ".$now->hms."\n";
+
+    my $file_title = $title;
+    $file_title =~ s/\s/-/g;
+
+    # create article in md
+    open(OT,">../post/".$now->ymd."-".$file_title.".md") || die "Log> Error while creating article\n";
+
+    print "Log> Create Post .. $title\n";
+    
+    print OT "---\n";
+    print OT "layout: post\n";
+    print OT "title: $title\n";
+    print OT "date: ".$now->ymd." ".$now->hms."\n";
+    print OT "categories:\n";
+    print OT "---";
+
+    close OT;
 
 }
 
