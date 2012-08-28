@@ -1,6 +1,8 @@
 #!/usr/bin/perl
 package Pake;
 use lib "/home/s4553711/perl5/lib/perl5";
+use Text::Markdown 'markdown';
+use YAML::Tiny;
 
 use utf8;
 use strict;
@@ -20,9 +22,9 @@ sub post {
     $file_title =~ s/\s/-/g;
 
     # create article in md
-    open(OT,">../post/".$now->ymd."-".$file_title.".md") || die "Log> Error while creating article\n";
+    open(OT,">../draft/".$now->ymd."-".$file_title.".md") || die "Log> Error while creating article\n";
 
-    print "Log> Create Post .. $title\n";
+    print "Pake> Create Post .. $title\n";
     
     print OT "---\n";
     print OT "layout: post\n";
@@ -35,15 +37,79 @@ sub post {
 
 }
 
+sub Generate {
+    
+    print "Pake> Generating article in HTML\n";
+    opendir(DIR,"../draft")||die "Pake> Error Reading draft\n";
+    while(my $file = readdir(DIR)){
+
+        next if ($file eq '.' || $file eq '..');
+
+        print "Pake> Process .. draft/$file\n";
+
+        open(FH,"../draft/$file")||die "Pake> Error While reading file .. $file\n";
+
+        my $tmp_line = '';
+        my $comment_count = 0;
+
+        while(<FH>){
+
+            chomp;
+            my $line = $_;
+
+            if ($line =~ /^---/){
+
+                if ($comment_count == 0){
+
+                    $comment_count += 1;
+
+                } elsif ($comment_count ==1){
+
+                    # Get article setting
+                    my $yaml = YAML::Tiny->read_string($tmp_line);
+
+                    $comment_count += 1;
+                
+                    $tmp_line = '';
+
+                    next;
+
+                }
+            }
+
+            $tmp_line .= "$line\n";
+            
+        }
+
+ 
+        # Output HTML file       
+        (my $html_file = $file) =~ s/\.md$//g;
+
+        open(OT2,">../post/$html_file.html")||die "Error Opne $html_file.html\n";
+        print OT2 "<!doctype HTML>\n<html>\n<head>\n<meta charset=\"utf-8\"\n><link href=\"../stylesheets/markdown.css\" media=\"screen\" rel=\"stylesheet\" type=\"text/css\">\n</head>\n";
+        print OT2 markdown($tmp_line);
+
+        close OT2;
+        close FH;
+
+    }
+}
+
 my %opts = ();
-getopt(':p', \%opts);
+
+getopt(':pg', \%opts);
 
 if (exists $opts{p}){
 
     post($opts{p});
 
+} elsif (exists $opts{g}){
+    
+    Generate();
+
 } else {
 
-    print "Usage> pake.pl -p \"Title of the article\"\n";
+    print "Usage> pake.pl -p \"Title\"  .. create post\n";
+    print "               -g          .. publish article\n";
 
 }
