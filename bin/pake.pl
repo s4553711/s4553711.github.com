@@ -2,6 +2,7 @@
 package Pake;
 use lib "/home/s4553711/perl5/lib/perl5";
 use Text::Markdown 'markdown';
+use Mojo::Template;
 use YAML::Tiny;
 
 use utf8;
@@ -81,17 +82,21 @@ sub Generate {
             
         }
 
+        # Initate Mojo::Template
+        my $mt = Mojo::Template->new;
  
-        # Output HTML file       
+        # Get the content of source file       
         (my $html_file = $file) =~ s/\.md$//g;
 
+        # Output the html file
         open(OT2,">../post/$html_file.html")||die "Error Opne $html_file.html\n";
-        print OT2 "<!doctype HTML>\n<html>\n<head>\n<meta charset=\"utf-8\"\n><link href=\"../stylesheets/markdown.css\" media=\"screen\" rel=\"stylesheet\" type=\"text/css\">\n</head>\n";
-        print OT2 markdown($tmp_line);
+
+        my $argv = {title=>'Article',content=>markdown($tmp_line)};
+        my $result = $mt->render_file('/home/s4553711/public_html/github/templates/article.html.ep',$argv);
+        print OT2 "$result";
 
         close OT2;
         close FH;
-
     }
 }
 

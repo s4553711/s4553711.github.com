@@ -1,0 +1,11 @@
+<!doctype html>
+<html>
+    <head>
+        <title><%=$_[0]->{title}%></title>
+        <meta charset="utf-8">
+        <link href="../stylesheets/markdown.css" media="screen" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <%=$_[0]->{content}%>
+    </body>
+</html>
