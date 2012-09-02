@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 package Pake;
-use lib "/home/s4553711/perl5/lib/perl5";
+use lib "/home/ec2-user/perl5/lib/perl5";
 use Text::Markdown 'markdown';
 use Mojo::Template;
 use YAML::Tiny;
@@ -89,10 +89,10 @@ sub Generate {
         (my $html_file = $file) =~ s/\.md$//g;
 
         # Output the html file
-        open(OT2,">../post/$html_file.html")||die "Error Opne $html_file.html\n";
+        open(OT2,">../draft/$html_file.html")||die "Error Open $html_file.html\n";
 
         my $argv = {title=>'Article',content=>markdown($tmp_line)};
-        my $result = $mt->render_file('/home/s4553711/public_html/github/templates/article.html.ep',$argv);
+        my $result = $mt->render_file('../templates/article.html.ep',$argv);
         print OT2 "$result";
 
         close OT2;
