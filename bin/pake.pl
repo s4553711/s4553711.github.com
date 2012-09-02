@@ -1,6 +1,5 @@
 #!/usr/bin/perl
 package Pake;
-use lib "/home/ec2-user/perl5/lib/perl5";
 use Text::Markdown 'markdown';
 use Mojo::Template;
 use YAML::Tiny;
@@ -44,7 +43,7 @@ sub Generate {
     opendir(DIR,"../draft")||die "Pake> Error Reading draft\n";
     while(my $file = readdir(DIR)){
 
-        next if ($file eq '.' || $file eq '..');
+        next if ($file eq '.' || $file eq '..' || $file =~ /swp$/);
 
         print "Pake> Process .. draft/$file\n";
 
@@ -52,6 +51,7 @@ sub Generate {
 
         my $tmp_line = '';
         my $comment_count = 0;
+		my $yaml = '';
 
         while(<FH>){
 
@@ -67,7 +67,7 @@ sub Generate {
                 } elsif ($comment_count ==1){
 
                     # Get article setting
-                    my $yaml = YAML::Tiny->read_string($tmp_line);
+                    $yaml = YAML::Tiny->read_string($tmp_line);
 
                     $comment_count += 1;
                 
@@ -89,9 +89,14 @@ sub Generate {
         (my $html_file = $file) =~ s/\.md$//g;
 
         # Output the html file
-        open(OT2,">../draft/$html_file.html")||die "Error Open $html_file.html\n";
+        open(OT2,">../post/$html_file.html")||die "Error Open $html_file.html\n";
 
-        my $argv = {title=>'Article',content=>markdown($tmp_line)};
+        my $argv = {
+			title=>$yaml->[0]{title},
+			content=>markdown($tmp_line),
+			date=>$yaml->[0]{date}
+		};
+
         my $result = $mt->render_file('../templates/article.html.ep',$argv);
         print OT2 "$result";
 

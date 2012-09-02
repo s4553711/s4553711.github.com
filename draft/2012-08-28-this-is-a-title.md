@@ -1,6 +1,6 @@
 ---
 layout: post
-title: this is a title
+title: Pubmed Note
 date: 2012-08-28 22:28:16
 categories: [pubmed]
 ---

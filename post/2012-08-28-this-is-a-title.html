@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><%=$_[0]->{title}%></title>
+        <title>Pubmed Note</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
@@ -59,13 +59,60 @@
                 <div class="span12">
                     <div class="article row">
                         <div class="title">
-                            <h1><%=$_[0]->{title}%></h1>
+                            <h1>Pubmed Note</h1>
 							<div class="row">
-								<div class="span4"><i><%=$_[0]->{date}%></i></div>
+								<div class="span4"><i>2012-08-28 22:28:16</i></div>
 							</div>
                         </div>
                         <div class="article-body">
-							<%=$_[0]->{content}%>
+							<h1>PubMed資料收集</h1>
+
+<h2>PubMed之Reference數目</h2>
+
+<ol>
+<li><p>需求</p>
+
+<ul>
+<li><p>Gmetrics之Reference數目統計</p>
+
+<pre><code>(EGFR [title/abstract] or EGFR antibody [title/abstract]) AND 2020/01/01 [Publication Date]: 2020/12/31 [Publication Date]
+</code></pre></li>
+</ul></li>
+<li><p>檔案</p>
+
+<ul>
+<li>格式
+<ul>
+<li>C#</li>
+</ul></li>
+<li>名稱
+<ul>
+<li>pubmed_tot_tool.cs</li>
+</ul></li>
+</ul></li>
+<li><p>Input格式</p>
+
+<ul>
+<li>GeneID</li>
+<li>Symbol</li>
+</ul></li>
+<li><p>Output格式</p>
+
+<ul>
+<li>GeneID</li>
+<li>Symbol</li>
+<li>Reference Number</li>
+</ul></li>
+<li><p>執行</p>
+
+<pre><code>% grun.exe input.txt
+</code></pre></li>
+<li><p>編譯</p>
+
+<pre><code>% gmcs pubmed_tot_tool.cs ../utility/proxy.cs ../bio/PubMed.cs -out:gcount.exe -r:System.dll -r:System.Data.dll
+</code></pre></li>
+</ol>
+
                         </div>
                     </div>
                 </div>
