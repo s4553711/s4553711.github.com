@@ -94,7 +94,7 @@ sub Generate {
 
         # Output the html file
         open(OT2,">../post/$html_file.html")||die "Error Open $html_file.html\n";
-		push(@article_list,{file=>"post/$html_file.html",title=>$yaml->[0]{title}});
+		push(@article_list,{file=>"post/$html_file.html",title=>$yaml->[0]{title},date=>$yaml->[0]{date}});
 
         my $argv = {
 			title=>$yaml->[0]{title},
