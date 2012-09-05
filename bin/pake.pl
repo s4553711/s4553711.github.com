@@ -40,6 +40,10 @@ sub post {
 sub Generate {
     
     print "Pake> Generating article in HTML\n";
+
+	# articel list
+	my @article_list;
+
     opendir(DIR,"../draft")||die "Pake> Error Reading draft\n";
     while(my $file = readdir(DIR)){
 
@@ -84,12 +88,13 @@ sub Generate {
 
         # Initate Mojo::Template
         my $mt = Mojo::Template->new;
- 
+
         # Get the content of source file       
         (my $html_file = $file) =~ s/\.md$//g;
 
         # Output the html file
         open(OT2,">../post/$html_file.html")||die "Error Open $html_file.html\n";
+		push(@article_list,{file=>"post/$html_file.html",title=>$yaml->[0]{title}});
 
         my $argv = {
 			title=>$yaml->[0]{title},
@@ -97,12 +102,25 @@ sub Generate {
 			date=>$yaml->[0]{date}
 		};
 
+		# Rendering the article page
         my $result = $mt->render_file('../templates/article.html.ep',$argv);
         print OT2 "$result";
 
         close OT2;
         close FH;
     }
+
+    open(OT3,">../article_list.html")||die "Error Open article_list.html\n";
+
+	my $mt_list = Mojo::Template->new;
+	my $argv2 = {
+		list=>\@article_list,
+		title=>'article list'
+	};
+	my $list_content = $mt_list->render_file('../templates/list.html.ep',$argv2);
+	print OT3 $list_content;
+
+	close OT3;
 }
 
 my %opts = ();

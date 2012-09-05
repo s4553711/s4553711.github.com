@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><%=$_[0]->{title}%></title>
+        <title>Javascript Note</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
@@ -59,13 +59,38 @@
                 <div class="span12">
                     <div class="article row">
                         <div class="title">
-                            <h1><%=$_[0]->{title}%></h1>
+                            <h1>Javascript Note</h1>
 							<div class="row">
-								<div class="span4"><i><%=$_[0]->{date}%></i></div>
+								<div class="span4"><i>2012-09-05 20:47:17</i></div>
 							</div>
                         </div>
                         <div class="article-body">
-							<%=$_[0]->{content}%>
+							<h1>Javascript</h1>
+
+<h2>Self executing anonymous function</h2>
+
+<ol>
+<li><p><a href="http://briancrescimanno.com/2009/09/24/how-self-executing-anonymous-functions-work/">Definition</a>  </p>
+
+<pre><code>// Define variable
+var window = '123';
+
+
+// Execute
+(function(window,undefined){ alert(window); })(window)
+</code></pre></li>
+</ol>
+
+<h2>Backbone</h2>
+
+<ol>
+<li>Some tutorial
+<ul>
+<li><a href="http://backbonetutorials.com/">http://backbonetutorials.com/</a></li>
+<li><a href="http://www.icoding.co/2012/05/backbonejs.html">iClouding</a></li>
+</ul></li>
+</ol>
+
                         </div>
                     </div>
                 </div>

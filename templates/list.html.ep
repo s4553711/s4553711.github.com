@@ -46,7 +46,7 @@
             <div class="navbar navbar-fixed-top">
                 <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="../article_list.html">CK Doc</a>
+                    <a class="brand" href="#">CK Doc</a>
                      <ul class="nav">
                         <li class="active"><a href="#">Home</a></li>
                         <li><a href="about.html">About me</a></li>
@@ -55,21 +55,11 @@
                  </div>
             </div>
             <div id="main-body">
-            <div class="row">
-                <div class="span12">
-                    <div class="article row">
-                        <div class="title">
-                            <h1><%=$_[0]->{title}%></h1>
-							<div class="row">
-								<div class="span4"><i><%=$_[0]->{date}%></i></div>
-							</div>
-                        </div>
-                        <div class="article-body">
-							<%=$_[0]->{content}%>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            	<div class="row">
+					<% for my $i (@{$_[0]->{list}}) {%>
+							<div class="span12"><a href="<%=$i->{file}%>"><%=$i->{title}%></a></div>
+					<%}%>
+            	</div>
             </div>
        </div>
     </body>
