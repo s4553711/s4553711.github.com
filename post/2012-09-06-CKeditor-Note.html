@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CKeditor Note</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
+        <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+        <style>
+            #main-body{
+                margin-top: 40px;
+            }
+            .article{
+                margin: 5px;
+            }
+            .article>.title{
+                margin: 5px 0 5px 5px;
+                padding-left: 5px;
+				border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body{
+                margin: 5px 0 5px 5px;
+                padding-left: 30px;
+            }
+            .article>.article-body h1{
+				font-size: 2em;
+                border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body h2{
+				font-size: 1.8em;
+                color: #626262;
+            }
+            .article>.article-body h3{
+				font-size: 1.6em;
+			}
+            .article>.article-body h4{
+				font-size: 1.4em;
+			}
+            .article>.article-body h5{
+				font-size: 1.2em;
+			}
+        </style>
+    </head>
+    <body>
+       <div class="container">
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="../article_list.html">CK Doc</a>
+                     <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="about.html">About me</a></li>
+                     </ul>
+                 </div>
+                 </div>
+            </div>
+            <div id="main-body">
+            <div class="row">
+                <div class="span12">
+                    <div class="article row">
+                        <div class="title">
+                            <h1>CKeditor Note</h1>
+							<div class="row">
+								<div class="span4"><i>2012-09-06 23:42:42</i></div>
+							</div>
+                        </div>
+                        <div class="article-body">
+							<h1>CKEditor Development Note</h1>
+
+<h2>Basic Plugin Development</h2>
+
+<ol>
+<li><p>Setting
+Edit ckeditor/config.js. The first part are the total toolbar items and you can load according to your needs. The second part is to load the extra plugin we are going to create.</p>
+
+<pre><code>config.toolbar_Full =
+[
+    { name: 'document', items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },
+    { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+    { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
+    { name: 'forms', items : [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 
+        'HiddenField' ] },
+    '/',
+    { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
+    { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv',
+    '-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },
+    { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+    { name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe' ] },
+    '/',
+    { name: 'styles', items : [ 'Styles','Format','Font','FontSize' ] },
+    { name: 'colors', items : [ 'TextColor','BGColor' ] },
+    { name: 'tools', items : [ 'Maximize', 'ShowBlocks','-','About' ] }
+];
+
+
+config.extraPlugins = 'ckvar';
+</code></pre></li>
+<li><p>Create a plugin with a button at ckeditor/plugins/ckvar/plugin.js</p>
+
+<pre><code>CKEDITOR.plugins.add( 'ckvar',
+{
+    init : function( editor )
+    {
+        var pluginName = 'ckvar';
+        CKEDITOR.dialog.add(pluginName, this.path + 'dialogs/footnote.js');
+        editor.addCommand(pluginName, new CKEDITOR.dialogCommand(pluginName));
+        editor.ui.addButton('ckvar',
+        {
+            label: 'Footnote or Citation',
+            command: pluginName
+        });
+    }
+});
+</code></pre></li>
+</ol>
+
+<h2>UI</h2>
+
+<ul>
+<li><p>Combo <br />
+A example from <a href="http://www.kuba.co.uk/blog.php?blog_id=15,"title"">here</a>.</p>
+
+<pre><code>CKEDITOR.plugins.add( 'tokens',
+{   
+   requires : ['richcombo'], //, 'styles' ],
+   init : function( editor )
+   {
+      var config = editor.config,
+      lang = editor.lang.format;
+      // Gets the list of tags from the settings.
+      var tags = []; //new Array();
+      //this.add('value', 'drop_text', 'drop_label');
+      tags[0]=["[contact_name]", "Name", "Name"];
+      tags[1]=["[contact_email]", "email", "email"];
+      tags[2]=["[contact_user_name]", "User name", "User name"];
+      // Create style objects for all defined styles.
+      editor.ui.addRichCombo( 'tokens',
+         {
+            label : "Insert tokens",
+            title :"Insert tokens",
+            voiceLabel : "Insert tokens",
+            className : 'cke_format',
+            multiSelect : false,
+            panel :
+            {
+               css : [ config.contentsCss, CKEDITOR.getUrl( editor.skinPath + 'editor.css' ) ],
+               voiceLabel : lang.panelVoiceLabel
+            },
+            init : function()
+            {
+               this.startGroup( "Tokens" );
+               //this.add('value', 'drop_text', 'drop_label');
+               for (var this_tag in tags){
+                  this.add(tags[this_tag][0], tags[this_tag][1], tags[this_tag][2]);
+               }
+            },
+            onClick : function( value )
+            {         
+               editor.focus();
+               editor.fire( 'saveSnapshot' );
+               editor.insertHtml(value);
+               editor.fire( 'saveSnapshot' );
+            }
+         });
+   }
+});
+</code></pre>
+
+<p>Here is the gist version.</p>
+
+<script src="https://gist.github.com/3656034.js"> </script></li>
+</ul>
+
+<h2>Reference</h2>
+
+<ul>
+<li><a href="http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar" title="title">Offical Guide: Toolbar</a></li>
+<li><a href="http://docs.cksource.com/CKEditor_3.x/Tutorials/Abbr_Plugin_Part_1#Working_Example" title="title">Offical Guide: Create Plugin</a></li>
+<li><a href="http://www.voofie.com/content/2/ckeditor-plugin-development/">Voofie: Plugin Development</a></li>
+<li><a href="http://www.dotblogs.com.tw/lastsecret/archive/2011/11/30/60185.aspx">Another Tutorial</a></li>
+</ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+       </div>
+    </body>
+</html>
