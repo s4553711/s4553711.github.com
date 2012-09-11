@@ -75,6 +75,28 @@
 
 <pre><code>DBCC CHECKIDENT (table_name, reseed, 1)
 </code></pre></li>
+<li><p>Temp Table <br />
+Cretaing a temp table with 3 columns.</p>
+
+<pre><code>CREATE TABLE #TEMP
+(
+    COL1 INT,
+    COL2 VARCHAR(30),
+    COL3 DATETIME DEFAULT GETDATE()
+)
+GO
+</code></pre>
+
+<p>Getting value from temp table</p>
+
+<pre><code>SELECT * FROM #TEMP
+DROP TABLE #TEMP
+</code></pre>
+
+<p>List all temp table</p>
+
+<pre><code>SELECT name, create_date FROM TempDB.sys.tables WHERE name LIKE '#%'
+</code></pre></li>
 </ul>
 
                         </div>
