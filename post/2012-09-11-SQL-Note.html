@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>article list</title>
+        <title>SQL Note</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
@@ -39,23 +39,6 @@
             .article>.article-body h5{
 				font-size: 1.2em;
 			}
-			.article-list{
-				margin: 10px;
-				padding: 5px 0;
-				border-bottom: 2px solid #EEE;
-			}
-			.article-list>a{
-				font-size: 1.4em;
-				font-family: sans-serif;
-			}
-			.article-list img{
-				margin: 5px 10px;
-			}
-			.article-list-date{
-				font-size: .2em;
-				margin-left: 10px;
-				font-style: italic;
-			}
         </style>
     </head>
     <body>
@@ -63,7 +46,7 @@
             <div class="navbar navbar-fixed-top">
                 <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="#">CK Doc</a>
+                    <a class="brand" href="../article_list.html">CK Doc</a>
                      <ul class="nav">
                         <li class="active"><a href="#">Home</a></li>
                         <li><a href="about.html">About me</a></li>
@@ -72,29 +55,54 @@
                  </div>
             </div>
             <div id="main-body">
-            	<div class="row">
-					
-							<div class="article-list span12">
-								<a href="post/2012-08-28-this-is-a-title.html"><img width="30" src="images/article.png">Pubmed Note</a>
-								<span class="article-list-date">2012-08-28 22:28:16</span>
+            <div class="row">
+                <div class="span12">
+                    <div class="article row">
+                        <div class="title">
+                            <h1>SQL Note</h1>
+							<div class="row">
+								<div class="span4"><i>2012-09-11 17:41:39</i></div>
 							</div>
-					
-							<div class="article-list span12">
-								<a href="post/2012-09-11-SQL-Note.html"><img width="30" src="images/article.png">SQL Note</a>
-								<span class="article-list-date">2012-09-11 17:41:39</span>
-							</div>
-					
-							<div class="article-list span12">
-								<a href="post/2012-09-06-CKeditor-Note.html"><img width="30" src="images/article.png">CKeditor Note</a>
-								<span class="article-list-date">2012-09-06 23:42:42</span>
-							</div>
-					
-							<div class="article-list span12">
-								<a href="post/2012-09-05-Javascript-Note.html"><img width="30" src="images/article.png">Javascript Note</a>
-								<span class="article-list-date">2012-09-05 20:47:17</span>
-							</div>
-					
-            	</div>
+                        </div>
+                        <div class="article-body">
+							<h1>SQL</h1>
+
+<h2>Tips</h2>
+
+<ul>
+<li><p>Reset Table Identity <br />
+<a href="http://blog.sqlauthority.com/2007/03/15/sql-server-dbcc-reseed-table-identity-value-reset-table-identity/">Source</a></p>
+
+<pre><code>DBCC CHECKIDENT (table_name, reseed, 1)
+</code></pre></li>
+<li><p>Temp Table <br />
+Cretaing a temp table with 3 columns.</p>
+
+<pre><code>CREATE TABLE #TEMP
+(
+    COL1 INT,
+    COL2 VARCHAR(30),
+    COL3 DATETIME DEFAULT GETDATE()
+)
+GO
+</code></pre>
+
+<p>Getting value from temp table</p>
+
+<pre><code>SELECT * FROM #TEMP
+DROP TABLE #TEMP
+</code></pre>
+
+<p>List all temp table</p>
+
+<pre><code>SELECT name, create_date FROM TempDB.sys.tables WHERE name LIKE '#%'
+</code></pre></li>
+</ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
        </div>
     </body>

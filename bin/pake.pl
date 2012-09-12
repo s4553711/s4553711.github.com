@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+#use lib "/home/ec2-user/perl5/lib/perl5";
 package Pake;
 use Text::Markdown 'markdown';
 use Mojo::Template;
@@ -35,6 +36,14 @@ sub post {
 
     close OT;
 
+}
+
+sub deploy {
+	`git add ../article_list.html`;
+	`git add ../draft/*`;
+	`git add ../post/*`;
+	`git commit -m 'Site updated'`;
+	`git push origin master`;
 }
 
 sub Generate {
@@ -134,6 +143,10 @@ if (exists $opts{p}){
 } elsif (exists $opts{g}){
     
     Generate();
+
+} elsif (exists $opts{d}){
+
+	deploy();
 
 } else {
 
