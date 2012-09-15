@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><%=$_[0]->{title}%></title>
+        <title>article list</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
@@ -39,22 +39,29 @@
             .article>.article-body h5{
 				font-size: 1.2em;
 			}
-			.article-list{
+			.category-list{
 				margin: 10px;
 				padding: 5px 0;
 				border-bottom: 2px solid #EEE;
 			}
-			.article-list>a{
+			.category-list>h2{
+				margin: 0;
+				font-size: 1.8em;
+			}
+			.category-list>.category-sub{
+				margin: 5px;
+				padding: 0;
+				font-size: 1em;
+			}
+			.category-list>.category-sub>a>img{
+				margin: 5px 10px;
+			}
+			.category-list>.category-sub>a{
 				font-size: 1.4em;
 				font-family: sans-serif;
 			}
-			.article-list img{
+			.category-list>.category-sub>.category-sub-date{
 				margin: 5px 10px;
-			}
-			.article-list-date{
-				font-size: .2em;
-				margin-left: 10px;
-				font-style: italic;
 			}
         </style>
     </head>
@@ -66,8 +73,8 @@
                     <a class="brand" href="#">CK Doc</a>
                      <ul class="nav">
                         <li><a href="#">Home</a></li>
-                        <li class="active"><a href="article_list.html">Articles</a></li>
-                        <li><a href="category.html">Category</a></li>
+                        <li><a href="article_list.html">Articles</a></li>
+                        <li class="active"><a href="category.html">Category</a></li>
                         <li><a href="about.html">About me</a></li>
                      </ul>
                  </div>
@@ -75,12 +82,17 @@
             </div>
             <div id="main-body">
             	<div class="row">
-					<% for my $i (@{$_[0]->{list}}) {%>
-							<div class="article-list span12">
-								<a href="<%=$i->{file}%>"><img width="30" src="images/article.png"><%=$i->{title}%></a>
-								<span class="article-list-date"><%=$i->{date}%></span>
-							</div>
+				<% while(my ($key,$val) = each %{$_[0]->{list}}){ %>
+					<div class="category-list">
+					<h2><%=$key%></h2>
+					<% for my $i (@{$val}){%>
+						<div class="category-sub span12">
+							<a href="<%=$i->{url}%>"><img width="30" src="images/article.png"><%=$i->{title}%></a>
+							<span class="category-sub-date"><%=$i->{date}%></span>
+						</div>	
 					<%}%>
+					</div>
+				<%}%>
             	</div>
             </div>
        </div>

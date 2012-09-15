@@ -3,6 +3,7 @@ layout: post
 title: Javascript Note
 date: 2012-09-05 20:47:17
 categories:
+	- Javascript
 ---
 Javascript
 ======

@@ -2,7 +2,8 @@
 layout: post
 title: Pubmed Note
 date: 2012-08-28 22:28:16
-categories: [pubmed]
+categories: 
+	- pubmed
 ---
 
 PubMed資料收集

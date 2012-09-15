@@ -50,8 +50,11 @@ sub Generate {
     
     print "Pake> Generating article in HTML\n";
 
-	# articel list
+	# Articel list
 	my @article_list;
+
+	# Categories
+	my %category;
 
     opendir(DIR,"../draft")||die "Pake> Error Reading draft\n";
     while(my $file = readdir(DIR)){
@@ -97,35 +100,75 @@ sub Generate {
 
         # Initate Mojo::Template
         my $mt = Mojo::Template->new;
-
+	
         # Get the content of source file       
         (my $html_file = $file) =~ s/\.md$//g;
 
+		# Get folder name of the article
+		my $folder = "";
+		if ($yaml->[0]{date} =~ /(\d+-\d+-\d+)/){
+			$folder = $1;
+		}
+
         # Output the html file
-        open(OT2,">../post/$html_file.html")||die "Error Open $html_file.html\n";
-		push(@article_list,{file=>"post/$html_file.html",title=>$yaml->[0]{title},date=>$yaml->[0]{date}});
+		if ($folder ne ''){
 
-        my $argv = {
-			title=>$yaml->[0]{title},
-			content=>markdown($tmp_line),
-			date=>$yaml->[0]{date}
-		};
+			if (! -e "../post/$folder"){
+				mkdir("../post/$folder") || "Pake> Error while create folder: post/$folder\n";
+			}
 
-		# Rendering the article page
-        my $result = $mt->render_file('../templates/article.html.ep',$argv);
-        print OT2 "$result";
+        	open(OT2,">../post/$folder/$html_file.html")||die "Error Open $html_file.html\n";
+			push(@article_list,{file=>"post/$folder/$html_file.html",title=>$yaml->[0]{title},date=>$yaml->[0]{date}});
+
+        	my $argv = {
+				title=>$yaml->[0]{title},
+				content=>markdown($tmp_line),
+				date=>$yaml->[0]{date}
+			};
+
+			# Prepare for the category
+			foreach my $item (@{$yaml->[0]{categories}}){
+				push(@{$category{lc($item)}},{url=>"post/$folder/$html_file.html",title=>$yaml->[0]{title},date=>$yaml->[0]{date}});
+			}
+
+			# Rendering the article page
+        	my $result = $mt->render_file('../templates/article.html.ep',$argv);
+        	print OT2 "$result";
+
+		} else {
+
+			print "Pake> Error: no folder name of the article\n";
+
+			return;
+
+		}
 
         close OT2;
         close FH;
     }
 
+	# For the category list page
+    open(OT4,">../category.html")||die "Error Open category.html\n";
+
+	my $mt_category = Mojo::Template->new;
+	my $argv_category = {
+		list=>\%category,
+		title=>'category'
+	};
+	my $category_content = $mt_category->render_file('../templates/category.html.ep',$argv_category);
+	print OT4 $category_content;
+
+	close OT4;
+
+	# For the article list page
     open(OT3,">../article_list.html")||die "Error Open article_list.html\n";
 
 	my $mt_list = Mojo::Template->new;
 	my $argv2 = {
 		list=>\@article_list,
-		title=>'article list'
+		title=>'Article list'
 	};
+
 	my $list_content = $mt_list->render_file('../templates/list.html.ep',$argv2);
 	print OT3 $list_content;
 

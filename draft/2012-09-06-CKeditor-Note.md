@@ -2,7 +2,9 @@
 layout: post
 title: CKeditor Note
 date: 2012-09-06 23:42:42
-categories: CKeditor
+categories: 
+	- CKeditor
+	- Javascript
 ---
 CKEditor Development Note
 ======
