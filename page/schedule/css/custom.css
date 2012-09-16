@@ -1,0 +1,31 @@
+.container{
+	width: 960px;
+	height: 800px;;
+	border: 1px solid #E5E5E5;
+	margin: 10px auto;
+	padding: 10px;
+	background: #fcfcfc;
+	box-shadow: 0 0 8px #888;
+}
+.job-window{
+	width: auto;
+	height: 300px;
+	overflow-y: scroll;
+	overflow-x: none;
+}
+.job-item{
+	margin-top: -1px;
+	border-bottom: 1px solid #CCCCCC;
+	padding: 5px;
+}
+.job-item>.content>table{
+	width: 100%;
+}
+.job-item>.photo{
+	float: left;
+	background: #CCCCCC;
+}
+.job-item>.content{
+	margin-left: 30px;
+	padding: 5px 0 5px 5px;
+}
