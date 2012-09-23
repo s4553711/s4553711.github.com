@@ -124,7 +124,8 @@ sub Generate {
         	my $argv = {
 				title=>$yaml->[0]{title},
 				content=>markdown($tmp_line),
-				date=>$yaml->[0]{date}
+				date=>$yaml->[0]{date},
+				menu=>find_menu(markdown($tmp_line))
 			};
 
 			# Prepare for the category
@@ -174,6 +175,18 @@ sub Generate {
 	print OT3 $list_content;
 
 	close OT3;
+}
+
+sub find_menu {
+	my ($text) = shift;
+	my $final_str ="";
+
+	while($text =~ /<h(\d+)>(.*?)<\/h\d+>/g){
+		my $tar_text = $2;
+		$final_str .= "<div class=\"s$1\">$2</div>";
+	}
+
+	return $final_str;
 }
 
 my %opts = ();
