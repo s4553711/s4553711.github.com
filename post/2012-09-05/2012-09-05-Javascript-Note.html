@@ -9,7 +9,25 @@
         <style>
             #main-body{
                 margin-top: 40px;
-            }
+			}
+			.article_menu{
+				width: 220px;
+				margin: 10px 0 10px 5px;
+				padding: 5px 0 10px 0;
+				border: 1px solid #c4c4c4;
+				box-shadow:0 0 10px #c4c4c4;
+			}
+			.article_menu>.s1{
+				margin-left: 10px;
+				margin-right:10px;
+				padding: 5px 5px 5px;
+				border-bottom: 1px solid silver;
+			}
+			.article_menu>.s2{
+				margin-left: 25px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
             .article{
                 margin: 5px;
             }
@@ -56,10 +74,10 @@
             </div>
             <div id="main-body">
             <div class="row">
-                <div class="span12">
+                <div class="span9">
                     <div class="article row">
                         <div class="title">
-                            <h1>Javascript Note</h1>
+                            <h1 class="title-name">Javascript Note</h1>
 							<div class="row">
 								<div class="span4"><i>2012-09-05 20:47:17</i></div>
 							</div>
@@ -94,6 +112,11 @@ var window = '123';
                         </div>
                     </div>
                 </div>
+				<div class="span3">
+					<div class="article_menu">
+						<div class="s1">Javascript</div><div class="s2">Self executing anonymous function</div><div class="s2">Backbone</div>
+					</div>
+				</div>
             </div>
             </div>
        </div>
