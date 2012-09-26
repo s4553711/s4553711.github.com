@@ -24,7 +24,7 @@
 				border-bottom: 1px solid silver;
 			}
 			.article_menu>.s2{
-				margin-left: 25px;
+				margin-left: 10px;
 				margin-right:10px;
 				padding: 2px 5px 2px;
 			}
@@ -66,8 +66,10 @@
                 <div class="container">
                     <a class="brand" href="../article_list.html">CK Doc</a>
                      <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="about.html">About me</a></li>
+                        <li><a href="../article_list.html">Home</a></li>
+                        <li class="active"><a href="../article_list.html">Articles</a></li>
+                        <li><a href="../category.html">Category</a></li>
+                        <li><a href="../about.html">About me</a></li>
                      </ul>
                  </div>
                  </div>
@@ -83,9 +85,9 @@
 							</div>
                         </div>
                         <div class="article-body">
-							<h1>CKEditor Development Note</h1>
+							<h1><a name="1"></a>CKEditor Development Note</h1>
 
-<h2>Basic Plugin Development</h2>
+<h2><a name="2"></a>Basic Plugin Development</h2>
 
 <ol>
 <li><p>Setting
@@ -132,7 +134,7 @@ config.extraPlugins = 'ckvar';
 </code></pre></li>
 </ol>
 
-<h2>UI</h2>
+<h2><a name="3"></a>UI</h2>
 
 <ul>
 <li><p>Combo <br />
@@ -189,7 +191,7 @@ A example from <a href="http://www.kuba.co.uk/blog.php?blog_id=15,"title"">here<
 <script src="https://gist.github.com/3656034.js"> </script></li>
 </ul>
 
-<h2>Reference</h2>
+<h2><a name="4"></a>Reference</h2>
 
 <ul>
 <li><a href="http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar" title="title">Offical Guide: Toolbar</a></li>
@@ -203,7 +205,7 @@ A example from <a href="http://www.kuba.co.uk/blog.php?blog_id=15,"title"">here<
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						<div class="s1">CKEditor Development Note</div><div class="s2">Basic Plugin Development</div><div class="s2">UI</div><div class="s2">Reference</div>
+						<div class="s1"><a href="#1">CKEditor Development Note</a></div><div class="s2"><i class='icon-minus'></i><a href="#2">Basic Plugin Development</a></div><div class="s2"><i class='icon-minus'></i><a href="#3">UI</a></div><div class="s2"><i class='icon-minus'></i><a href="#4">Reference</a></div>
 					</div>
 				</div>
             </div>
