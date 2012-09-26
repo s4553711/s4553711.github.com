@@ -121,11 +121,15 @@ sub Generate {
         	open(OT2,">../post/$folder/$html_file.html")||die "Error Open $html_file.html\n";
 			push(@article_list,{file=>"post/$folder/$html_file.html",title=>$yaml->[0]{title},date=>$yaml->[0]{date}});
 
+			my ($final_str2,$fix_text) = find_menu(markdown($tmp_line));
+
         	my $argv = {
 				title=>$yaml->[0]{title},
-				content=>markdown($tmp_line),
+				#content=>markdown($tmp_line),
+				content=>$fix_text,
 				date=>$yaml->[0]{date},
-				menu=>find_menu(markdown($tmp_line))
+				#menu=>find_menu(markdown($tmp_line))
+				menu=>$final_str2
 			};
 
 			# Prepare for the category
@@ -179,14 +183,39 @@ sub Generate {
 
 sub find_menu {
 	my ($text) = shift;
-	my $final_str ="";
 
-	while($text =~ /<h(\d+)>(.*?)<\/h\d+>/g){
-		my $tar_text = $2;
-		$final_str .= "<div class=\"s$1\">$2</div>";
+	our $final_str ="";
+	our $anchor = 0;
+
+	sub replace_call_back {
+		my ($type,$inline_text) = @_;
+
+		my $add_icon = '';
+		$anchor++;
+
+		if ($type+0 ==2){
+			$add_icon = "<i class='icon-minus'></i>";
+		}
+
+		$final_str .= "<div class=\"s$type\">$add_icon"."<a href=\"#$anchor\">$inline_text</a></div>";
+
+		return "<h$type><a name=\"$anchor\"></a>$inline_text</h$type>";
 	}
 
-	return $final_str;
+	$text =~ s/<h(\d+)>(.*?)<\/h\d+>/&replace_call_back($1,$2)/eg;
+
+	#while($text =~ /<h(\d+)>(.*?)<\/h\d+>/g){
+	#	my $tar_text = $2;
+	#	my $add_icon = '';
+ 	#
+	#	if ($1+0 ==2){
+	#		$add_icon = "<i class='icon-minus'></i>";
+	#	}
+	#
+	#	$final_str .= "<div class=\"s$1\">$add_icon"."$2</div>";
+	#}
+
+	return ($final_str,$text);
 }
 
 my %opts = ();

@@ -24,7 +24,7 @@
 				border-bottom: 1px solid silver;
 			}
 			.article_menu>.s2{
-				margin-left: 25px;
+				margin-left: 10px;
 				margin-right:10px;
 				padding: 2px 5px 2px;
 			}
@@ -66,8 +66,10 @@
                 <div class="container">
                     <a class="brand" href="../article_list.html">CK Doc</a>
                      <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="about.html">About me</a></li>
+                        <li><a href="../article_list.html">Home</a></li>
+                        <li class="active"><a href="../article_list.html">Articles</a></li>
+                        <li><a href="../category.html">Category</a></li>
+                        <li><a href="../about.html">About me</a></li>
                      </ul>
                  </div>
                  </div>
