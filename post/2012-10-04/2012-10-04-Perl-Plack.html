@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Perl-Plack</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
+        <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+        <style>
+            #main-body{
+                margin-top: 40px;
+			}
+			.article_menu{
+				width: 220px;
+				margin: 10px 0 10px 5px;
+				padding: 5px 0 10px 0;
+				border: 1px solid #c4c4c4;
+				box-shadow:0 0 10px #c4c4c4;
+			}
+			.article_menu>.s1{
+				margin-left: 10px;
+				margin-right:10px;
+				padding: 5px 5px 5px;
+				border-bottom: 1px solid silver;
+			}
+			.article_menu>.s2{
+				margin-left: 10px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+            .article{
+                margin: 5px;
+            }
+            .article>.title{
+                margin: 5px 0 5px 5px;
+                padding-left: 5px;
+				border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body{
+                margin: 5px 0 5px 5px;
+                padding-left: 30px;
+            }
+            .article>.article-body h1{
+				font-size: 2em;
+                border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body h2{
+				font-size: 1.8em;
+                color: #626262;
+            }
+            .article>.article-body h3{
+				font-size: 1.6em;
+			}
+            .article>.article-body h4{
+				font-size: 1.4em;
+			}
+            .article>.article-body h5{
+				font-size: 1.2em;
+			}
+        </style>
+    </head>
+    <body>
+       <div class="container">
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="../article_list.html">CK Doc</a>
+                     <ul class="nav">
+                        <li><a href="../article_list.html">Home</a></li>
+                        <li class="active"><a href="../article_list.html">Articles</a></li>
+                        <li><a href="../category.html">Category</a></li>
+                        <li><a href="../about.html">About me</a></li>
+                     </ul>
+                 </div>
+                 </div>
+            </div>
+            <div id="main-body">
+            <div class="row">
+                <div class="span9">
+                    <div class="article row">
+                        <div class="title">
+                            <h1 class="title-name">Perl-Plack</h1>
+							<div class="row">
+								<div class="span4"><i>2012-10-04 21:36:59</i></div>
+							</div>
+                        </div>
+                        <div class="article-body">
+							<h1><a name="1"></a>Perl-Plack Setup</h1>
+
+<p>The following steps will lead you to run a simple PSGI program at port 5000 and use the nginx as reverse proxy 
+to pass the connecton from http://domain.name/plack to PSGI service at http://domain.name:5000</p>
+
+<h2><a name="2"></a>Nginx Setup</h2>
+
+<ul>
+<li><p>edit /etc/nginx/conf.d/default.conf and add the following statement</p>
+
+<pre><code>location /plack {
+    proxy_pass http://127.0.0.1:5000/;
+}
+</code></pre></li>
+<li><p>restart nginx</p>
+
+<pre><code>/etc/rc.d/init.d/nginx restart
+</code></pre></li>
+</ul>
+
+<h2><a name="3"></a>Plack Setup</h2>
+
+<ul>
+<li><p>Install Plack with cpanm</p>
+
+<pre><code>cpanm Task::Plack
+</code></pre></li>
+<li><p>Create plack.psgi</p></li>
+</ul>
+
+<script src="https://gist.github.com/3833600.js?file=gistfile1.pl"></script>
+
+<ul>
+<li><p>Running the program</p>
+
+<pre><code>plackup plack.psgi
+</code></pre></li>
+<li><p>Data Source  </p>
+
+<ul>
+<li><a href="http://plackperl.org/">Plack</a>  </li>
+<li><a href="http://www.arthurtoday.com/2010/07/nginx-apache-reverse-proxy-server.html#.UG2L2E2miCg">Nginx for reverse proxy</a></li>
+</ul></li>
+</ul>
+
+                        </div>
+                    </div>
+                </div>
+				<div class="span3">
+					<div class="article_menu">
+						<div class="s1"><a href="#1">Perl-Plack Setup</a></div><div class="s2"><i class='icon-minus'></i><a href="#2">Nginx Setup</a></div><div class="s2"><i class='icon-minus'></i><a href="#3">Plack Setup</a></div>
+					</div>
+				</div>
+            </div>
+            </div>
+       </div>
+    </body>
+</html>
