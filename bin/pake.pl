@@ -194,6 +194,8 @@ sub find_menu {
 		$anchor++;
 
 		if ($type+0 ==2){
+			$add_icon = "<i class='icon-play'></i>";
+		} elsif ($type+0 >=3){
 			$add_icon = "<i class='icon-minus'></i>";
 		}
 
