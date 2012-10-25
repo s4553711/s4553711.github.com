@@ -24,8 +24,8 @@ Setup
 
 		$db['default']['hostname'] = 'MSSQL';
 		$db['default']['username'] = 'USER';
-		$db['default']['password'] = 'BITBIT';
-		$db['default']['database'] = 'BioInfo';
+		$db['default']['password'] = 'PASSWD';
+		$db['default']['database'] = 'DataBaseName';
 		$db['default']['dbdriver'] = 'mssql';
 
 3. It is all done. Now get ready to connect database with modle as usual.
