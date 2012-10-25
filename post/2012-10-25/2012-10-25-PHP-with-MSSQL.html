@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PHP with MSSQL</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
+        <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+        <style>
+            #main-body{
+                margin-top: 40px;
+			}
+			.article_menu{
+				margin: 10px 0 10px 5px;
+				padding: 5px 0 10px 0;
+				border: 1px solid #c4c4c4;
+				box-shadow:0 0 10px #c4c4c4;
+			}
+			.article_menu>.s1{
+				margin-left: 10px;
+				margin-right:10px;
+				padding: 5px 5px 5px;
+				border-bottom: 1px solid silver;
+			}
+			.article_menu>.s2{
+				margin-left: 10px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+			.article_menu>.s3{
+				margin-left: 20px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+			.article_menu>.s4{
+				margin-left: 30px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+            .article{
+                margin: 5px;
+            }
+            .article>.title{
+                margin: 5px 0 5px 5px;
+                padding-left: 5px;
+				border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body{
+                margin: 5px 0 5px 5px;
+                padding-left: 30px;
+            }
+            .article>.article-body h1{
+				font-size: 2em;
+                border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body h2{
+				font-size: 1.8em;
+                color: #626262;
+            }
+            .article>.article-body h3{
+				font-size: 1.6em;
+			}
+            .article>.article-body h4{
+				font-size: 1.4em;
+			}
+            .article>.article-body h5{
+				font-size: 1.2em;
+			}
+        </style>
+    </head>
+    <body>
+       <div class="container">
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="../article_list.html">CK Doc</a>
+                     <ul class="nav">
+                        <li><a href="../article_list.html">Home</a></li>
+                        <li class="active"><a href="../article_list.html">Articles</a></li>
+                        <li><a href="../category.html">Category</a></li>
+                        <li><a href="../about.html">About me</a></li>
+                     </ul>
+                 </div>
+                 </div>
+            </div>
+            <div id="main-body">
+            <div class="row">
+                <div class="span9">
+                    <div class="article row">
+                        <div class="title">
+                            <h1 class="title-name">PHP with MSSQL</h1>
+							<div class="row">
+								<div class="span4"><i>2012-10-25 21:32:58</i></div>
+							</div>
+                        </div>
+                        <div class="article-body">
+							<h1><a name="1"></a>Using MSSQL with PHP and Codeigniter</h1>
+
+<h2><a name="2"></a>Setup</h2>
+
+<ol>
+<li><p>Freetds </p>
+
+<p>Edit /etc/freetds.conf</p>
+
+<pre><code>[MSSQL]
+host = db01
+port = 1433
+client charset = UTF-8
+tds version = 8.0
+</code></pre></li>
+<li><p>Codeigniter</p>
+
+<p>Edit config/database.php</p>
+
+<pre><code>$db['default']['hostname'] = 'MSSQL';
+$db['default']['username'] = 'USER';
+$db['default']['password'] = 'BITBIT';
+$db['default']['database'] = 'BioInfo';
+$db['default']['dbdriver'] = 'mssql';
+</code></pre></li>
+<li><p>It is all done. Now get ready to connect database with modle as usual.</p></li>
+</ol>
+
+                        </div>
+                    </div>
+                </div>
+				<div class="span3">
+					<div class="article_menu">
+						<div class="s1"><a href="#1">Using MSSQL with PHP and Codeigniter</a></div><div class="s2"><i class='icon-play'></i><a href="#2">Setup</a></div>
+					</div>
+				</div>
+            </div>
+            </div>
+       </div>
+    </body>
+</html>
