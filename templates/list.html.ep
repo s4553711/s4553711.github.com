@@ -44,17 +44,21 @@
 				padding: 5px 0;
 				border-bottom: 2px solid #EEE;
 			}
-			.article-list>a{
-				font-size: 1.4em;
+			.article-list a.title{
+				font-weight: bold;
+				font-size: 1.7em;
 				font-family: sans-serif;
 			}
 			.article-list img{
 				margin: 5px 10px;
 			}
 			.article-list-date{
-				font-size: .2em;
+				font-size: 1em;
 				margin-left: 10px;
 				font-style: italic;
+			}
+			.article-list-summary{
+				margin: 10px 0 0 10px;
 			}
         </style>
     </head>
@@ -77,8 +81,25 @@
             	<div class="row">
 					<% for my $i (@{$_[0]->{list}}) {%>
 							<div class="article-list span12">
-								<a href="<%=$i->{file}%>"><img width="30" src="images/article.png"><%=$i->{title}%></a>
-								<span class="article-list-date"><%=$i->{date}%></span>
+								<div class="row">
+									<div class="span10">
+										<a class="title" href="<%=$i->{file}%>"><img width="30" src="images/article.png"><%=$i->{title}%></a>
+									</div>
+								</div>
+								<div class="row">
+									<div class="span10">
+										<span class="article-list-date"><i class="icon-time"></i><%=$i->{date}%>&nbsp;
+										<i class="icon-pencil"></i> s4553711&nbsp;
+										<i class="icon-folder-open"></i>
+										<% for my $j (@{$i->{category}}) {%>
+											<font color="#08c"><%=$j%></font>
+										<%}%>
+										</span>
+									</div>
+									<div class="span10">
+										<p class="article-list-summary"><%=$i->{summary}%></p>
+									</div>
+								</div>
 							</div>
 					<%}%>
             	</div>

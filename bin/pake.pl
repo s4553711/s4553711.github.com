@@ -40,7 +40,7 @@ sub post {
 
 sub deploy {
 	`git add ../article_list.html`;
-	'git add ../category.html';
+	`git add ../category.html`;
 	`git add ../draft/*`;
 	`git add ../post/*`;
 	`git commit -m 'Site updated'`;
@@ -118,10 +118,18 @@ sub Generate {
 				mkdir("../post/$folder") || "Pake> Error while create folder: post/$folder\n";
 			}
 
-        	open(OT2,">../post/$folder/$html_file.html")||die "Error Open $html_file.html\n";
-			push(@article_list,{file=>"post/$folder/$html_file.html",title=>$yaml->[0]{title},date=>$yaml->[0]{date}});
-
 			my ($final_str2,$fix_text) = find_menu(markdown($tmp_line));
+
+        	open(OT2,">../post/$folder/$html_file.html")||die "Error Open $html_file.html\n";
+			push(@article_list,
+				{	
+					file => "post/$folder/$html_file.html",
+					title => $yaml->[0]{title},
+					date => $yaml->[0]{date},
+					category => $yaml->[0]{categories},
+					summary => "this is the summary about this article"
+				}
+			);
 
         	my $argv = {
 				title=>$yaml->[0]{title},
