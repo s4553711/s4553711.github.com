@@ -2,7 +2,11 @@
 layout: post
 title: PHP with MSSQL
 date: 2012-10-25 21:32:58
+summary: This article illustrate how to setup MSSQL enviroment in the Linux with freetds and unixodbc and connect MSSQL with perl.
 categories:
+	- PHP
+	- unixODBC
+	- FreeTDS
 ---
 Using MSSQL with PHP and Codeigniter
 ======
