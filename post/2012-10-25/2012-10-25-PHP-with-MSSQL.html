@@ -200,7 +200,7 @@ use DBI;
 
 
 $dsn = "DBI:ODBC:MSSQL";
-$dbh = DBI-&gt;connect($dsn, 'BIT', 'BITBIT');
+$dbh = DBI-&gt;connect($dsn, 'UserID', 'Password');
 
 
 $sth = $dbh-&gt;prepare("SQL");

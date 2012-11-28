@@ -110,7 +110,7 @@ Setup for ODBC
 		use DBI;
 		
 		$dsn = "DBI:ODBC:MSSQL";
-		$dbh = DBI->connect($dsn, 'BIT', 'BITBIT');
+		$dbh = DBI->connect($dsn, 'UserID', 'Password');
 		
 		$sth = $dbh->prepare("SQL");
 
