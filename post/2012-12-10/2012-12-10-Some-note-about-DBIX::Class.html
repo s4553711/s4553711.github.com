@@ -98,9 +98,9 @@
 
 <h2><a name="2"></a>Connection</h2>
 
-<pre><code>It is a example of using SQL server. The first argument can be changed to another DSN you want.
+<p>It is a example of using SQL server. The first argument can be changed to another DSN you want.  </p>
 
-$schema = Tool::DB::ORM::GeneTex::Bio-&gt;connect(
+<pre><code>$schema = Tool::DB::ORM::GeneTex::Bio-&gt;connect(
     "DBI:ODBC:driver={SQL Server};Server=db;Database=database;UID=UID;PWD=PID",
     {   
         LongReadLen =&gt; 0,
@@ -112,7 +112,7 @@ $schema = Tool::DB::ORM::GeneTex::Bio-&gt;connect(
 <h2><a name="3"></a>Select</h2>
 
 <ul>
-<li><p>By search</p>
+<li><p>By search  </p>
 
 <p>my $rs $schema->resultset('PJ')->search({
     key1 => 'abc',
@@ -121,7 +121,7 @@ $schema = Tool::DB::ORM::GeneTex::Bio-&gt;connect(
 while(my $entity = $rs->next){
     print $entity->column;
 }</p></li>
-<li><p>By find</p>
+<li><p>By find  </p>
 
 <p>This statement will find the data with the primary key equal to "abc"</p>
 
@@ -131,9 +131,9 @@ print $entity->column;</p></li>
 
 <h2><a name="4"></a>Update</h2>
 
-<pre><code>We can set the data with another value and update to database by this way.
+<p>We can set the data with another value and update to database by this way.  </p>
 
-$entity-&gt;set_column('column1','abc2');
+<pre><code>$entity-&gt;set_column('column1','abc2');
 if ($entity-&gt;is_changed){
     $entity-&gt;update();
 }

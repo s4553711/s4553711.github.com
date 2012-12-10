@@ -10,7 +10,7 @@ Basic
 ======
 Connection
 ------
-	It is a example of using SQL server. The first argument can be changed to another DSN you want.
+It is a example of using SQL server. The first argument can be changed to another DSN you want.  
 
 	$schema = Tool::DB::ORM::GeneTex::Bio->connect(
 		"DBI:ODBC:driver={SQL Server};Server=db;Database=database;UID=UID;PWD=PID",
@@ -23,7 +23,7 @@ Connection
 
 Select
 ------
-- By search
+- By search  
 
 	my $rs $schema->resultset('PJ')->search({
 		key1 => 'abc',
@@ -33,7 +33,7 @@ Select
 		print $entity->column;
 	}
 
-- By find
+- By find  
 
 	This statement will find the data with the primary key equal to "abc"
 
@@ -42,8 +42,7 @@ Select
 
 Update
 ------
-
-	We can set the data with another value and update to database by this way.
+We can set the data with another value and update to database by this way.  
 
 	$entity->set_column('column1','abc2');
 	if ($entity->is_changed){
