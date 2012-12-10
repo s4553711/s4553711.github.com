@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Some note about DBIX::Class</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
+        <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+        <style>
+            #main-body{
+                margin-top: 40px;
+			}
+			.article_menu{
+				margin: 10px 0 10px 5px;
+				padding: 5px 0 10px 0;
+				border: 1px solid #c4c4c4;
+				box-shadow:0 0 10px #c4c4c4;
+			}
+			.article_menu>.s1{
+				margin-left: 10px;
+				margin-right:10px;
+				padding: 5px 5px 5px;
+				border-bottom: 1px solid silver;
+			}
+			.article_menu>.s2{
+				margin-left: 10px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+			.article_menu>.s3{
+				margin-left: 20px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+			.article_menu>.s4{
+				margin-left: 30px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+            .article{
+                margin: 5px;
+            }
+            .article>.title{
+                margin: 5px 0 5px 5px;
+                padding-left: 5px;
+				border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body{
+                margin: 5px 0 5px 5px;
+                padding-left: 30px;
+            }
+            .article>.article-body h1{
+				font-size: 2em;
+                border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body h2{
+				font-size: 1.8em;
+                color: #626262;
+            }
+            .article>.article-body h3{
+				font-size: 1.6em;
+			}
+            .article>.article-body h4{
+				font-size: 1.4em;
+			}
+            .article>.article-body h5{
+				font-size: 1.2em;
+			}
+        </style>
+    </head>
+    <body>
+       <div class="container">
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="../article_list.html">CK Doc</a>
+                     <ul class="nav">
+                        <li><a href="../article_list.html">Home</a></li>
+                        <li class="active"><a href="../article_list.html">Articles</a></li>
+                        <li><a href="../category.html">Category</a></li>
+                        <li><a href="../about.html">About me</a></li>
+                     </ul>
+                 </div>
+                 </div>
+            </div>
+            <div id="main-body">
+            <div class="row">
+                <div class="span9">
+                    <div class="article row">
+                        <div class="title">
+                            <h1 class="title-name">Some note about DBIX::Class</h1>
+							<div class="row">
+								<div class="span4"><i>2012-12-10 10:25:05</i></div>
+							</div>
+                        </div>
+                        <div class="article-body">
+							<h1><a name="1"></a>Basic</h1>
+
+<h2><a name="2"></a>Connection</h2>
+
+<pre><code>It is a example of using SQL server. The first argument can be changed to another DSN you want.
+
+$schema = Tool::DB::ORM::GeneTex::Bio-&gt;connect(
+    "DBI:ODBC:driver={SQL Server};Server=db;Database=database;UID=UID;PWD=PID",
+    {   
+        LongReadLen =&gt; 0,
+        LongTruncOk =&gt; 1
+    }
+);
+</code></pre>
+
+<h2><a name="3"></a>Select</h2>
+
+<ul>
+<li><p>By search</p>
+
+<p>my $rs $schema->resultset('PJ')->search({
+    key1 => 'abc',
+    key2 => 'def'
+});
+while(my $entity = $rs->next){
+    print $entity->column;
+}</p></li>
+<li><p>By find</p>
+
+<p>This statement will find the data with the primary key equal to "abc"</p>
+
+<p>my $entity = $schema->resultset('PJ')->find('abc');
+print $entity->column;</p></li>
+</ul>
+
+<h2><a name="4"></a>Update</h2>
+
+<pre><code>We can set the data with another value and update to database by this way.
+
+$entity-&gt;set_column('column1','abc2');
+if ($entity-&gt;is_changed){
+    $entity-&gt;update();
+}
+</code></pre>
+
+<h2><a name="5"></a>Insert</h2>
+
+<pre><code>my $ad = $schema-&gt;resultset('ResultSet_you_choose')-&gt;create(
+    {
+        Accn =&gt; 'data1'
+    }
+);
+$ad-&gt;update();
+</code></pre>
+
+<h2><a name="6"></a>Debug</h2>
+
+<p>There are several ways to show debug info</p>
+
+<pre><code>$schema-&gt;storage-&gt;debug(1);
+or
+export DBIC_TRACE=1
+</code></pre>
+
+<p>Also you can print out the connect info like this</p>
+
+<pre><code>$schema-&gt;storage-&gt;connect_info;
+</code></pre>
+
+                        </div>
+                    </div>
+                </div>
+				<div class="span3">
+					<div class="article_menu">
+						<div class="s1"><a href="#1">Basic</a></div><div class="s2"><i class='icon-play'></i><a href="#2">Connection</a></div><div class="s2"><i class='icon-play'></i><a href="#3">Select</a></div><div class="s2"><i class='icon-play'></i><a href="#4">Update</a></div><div class="s2"><i class='icon-play'></i><a href="#5">Insert</a></div><div class="s2"><i class='icon-play'></i><a href="#6">Debug</a></div>
+					</div>
+				</div>
+            </div>
+            </div>
+       </div>
+    </body>
+</html>
