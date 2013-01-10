@@ -73,12 +73,12 @@
             <div class="navbar navbar-fixed-top">
                 <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="../article_list.html">CK Doc</a>
+                    <a class="brand" href="../../article_list.html">CK Doc</a>
                      <ul class="nav">
-                        <li><a href="../article_list.html">Home</a></li>
+                        <li><a href="../../article_list.html">Home</a></li>
                         <li class="active"><a href="../article_list.html">Articles</a></li>
-                        <li><a href="../category.html">Category</a></li>
-                        <li><a href="../about.html">About me</a></li>
+                        <li><a href="../../category.html">Category</a></li>
+                        <li><a href="../../about.html">About me</a></li>
                      </ul>
                  </div>
                  </div>
@@ -94,12 +94,15 @@
 							</div>
                         </div>
                         <div class="article-body">
-							<h1><a name="1"></a>Using MSSQL with PHP and Codeigniter</h1>
+							<h1>
+<a name="using-mssql-with-php-and-codeigniter" class="anchor" href="#using-mssql-with-php-and-codeigniter"><span class="mini-icon mini-icon-link"></span></a>Using MSSQL with PHP and Codeigniter</h1>
 
-<h2><a name="2"></a>Setup for FreeTDS and PHP</h2>
+<h2>
+<a name="setup-for-freetds-and-php" class="anchor" href="#setup-for-freetds-and-php"><span class="mini-icon mini-icon-link"></span></a>Setup for FreeTDS and PHP</h2>
 
 <ol>
-<li><p>Freetds </p>
+<li>
+<p>Freetds </p>
 
 <p>Edit /etc/freetds.conf</p>
 
@@ -108,11 +111,15 @@ host = dbhost
 port = 1433
 client charset = UTF-8
 tds version = 8.0
-</code></pre></li>
-<li><p>Test with tsql</p>
+</code></pre>
+</li>
+<li>
+<p>Test with tsql</p>
 
-<p>tsql -S server_host -U username -P passwd</p></li>
-<li><p>Codeigniter</p>
+<p>tsql -S server_host -U username -P passwd</p>
+</li>
+<li>
+<p>Codeigniter</p>
 
 <p>Edit config/database.php</p>
 
@@ -121,14 +128,15 @@ $db['default']['username'] = 'USER';
 $db['default']['password'] = 'PASSWD';
 $db['default']['database'] = 'DataBaseName';
 $db['default']['dbdriver'] = 'mssql';
-</code></pre></li>
+</code></pre>
+</li>
 <li><p>It is all done. Now get ready to connect database with modle as usual.</p></li>
-</ol>
-
-<h2><a name="3"></a>Setup for ODBC</h2>
+</ol><h2>
+<a name="setup-for-odbc" class="anchor" href="#setup-for-odbc"><span class="mini-icon mini-icon-link"></span></a>Setup for ODBC</h2>
 
 <ol>
-<li><p>odbcinst.ini</p>
+<li>
+<p>odbcinst.ini</p>
 
 <p>Edit /etc/odbcinst.ini and your conf file should look like this.</p>
 
@@ -140,16 +148,20 @@ Driver64        = /usr/lib64/libtdsodbc.so.0
 Setup64     = /usr/lib64/libtdsS.so.2
 FileUsage       = 5
 UsageCount      = 3
-</code></pre></li>
-<li><p>test with "odbcinst -q -d"</p>
+</code></pre>
+</li>
+<li>
+<p>test with "odbcinst -q -d"</p>
 
 <p>The result will be like this</p>
 
 <pre><code>[PostgreSQL]
 [MySQL]
 [FreeTDS]
-</code></pre></li>
-<li><p>odbc.ini</p>
+</code></pre>
+</li>
+<li>
+<p>odbc.ini</p>
 
 <p>Edit /etc/odbc.conf or ~/.odbc.ini</p>
 
@@ -162,24 +174,26 @@ Database = BioInfo
 TDS_Version = 8.0
 Port = 1433
 UID = UserID
-</code></pre></li>
-<li><p>test with "odbcinst -q -s"</p>
+</code></pre>
+</li>
+<li>
+<p>test with "odbcinst -q -s"</p>
 
 <pre><code>[MSSQL]
-</code></pre></li>
-<li><p>test with osql</p>
+</code></pre>
+</li>
+<li>
+<p>test with osql</p>
 
 <p>Exexute the following statement: "osql -S MSSQL -U BIT -P BITBIT". This program will test your setting and tell you the result. If your configuration is success, this program will end up with isql execution result.</p>
 
 <pre><code>Configuration looks OK.  Connection details:
 
-
-<pre><code>               DSN: MSSQL
-          odbc.ini: /home/user/.odbc.ini
-            Driver: /usr/lib/libtdsodbc.so.0
-   Server hostname: dbhostw
-           Address: 1.1.1.1
-</code></pre>
+                   DSN: MSSQL
+              odbc.ini: /home/user/.odbc.ini
+                Driver: /usr/lib/libtdsodbc.so.0
+       Server hostname: dbhostw
+               Address: 1.1.1.1
 
 Attempting connection as UserID ...
 + isql MSSQL UserID Passwd -v
@@ -192,34 +206,35 @@ Attempting connection as UserID ...
 |                                       |
 +---------------------------------------+
 SQL&gt; 
-</code></pre></li>
-<li><p>test with perl</p>
+</code></pre>
+</li>
+<li>
+<p>test with perl</p>
 
 <pre><code>#!/usr/bin/perl
 use DBI;
 
-
 $dsn = "DBI:ODBC:MSSQL";
 $dbh = DBI-&gt;connect($dsn, 'UserID', 'Password');
 
-
 $sth = $dbh-&gt;prepare("SQL");
-</code></pre></li>
-</ol>
-
-<h2><a name="4"></a>Reference</h2>
+</code></pre>
+</li>
+</ol><h2>
+<a name="reference" class="anchor" href="#reference"><span class="mini-icon mini-icon-link"></span></a>Reference</h2>
 
 <ul>
 <li><a href="http://gheeknet.wordpress.com/2011/10/13/perl-to-microsoft-sql-server-2008-standard-via-odbc-using-freetds-drivers/">Gheek.net</a></li>
-<li><a href="http://freetds.schemamania.org/userguide/odbcdiagnose.htm">FreeTDS User Guide</a>  </li>
+<li>
+<a href="http://freetds.schemamania.org/userguide/odbcdiagnose.htm">FreeTDS User Guide</a><br>
+</li>
 </ul>
-
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						<div class="s1"><a href="#1">Using MSSQL with PHP and Codeigniter</a></div><div class="s2"><i class='icon-play'></i><a href="#2">Setup for FreeTDS and PHP</a></div><div class="s2"><i class='icon-play'></i><a href="#3">Setup for ODBC</a></div><div class="s2"><i class='icon-play'></i><a href="#4">Reference</a></div>
+						
 					</div>
 				</div>
             </div>

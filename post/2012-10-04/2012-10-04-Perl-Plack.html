@@ -73,12 +73,12 @@
             <div class="navbar navbar-fixed-top">
                 <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="../article_list.html">CK Doc</a>
+                    <a class="brand" href="../../article_list.html">CK Doc</a>
                      <ul class="nav">
-                        <li><a href="../article_list.html">Home</a></li>
+                        <li><a href="../../article_list.html">Home</a></li>
                         <li class="active"><a href="../article_list.html">Articles</a></li>
-                        <li><a href="../category.html">Category</a></li>
-                        <li><a href="../about.html">About me</a></li>
+                        <li><a href="../../category.html">Category</a></li>
+                        <li><a href="../../about.html">About me</a></li>
                      </ul>
                  </div>
                  </div>
@@ -94,188 +94,13 @@
 							</div>
                         </div>
                         <div class="article-body">
-							<h1><a name="1"></a>Perl-Plack Setup</h1>
-
-<p>The following steps will lead you to run a simple PSGI program at port 5000 and use the nginx as reverse proxy 
-to pass the connecton from http://domain.name/plack to PSGI service at http://domain.name:5000</p>
-
-<h2><a name="2"></a>Nginx Setup</h2>
-
-<ul>
-<li><p>edit /etc/nginx/conf.d/default.conf and add the following statement</p>
-
-<pre><code>location /plack {
-    proxy_pass http://127.0.0.1:5000/;
-}
-</code></pre></li>
-<li><p>restart nginx</p>
-
-<pre><code>/etc/rc.d/init.d/nginx restart
-</code></pre></li>
-</ul>
-
-<h2><a name="3"></a>Plack Setup</h2>
-
-<ul>
-<li><p>Install Plack with cpanm</p>
-
-<pre><code>cpanm Task::Plack
-</code></pre></li>
-<li><p>Create plack.psgi</p></li>
-</ul>
-
-<script src="https://gist.github.com/3833600.js?file=gistfile1.pl"></script>
-
-<ul>
-<li><p>Running the program</p>
-
-<pre><code>plackup plack.psgi
-</code></pre></li>
-<li><p>Data Source  </p>
-
-<ul>
-<li><a href="http://plackperl.org/">Plack</a>  </li>
-<li><a href="http://www.arthurtoday.com/2010/07/nginx-apache-reverse-proxy-server.html#.UG2L2E2miCg">Nginx for reverse proxy</a></li>
-</ul></li>
-</ul>
-
-<h1><a name="4"></a>A Simple Mojo Tutorial</h1>
-
-<p>The following content comes from <a href="http://mojolicio.us/perldoc/Mojolicious/Lite">mojolicious::lite doc</a>.</p>
-
-<h2><a name="5"></a>Install mojolicious</h2>
-
-<pre><code>    curl get.mojolicio.us | sh
-</code></pre>
-
-<h2><a name="6"></a>A simple Code</h2>
-
-<pre><code>    #!/usr/bin/perl
-    use Mojolicious::Lite;
-
-    get '/:foo' =&gt; sub {
-        my $self = shift;
-        my $foo = $self-&gt;param('foo');
-        $self-&gt;render(text=&gt;"This is $foo");
-    }
-</code></pre>
-
-<h2><a name="7"></a>Execute  </h2>
-
-<pre><code>- morbo app.pl
-- app.pl daemon
-
-But it is more convenient to start with morbo because it can automatically reload the program while you are updaing your program in the development stage.
-</code></pre>
-
-<h2><a name="8"></a>Some functions</h2>
-
-<ul>
-<li><p>GET/POST: <br />
-You can use $self->param('user') to get the GET/POST parameter. There are also <a href="http://mojolicio.us/perldoc/Mojolicious/Controller#param">other ways</a> to get it too  </p>
-
-<pre><code># Get
-get '/data' =&gt; sub {
-    my @values = $self-&gt;param;  
-    my ($foo, $bar) = $c-&gt;param(['foo', 'bar']);
-}
-# Post
-post '/post' =&gt; sub {
-    ..
-}
-</code></pre></li>
-<li><p>Stash:
-Set the variables and use it in the template. First I set the variables one and associated the template file.</p>
-
-<pre><code>$data = $self-&gt;param('data');
-$self-&gt;stash(one=&gt;$data);
-$self-&gt;render(template=&gt;'tem',format=&gt;'html');
-</code></pre>
-
-<p>For more info about function render, you can find it in <a href="http://search.cpan.org/~sri/Mojolicious-3.44/lib/Mojolicious/Guides/Rendering.pod">this page</a>. Also if you want to know the detail of its syntax in the template file, please visit <a href="http://mojolicio.us/perldoc/Mojolicious/Guides/Rendering#Embedded_Perl">this page</a>.</p>
-
-<p>In the <a href="http://mojolicio.us/perldoc/Mojolicious/Lite#Stash_and_templates">offical tutorial</a>, you can see that the template is embeded in the pl source code. I seperate it and fill the html content in the templates/tem.html.ep so you can find the template like this ..</p>
-
-<pre><code>&lt;%= %one %&gt;
-</code></pre></li>
-<li><p>HTTP Header <br />
-Set the header  </p>
-
-<pre><code>$self-&gt;res-&gt;headers-&gt;header('X-Header' =&gt; 'X-Header');
-</code></pre>
-
-<p>Get the header info  </p>
-
-<pre><code>$self-&gt;req-&gt;headers-&gt;user_agent;
-</code></pre></li>
-<li><p>Layouts <br />
-Mojo provide the layouts that you can organize your template. Here is a example of tem.html.ep.</p>
-
-<pre><code>% title 'This is a Title';
-% layout 'header';
-&lt;h1&gt;&lt;%= $format %&gt;&lt;/h1&gt;
-&lt;h1&gt;&lt;%= $one %&gt;&lt;/h1&gt;
-&lt;ul&gt;
-    &lt;li&gt;User Agent: &lt;%= $user_agent %&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</code></pre>
-
-<p>This template file use a layout named "header.html.ep" which defined in the foleder "layouts/header.html.ep". And your header.html.ep may look like this.</p>
-
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;meta http-equiv="content-type" content="text/html; charset=utf-8"&gt;
-    &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;&lt;%= content %&gt;&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-
-<p>So that the "&lt;%= content %>" will be replaced with the content of tem.html.ep. There is more detail <a href="http://mojolicio.us/perldoc/Mojolicious/Guides/Rendering#Layouts">Here</a></p></li>
-<li><p>Logging <br />
-A glimpse of log. First you have to create a log folder and put this line in your program.</p>
-
-<pre><code>app-&gt;log-&gt;level('debug');
-</code></pre>
-
-<p>Also you can call it by yourself.</p>
-
-<pre><code>$self-&gt;app-&gt;log-&gt;info('tem example is called');
-</code></pre>
-
-<p><a href="http://mojolicio.us/perldoc/Mojo/Log">More detail at Mojo::Log</a></p></li>
-</ul>
-
-<h1><a name="9"></a>Mojo with Plack</h1>
-
-<h2><a name="10"></a>Run it</h2>
-
-<p>I find the mojo app can run without changing any code. you can do this..</p>
-
-<pre><code>    plackup app.pl
-</code></pre>
-
-<p>Also you can use plack as middleware and wrap your program like this.</p>
-
-<pre><code>    use Plack::Builder;
-    get '/welcome' =&gt; sub {
-        ..
-    }
-    builder {
-        enable 'Deflater';
-        app-&gt;start;
-    }
-</code></pre>
-
-<p><a href="http://mojolicio.us/perldoc/Mojolicious/Guides/Cookbook#PSGIPlack">Here is more detail</a></p>
-
+							{"message":"API Rate Limit Exceeded for 113.196.133.194"}
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						<div class="s1"><a href="#1">Perl-Plack Setup</a></div><div class="s2"><i class='icon-play'></i><a href="#2">Nginx Setup</a></div><div class="s2"><i class='icon-play'></i><a href="#3">Plack Setup</a></div><div class="s1"><a href="#4">A Simple Mojo Tutorial</a></div><div class="s2"><i class='icon-play'></i><a href="#5">Install mojolicious</a></div><div class="s2"><i class='icon-play'></i><a href="#6">A simple Code</a></div><div class="s2"><i class='icon-play'></i><a href="#7">Execute  </a></div><div class="s2"><i class='icon-play'></i><a href="#8">Some functions</a></div><div class="s1"><a href="#9">Mojo with Plack</a></div><div class="s2"><i class='icon-play'></i><a href="#10">Run it</a></div>
+						
 					</div>
 				</div>
             </div>

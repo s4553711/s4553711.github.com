@@ -73,12 +73,12 @@
             <div class="navbar navbar-fixed-top">
                 <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="../article_list.html">CK Doc</a>
+                    <a class="brand" href="../../article_list.html">CK Doc</a>
                      <ul class="nav">
-                        <li><a href="../article_list.html">Home</a></li>
+                        <li><a href="../../article_list.html">Home</a></li>
                         <li class="active"><a href="../article_list.html">Articles</a></li>
-                        <li><a href="../category.html">Category</a></li>
-                        <li><a href="../about.html">About me</a></li>
+                        <li><a href="../../category.html">Category</a></li>
+                        <li><a href="../../about.html">About me</a></li>
                      </ul>
                  </div>
                  </div>
@@ -94,37 +94,13 @@
 							</div>
                         </div>
                         <div class="article-body">
-							<h1><a name="1"></a>Create Empty branch without parent</h1>
-
-<p>Originally we can do it with:</p>
-
-<pre><code>    git checkout --orphan version2
-</code></pre>
-
-<p>But if the git version &lt; 1.7.2, we have to do this with another way</p>
-
-<pre><code>    git symbolic-ref HEAD refs/heads/newbranch 
-    rm .git/index 
-    git clean -fdx 
-    ..
-    ..
-    git add your files 
-    git commit -m 'Initial commit'
-</code></pre>
-
-<p>Data Source:  </p>
-
-<ul>
-<li><a href="http://stackoverflow.com/questions/5689960/how-do-i-create-a-commit-without-a-parent-in-git">StackOverflow</a></li>
-<li><a href="http://schacon.github.com/gitbook/5_creating_new_empty_branches.html">shacon</a>  </li>
-</ul>
-
+							{"message":"API Rate Limit Exceeded for 113.196.133.194"}
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						<div class="s1"><a href="#1">Create Empty branch without parent</a></div>
+						
 					</div>
 				</div>
             </div>

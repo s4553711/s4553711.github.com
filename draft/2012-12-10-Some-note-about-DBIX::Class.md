@@ -25,20 +25,20 @@ Select
 ------
 - By search  
 
-	my $rs $schema->resultset('PJ')->search({
-		key1 => 'abc',
-		key2 => 'def'
-	});
-	while(my $entity = $rs->next){
-		print $entity->column;
-	}
+		my $rs $schema->resultset('PJ')->search({
+			key1 => 'abc',
+			key2 => 'def'
+		});
+		while(my $entity = $rs->next){
+			print $entity->column;
+		}
 
 - By find  
 
 	This statement will find the data with the primary key equal to "abc"
 
-	my $entity = $schema->resultset('PJ')->find('abc');
-	print $entity->column;
+		my $entity = $schema->resultset('PJ')->find('abc');
+		print $entity->column;
 
 Update
 ------
@@ -71,3 +71,31 @@ Also you can print out the connect info like this
 
 	$schema->storage->connect_info;
 
+More WHERE Clauses
+------
+- OR
+
+		Field => [1,2]
+
+- Combined AND/OR
+
+		{
+			Institution => {'!=' => [undef,''] },
+			-or => [
+				city => [undef,''],
+				state => [undef,'']
+			]
+		},
+
+- NOT
+
+		Field => { '!=' => 'ABC'}
+
+- DISTINCT
+
+		{},{
+			columns => [qw/FieldA FieldB/],
+			distinct => 1
+		}
+
+For more information, please refer to [SQL::Abstract](http://search.cpan.org/perldoc?SQL%3A%3AAbstract#WHERE_CLAUSES)

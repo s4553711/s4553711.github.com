@@ -73,12 +73,12 @@
             <div class="navbar navbar-fixed-top">
                 <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="../article_list.html">CK Doc</a>
+                    <a class="brand" href="../../article_list.html">CK Doc</a>
                      <ul class="nav">
-                        <li><a href="../article_list.html">Home</a></li>
+                        <li><a href="../../article_list.html">Home</a></li>
                         <li class="active"><a href="../article_list.html">Articles</a></li>
-                        <li><a href="../category.html">Category</a></li>
-                        <li><a href="../about.html">About me</a></li>
+                        <li><a href="../../category.html">Category</a></li>
+                        <li><a href="../../about.html">About me</a></li>
                      </ul>
                  </div>
                  </div>
@@ -94,12 +94,15 @@
 							</div>
                         </div>
                         <div class="article-body">
-							<h1><a name="1"></a>CKEditor Development Note</h1>
+							<h1>
+<a name="ckeditor-development-note" class="anchor" href="#ckeditor-development-note"><span class="mini-icon mini-icon-link"></span></a>CKEditor Development Note</h1>
 
-<h2><a name="2"></a>Basic Plugin Development</h2>
+<h2>
+<a name="basic-plugin-development" class="anchor" href="#basic-plugin-development"><span class="mini-icon mini-icon-link"></span></a>Basic Plugin Development</h2>
 
 <ol>
-<li><p>Setting
+<li>
+<p>Setting
 Edit ckeditor/config.js. The first part are the total toolbar items and you can load according to your needs. The second part is to load the extra plugin we are going to create.</p>
 
 <pre><code>config.toolbar_Full =
@@ -121,10 +124,11 @@ Edit ckeditor/config.js. The first part are the total toolbar items and you can 
     { name: 'tools', items : [ 'Maximize', 'ShowBlocks','-','About' ] }
 ];
 
-
 config.extraPlugins = 'ckvar';
-</code></pre></li>
-<li><p>Create a plugin with a button at ckeditor/plugins/ckvar/plugin.js</p>
+</code></pre>
+</li>
+<li>
+<p>Create a plugin with a button at ckeditor/plugins/ckvar/plugin.js</p>
 
 <pre><code>CKEDITOR.plugins.add( 'ckvar',
 {
@@ -140,14 +144,15 @@ config.extraPlugins = 'ckvar';
         });
     }
 });
-</code></pre></li>
-</ol>
-
-<h2><a name="3"></a>UI</h2>
+</code></pre>
+</li>
+</ol><h2>
+<a name="ui" class="anchor" href="#ui"><span class="mini-icon mini-icon-link"></span></a>UI</h2>
 
 <ul>
-<li><p>Combo <br />
-A example from <a href="http://www.kuba.co.uk/blog.php?blog_id=15,"title"">here</a>.</p>
+<li>
+<p>Combo<br>
+A example from <a href="http://www.kuba.co.uk/blog.php?blog_id=15,%22title%22">here</a>.</p>
 
 <pre><code>CKEDITOR.plugins.add( 'tokens',
 {   
@@ -197,10 +202,9 @@ A example from <a href="http://www.kuba.co.uk/blog.php?blog_id=15,"title"">here<
 
 <p>Here is the gist version.</p>
 
-<script src="https://gist.github.com/3656034.js"> </script></li>
-</ul>
-
-<h2><a name="4"></a>Reference</h2>
+ </li>
+</ul><h2>
+<a name="reference" class="anchor" href="#reference"><span class="mini-icon mini-icon-link"></span></a>Reference</h2>
 
 <ul>
 <li><a href="http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar" title="title">Offical Guide: Toolbar</a></li>
@@ -208,13 +212,12 @@ A example from <a href="http://www.kuba.co.uk/blog.php?blog_id=15,"title"">here<
 <li><a href="http://www.voofie.com/content/2/ckeditor-plugin-development/">Voofie: Plugin Development</a></li>
 <li><a href="http://www.dotblogs.com.tw/lastsecret/archive/2011/11/30/60185.aspx">Another Tutorial</a></li>
 </ul>
-
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						<div class="s1"><a href="#1">CKEditor Development Note</a></div><div class="s2"><i class='icon-play'></i><a href="#2">Basic Plugin Development</a></div><div class="s2"><i class='icon-play'></i><a href="#3">UI</a></div><div class="s2"><i class='icon-play'></i><a href="#4">Reference</a></div>
+						
 					</div>
 				</div>
             </div>
