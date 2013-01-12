@@ -76,7 +76,7 @@
                     <a class="brand" href="../../article_list.html">CK Doc</a>
                      <ul class="nav">
                         <li><a href="../../article_list.html">Home</a></li>
-                        <li class="active"><a href="../article_list.html">Articles</a></li>
+                        <li class="active"><a href="../../article_list.html">Articles</a></li>
                         <li><a href="../../category.html">Category</a></li>
                         <li><a href="../../about.html">About me</a></li>
                      </ul>
@@ -94,13 +94,57 @@
 							</div>
                         </div>
                         <div class="article-body">
-							{"message":"API Rate Limit Exceeded for 113.196.133.194"}
+							<h1><a name="1"></a>PHPMailer-BMH Modification</h1>
+
+<h2><a name="2"></a>Bounced Mail Process</h2>
+
+<h3><a name="3"></a>Conjugation with Codeigniter</h3>
+
+<ol>
+<li><p>Download and include it in your custom library</p>
+
+<pre><code>require_once('PHPMailer-BMH/class.phpmailer-bmh.php');
+require_once('PHPMailer-BMH/callback samples/callback_echo.php');
+</code></pre></li>
+<li><p>Initialization and setup the server info</p>
+
+<pre><code>$bmh = new BounceMailHandler(1);
+$bmh-&gt;mailhost = 'mailserver.com';
+$bmh-&gt;mailbox_username = 'account_name';
+$bmh-&gt;mailbox_password = 'passwd';
+$bmh-&gt;port = 993;
+$bmh-&gt;service = 'imap/ssl';
+$bmh-&gt;service_option = 'novalidate-cert';
+$bmh-&gt;testmode = true; // if you are debugging, open it
+</code></pre></li>
+<li><p>Call the function</p>
+
+<pre><code>$bmh-&gt;openMailbox();
+$bmh-&gt;processMailbox();
+</code></pre></li>
+<li><p>Add Custom Rule
+Open phpmailer-bmh_rules.php in the PHPMailer-BMH folder and add the rule you want.</p></li>
+</ol>
+
+<h3><a name="4"></a>Fix</h3>
+
+<p>While using PHPMailer-BMH as a filter to process campaign feedback, I have to move some mail to specificed mailbox. So I have to active the moveHard and ste the target mailbox name.</p>
+
+<pre><code>$bmh-&gt;moveHard = true;
+$bmh-&gt;hardMailbox = 'INBOX.ihard';
+</code></pre>
+
+<p>But I find there is problem while moving email to ihard mailbox. Althought PHPMailer-BMH require the mailbox name started with INBOX, after fixing mailbox name from 'INBOX.ihard' to 'ihard' the problem is fixed</p>
+
+<pre><code>@imap_mail_move($this-&gt;_mailbox_link, $x, "ihard");
+</code></pre>
+
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						
+						<div class="s1"><a href="#1">PHPMailer-BMH Modification</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#2">Bounced Mail Process</a></div><div class="s3"><i class='icon-minus'></i><a href="#3">Conjugation with Codeigniter</a></div><div class="s3"><i class='icon-minus'></i><a href="#4">Fix</a></div>
 					</div>
 				</div>
             </div>

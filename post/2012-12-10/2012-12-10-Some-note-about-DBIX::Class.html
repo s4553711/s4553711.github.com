@@ -76,7 +76,7 @@
                     <a class="brand" href="../../article_list.html">CK Doc</a>
                      <ul class="nav">
                         <li><a href="../../article_list.html">Home</a></li>
-                        <li class="active"><a href="../article_list.html">Articles</a></li>
+                        <li class="active"><a href="../../article_list.html">Articles</a></li>
                         <li><a href="../../category.html">Category</a></li>
                         <li><a href="../../about.html">About me</a></li>
                      </ul>
@@ -94,11 +94,9 @@
 							</div>
                         </div>
                         <div class="article-body">
-							<h1>
-<a name="basic" class="anchor" href="#basic"><span class="mini-icon mini-icon-link"></span></a>Basic</h1>
+							<h1><a name="1"></a>Basic</h1>
 
-<h2>
-<a name="connection" class="anchor" href="#connection"><span class="mini-icon mini-icon-link"></span></a>Connection</h2>
+<h2><a name="2"></a>Connection</h2>
 
 <p>It is a example of using SQL server. The first argument can be changed to another DSN you want.  </p>
 
@@ -111,12 +109,10 @@
 );
 </code></pre>
 
-<h2>
-<a name="select" class="anchor" href="#select"><span class="mini-icon mini-icon-link"></span></a>Select</h2>
+<h2><a name="3"></a>Select</h2>
 
 <ul>
-<li>
-<p>By search  </p>
+<li><p>By search  </p>
 
 <pre><code>my $rs $schema-&gt;resultset('PJ')-&gt;search({
     key1 =&gt; 'abc',
@@ -125,19 +121,17 @@
 while(my $entity = $rs-&gt;next){
     print $entity-&gt;column;
 }
-</code></pre>
-</li>
-<li>
-<p>By find  </p>
+</code></pre></li>
+<li><p>By find  </p>
 
 <p>This statement will find the data with the primary key equal to "abc"</p>
 
 <pre><code>my $entity = $schema-&gt;resultset('PJ')-&gt;find('abc');
 print $entity-&gt;column;
-</code></pre>
-</li>
-</ul><h2>
-<a name="update" class="anchor" href="#update"><span class="mini-icon mini-icon-link"></span></a>Update</h2>
+</code></pre></li>
+</ul>
+
+<h2><a name="4"></a>Update</h2>
 
 <p>We can set the data with another value and update to database by this way.  </p>
 
@@ -147,8 +141,7 @@ if ($entity-&gt;is_changed){
 }
 </code></pre>
 
-<h2>
-<a name="insert" class="anchor" href="#insert"><span class="mini-icon mini-icon-link"></span></a>Insert</h2>
+<h2><a name="5"></a>Insert</h2>
 
 <pre><code>my $ad = $schema-&gt;resultset('ResultSet_you_choose')-&gt;create(
     {
@@ -158,8 +151,7 @@ if ($entity-&gt;is_changed){
 $ad-&gt;update();
 </code></pre>
 
-<h2>
-<a name="debug" class="anchor" href="#debug"><span class="mini-icon mini-icon-link"></span></a>Debug</h2>
+<h2><a name="6"></a>Debug</h2>
 
 <p>There are several ways to show debug info</p>
 
@@ -173,18 +165,14 @@ export DBIC_TRACE=1
 <pre><code>$schema-&gt;storage-&gt;connect_info;
 </code></pre>
 
-<h2>
-<a name="more-where-clauses" class="anchor" href="#more-where-clauses"><span class="mini-icon mini-icon-link"></span></a>More WHERE Clauses</h2>
+<h2><a name="7"></a>More WHERE Clauses</h2>
 
 <ul>
-<li>
-<p>OR</p>
+<li><p>OR</p>
 
 <pre><code>Field =&gt; [1,2]
-</code></pre>
-</li>
-<li>
-<p>Combined AND/OR</p>
+</code></pre></li>
+<li><p>Combined AND/OR</p>
 
 <pre><code>{
     Institution =&gt; {'!=' =&gt; [undef,''] },
@@ -193,30 +181,28 @@ export DBIC_TRACE=1
         state =&gt; [undef,'']
     ]
 },
-</code></pre>
-</li>
-<li>
-<p>NOT</p>
+</code></pre></li>
+<li><p>NOT</p>
 
 <pre><code>Field =&gt; { '!=' =&gt; 'ABC'}
-</code></pre>
-</li>
-<li>
-<p>DISTINCT</p>
+</code></pre></li>
+<li><p>DISTINCT</p>
 
 <pre><code>{},{
     columns =&gt; [qw/FieldA FieldB/],
     distinct =&gt; 1
 }
-</code></pre>
-</li>
-</ul><p>For more information, please refer to <a href="http://search.cpan.org/perldoc?SQL%3A%3AAbstract#WHERE_CLAUSES">SQL::Abstract</a></p>
+</code></pre></li>
+</ul>
+
+<p>For more information, please refer to <a href="http://search.cpan.org/perldoc?SQL%3A%3AAbstract#WHERE_CLAUSES">SQL::Abstract</a></p>
+
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						
+						<div class="s1"><a href="#1">Basic</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#2">Connection</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#3">Select</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#4">Update</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#5">Insert</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#6">Debug</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#7">More WHERE Clauses</a></div>
 					</div>
 				</div>
             </div>
