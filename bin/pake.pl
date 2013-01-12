@@ -202,7 +202,7 @@ sub find_menu {
 		$anchor++;
 
 		if ($type+0 ==2){
-			$add_icon = "<i class='icon-play'></i>";
+			$add_icon = "<i class='icon-chevron-right'></i>";
 		} elsif ($type+0 >=3){
 			$add_icon = "<i class='icon-minus'></i>";
 		}
@@ -213,17 +213,6 @@ sub find_menu {
 	}
 
 	$text =~ s/<h(\d+)>(.*?)<\/h\d+>/&replace_call_back($1,$2)/eg;
-
-	#while($text =~ /<h(\d+)>(.*?)<\/h\d+>/g){
-	#	my $tar_text = $2;
-	#	my $add_icon = '';
- 	#
-	#	if ($1+0 ==2){
-	#		$add_icon = "<i class='icon-minus'></i>";
-	#	}
-	#
-	#	$final_str .= "<div class=\"s$1\">$add_icon"."$2</div>";
-	#}
 
 	return ($final_str,$text);
 }
