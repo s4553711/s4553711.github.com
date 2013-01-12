@@ -177,6 +177,9 @@ sub Generate {
 	# For the article list page
     open(OT3,">../article_list.html")||die "Error Open article_list.html\n";
 
+	# Order Article by publiciation date
+	@article_list = sort { $b->{date} cmp $a->{date} } @article_list;
+
 	my $mt_list = Mojo::Template->new;
 	my $argv2 = {
 		list=>\@article_list,
