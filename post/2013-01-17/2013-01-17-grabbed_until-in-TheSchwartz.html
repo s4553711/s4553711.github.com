@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>grabbed_until in TheSchwartz</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
+        <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+        <style>
+            #main-body{
+                margin-top: 40px;
+			}
+			.article_menu{
+				margin: 10px 0 10px 5px;
+				padding: 5px 0 10px 0;
+				border: 1px solid #c4c4c4;
+				box-shadow:0 0 10px #c4c4c4;
+			}
+			.article_menu>.s1{
+				margin-left: 10px;
+				margin-right:10px;
+				padding: 5px 5px 5px;
+				border-bottom: 1px solid silver;
+			}
+			.article_menu>.s2{
+				margin-left: 10px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+			.article_menu>.s3{
+				margin-left: 20px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+			.article_menu>.s4{
+				margin-left: 30px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+            .article{
+                margin: 5px;
+            }
+            .article>.title{
+                margin: 5px 0 5px 5px;
+                padding-left: 5px;
+				border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body{
+                margin: 5px 0 5px 5px;
+                padding-left: 30px;
+            }
+            .article>.article-body h1{
+				font-size: 2em;
+                border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body h2{
+				font-size: 1.8em;
+                color: #626262;
+            }
+            .article>.article-body h3{
+				font-size: 1.6em;
+			}
+            .article>.article-body h4{
+				font-size: 1.4em;
+			}
+            .article>.article-body h5{
+				font-size: 1.2em;
+			}
+        </style>
+    </head>
+    <body>
+       <div class="container">
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="../../article_list.html">CK Doc</a>
+                     <ul class="nav">
+                        <li><a href="../../article_list.html">Home</a></li>
+                        <li class="active"><a href="../../article_list.html">Articles</a></li>
+                        <li><a href="../../category.html">Category</a></li>
+                        <li><a href="../../about.html">About me</a></li>
+                     </ul>
+                 </div>
+                 </div>
+            </div>
+            <div id="main-body">
+            <div class="row">
+                <div class="span9">
+                    <div class="article row">
+                        <div class="title">
+                            <h1 class="title-name">grabbed_until in TheSchwartz</h1>
+							<div class="row">
+								<div class="span4"><i>2013-01-17 15:17:39</i></div>
+							</div>
+                        </div>
+                        <div class="article-body">
+							<h2><a name="1"></a>Some problems about job retstart</h2>
+
+<p>When I was trying to restart a submitted job that has been interrupted by myself, it did not restart it as it claimed. Because I can not get more information on its CPAN page, so I decided to trace the source code and found out it.</p>
+
+<p>First, I went into the TheSchwartz.pm and find the <strong>work</strong> subroutine and found it indeeded search for job queued in the database at the line 280 (subroutine <strong>find_job_for_workers</strong>). The comment of this subroutine explained how it works:</p>
+
+<ol>
+<li>funcname is in the list of abilities this $client supports;</li>
+<li>the job is scheduled to be run (run_after is in the past);</li>
+<li>no one else is working on the job (grabbed_until is in the past).</li>
+</ol>
+
+<p>According to its rule, I found the problem is arised from the <strong>grabbed_unitl</strong>. It seems that as someone called this worker(as I did before), this job would not to be called within 1 hours(I guessed). So in order to call the interrupted job any time I want, I decided to marked line 283 at the TheSchwartz.pm until I found a better solution to do it.</p>
+
+                        </div>
+                    </div>
+                </div>
+				<div class="span3">
+					<div class="article_menu">
+						<div class="s2"><i class='icon-chevron-right'></i><a href="#1">Some problems about job retstart</a></div>
+					</div>
+				</div>
+            </div>
+            </div>
+       </div>
+    </body>
+</html>

@@ -193,6 +193,35 @@ export DBIC_TRACE=1
     distinct =&gt; 1
 }
 </code></pre></li>
+<li><p>Sub-query</p>
+
+<p>Defined the sub-query statement</p>
+
+<pre><code>my $collection = $job-&gt;search(
+    {
+        fieldA =&gt; 1,
+    },
+    {
+        distinct =&gt; 1,
+        columns =&gt; [qw/ID/]
+    }
+);
+</code></pre>
+
+<p>Execution the main query statement within the result of sub-query</p>
+
+<pre><code>my $final_list = $job-&gt;search(
+    {
+        ID =&gt; {
+            '-in' =&gt; $collection-&gt;get_column('ID')-&gt;as_query
+        }
+    },
+    {
+        distinct =&gt; 1,
+        columns =&gt; [qw/ID/]
+    },
+);
+</code></pre></li>
 </ul>
 
 <p>For more information, please refer to <a href="http://search.cpan.org/perldoc?SQL%3A%3AAbstract#WHERE_CLAUSES">SQL::Abstract</a></p>

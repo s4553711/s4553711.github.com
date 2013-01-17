@@ -98,4 +98,32 @@ More WHERE Clauses
 			distinct => 1
 		}
 
+- Sub-query
+
+	Defined the sub-query statement
+	
+		my $collection = $job->search(
+			{
+				fieldA => 1,
+			},
+			{
+				distinct => 1,
+				columns => [qw/ID/]
+			}
+		);
+
+	Execution the main query statement within the result of sub-query
+
+		my $final_list = $job->search(
+			{
+				ID => {
+					'-in' => $collection->get_column('ID')->as_query
+				}
+			},
+			{
+				distinct => 1,
+				columns => [qw/ID/]
+			},
+		);
+
 For more information, please refer to [SQL::Abstract](http://search.cpan.org/perldoc?SQL%3A%3AAbstract#WHERE_CLAUSES)
