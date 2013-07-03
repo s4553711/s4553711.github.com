@@ -4,6 +4,7 @@
         <title>SQL Note</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/pygment_trac.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
         <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
         <style>
@@ -94,38 +95,42 @@
 							</div>
                         </div>
                         <div class="article-body">
-							<h1><a name="1"></a>SQL</h1>
+							<hr>
 
-<h2><a name="2"></a>Tips</h2>
+<p>layout: post
+title: SQL Note
+date: 2012-09-11 17:41:39
+categories: 
+    - PHP</p>
+
+<h2><a name="1"></a>    - SQL</h2>
+
+<h1><a name="2"></a>SQL</h1>
+
+<h2><a name="3"></a>Tips</h2>
 
 <ul>
-<li><p>Reset Table Identity <br />
+<li><p>Reset Table Identity<br>
 <a href="http://blog.sqlauthority.com/2007/03/15/sql-server-dbcc-reseed-table-identity-value-reset-table-identity/">Source</a></p>
-
-<pre><code>DBCC CHECKIDENT (table_name, reseed, 1)
-</code></pre></li>
-<li><p>Temp Table <br />
+<div class="highlight"><pre><span class="n">DBCC</span> <span class="n">CHECKIDENT</span> <span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">reseed</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div></li>
+<li><p>Temp Table<br>
 Cretaing a temp table with 3 columns.</p>
-
-<pre><code>CREATE TABLE #TEMP
-(
-    COL1 INT,
-    COL2 VARCHAR(30),
-    COL3 DATETIME DEFAULT GETDATE()
-)
-GO
-</code></pre>
-
+<div class="highlight"><pre><span class="n">CREATE</span> <span class="n">TABLE</span> <span class="err">#</span><span class="n">TEMP</span>
+<span class="p">(</span>
+    <span class="n">COL1</span> <span class="n">INT</span><span class="p">,</span>
+    <span class="n">COL2</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+    <span class="n">COL3</span> <span class="n">DATETIME</span> <span class="n">DEFAULT</span> <span class="n">GETDATE</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">GO</span>
+</pre></div>
 <p>Getting value from temp table</p>
-
-<pre><code>SELECT * FROM #TEMP
-DROP TABLE #TEMP
-</code></pre>
-
+<div class="highlight"><pre><span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="err">#</span><span class="n">TEMP</span>
+<span class="n">DROP</span> <span class="n">TABLE</span> <span class="err">#</span><span class="n">TEMP</span>
+</pre></div>
 <p>List all temp table</p>
-
-<pre><code>SELECT name, create_date FROM TempDB.sys.tables WHERE name LIKE '#%'
-</code></pre></li>
+<div class="highlight"><pre><span class="n">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">create_date</span> <span class="n">FROM</span> <span class="n">TempDB</span><span class="p">.</span><span class="n">sys</span><span class="p">.</span><span class="n">tables</span> <span class="n">WHERE</span> <span class="n">name</span> <span class="n">LIKE</span> <span class="err">&#39;#</span><span class="o">%</span><span class="err">&#39;</span>
+</pre></div></li>
 </ul>
 
                         </div>
@@ -133,7 +138,7 @@ DROP TABLE #TEMP
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						<div class="s1"><a href="#1">SQL</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#2">Tips</a></div>
+						<div class="s2"><i class='icon-chevron-right'></i><a href="#1">    - SQL</a></div><div class="s1"><a href="#2">SQL</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#3">Tips</a></div>
 					</div>
 				</div>
             </div>

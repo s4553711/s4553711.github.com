@@ -11,11 +11,13 @@ Self executing anonymous function
 ------
 1. [Definition][]  
 
-		// Define variable
-		var window = '123';
+	``` javascript
+	// Define variable
+	var window = '123';
 
-		// Execute
-		(function(window,undefined){ alert(window); })(window)
+	// Execute
+	(function(window,undefined){ alert(window); })(window)
+	```
 
 [Definition]: http://briancrescimanno.com/2009/09/24/how-self-executing-anonymous-functions-work/  
 

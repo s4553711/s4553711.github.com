@@ -13,6 +13,7 @@ Basic Plugin Development
 1. Setting
 	Edit ckeditor/config.js. The first part are the total toolbar items and you can load according to your needs. The second part is to load the extra plugin we are going to create.
 
+	``` javascript
 		config.toolbar_Full =
 		[
 			{ name: 'document', items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },
@@ -33,9 +34,11 @@ Basic Plugin Development
 		];
 
 		config.extraPlugins = 'ckvar';
+	```
 
 2. Create a plugin with a button at ckeditor/plugins/ckvar/plugin.js
 
+	``` javascript
 		CKEDITOR.plugins.add( 'ckvar',
 		{
 			init : function( editor )
@@ -50,12 +53,13 @@ Basic Plugin Development
 				});
 			}
 		});
-	
+	```	
 UI
 ------
 - Combo  
 	A example from [here](http://www.kuba.co.uk/blog.php?blog_id=15,"title").
 
+	``` javascript
 		CKEDITOR.plugins.add( 'tokens',
 		{   
 		   requires : ['richcombo'], //, 'styles' ],
@@ -100,6 +104,7 @@ UI
 		         });
 		   }
 		});
+	```
 
 	Here is the gist version.
 	<script src="https://gist.github.com/3656034.js"> </script>

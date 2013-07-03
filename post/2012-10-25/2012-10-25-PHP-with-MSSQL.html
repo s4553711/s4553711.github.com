@@ -4,6 +4,7 @@
         <title>PHP with MSSQL</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/pygment_trac.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
         <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
         <style>
@@ -94,124 +95,124 @@
 							</div>
                         </div>
                         <div class="article-body">
-							<h1><a name="1"></a>Using MSSQL with PHP and Codeigniter</h1>
+							<hr>
 
-<h2><a name="2"></a>Setup for FreeTDS and PHP</h2>
+<p>layout: post
+title: PHP with MSSQL
+date: 2012-10-25 21:32:58
+summary: This article illustrate how to setup MSSQL enviroment in the Linux with freetds and unixodbc and connect MSSQL with perl.
+categories:
+    - PHP
+    - unixODBC</p>
+
+<h2><a name="1"></a>    - FreeTDS</h2>
+
+<h1><a name="2"></a>Using MSSQL with PHP and Codeigniter</h1>
+
+<h2><a name="3"></a>Setup for FreeTDS and PHP</h2>
 
 <ol>
 <li><p>Freetds </p>
 
 <p>Edit /etc/freetds.conf</p>
-
-<pre><code>[MSSQL]
-host = dbhost
-port = 1433
-client charset = UTF-8
-tds version = 8.0
-</code></pre></li>
+<div class="highlight"><pre><span class="k">[MSSQL]</span>
+<span class="na">host</span> <span class="o">=</span> <span class="s">dbhost</span>
+<span class="na">port</span> <span class="o">=</span> <span class="s">1433</span>
+<span class="na">client charset</span> <span class="o">=</span> <span class="s">UTF-8</span>
+<span class="na">tds version</span> <span class="o">=</span> <span class="s">8.0</span>
+</pre></div></li>
 <li><p>Test with tsql</p>
 
 <p>tsql -S server_host -U username -P passwd</p></li>
 <li><p>Codeigniter</p>
 
 <p>Edit config/database.php</p>
-
-<pre><code>$db['default']['hostname'] = 'MSSQL';
-$db['default']['username'] = 'USER';
-$db['default']['password'] = 'PASSWD';
-$db['default']['database'] = 'DataBaseName';
-$db['default']['dbdriver'] = 'mssql';
-</code></pre></li>
+<div class="highlight"><pre><span class="err">$</span><span class="n">db</span><span class="p">[</span><span class="err">&#39;</span><span class="k">default</span><span class="err">&#39;</span><span class="p">][</span><span class="err">&#39;</span><span class="n">hostname</span><span class="err">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">MSSQL</span><span class="err">&#39;</span><span class="p">;</span>
+<span class="err">$</span><span class="n">db</span><span class="p">[</span><span class="err">&#39;</span><span class="k">default</span><span class="err">&#39;</span><span class="p">][</span><span class="err">&#39;</span><span class="n">username</span><span class="err">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">USER</span><span class="err">&#39;</span><span class="p">;</span>
+<span class="err">$</span><span class="n">db</span><span class="p">[</span><span class="err">&#39;</span><span class="k">default</span><span class="err">&#39;</span><span class="p">][</span><span class="err">&#39;</span><span class="n">password</span><span class="err">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">PASSWD</span><span class="err">&#39;</span><span class="p">;</span>
+<span class="err">$</span><span class="n">db</span><span class="p">[</span><span class="err">&#39;</span><span class="k">default</span><span class="err">&#39;</span><span class="p">][</span><span class="err">&#39;</span><span class="n">database</span><span class="err">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">DataBaseName</span><span class="err">&#39;</span><span class="p">;</span>
+<span class="err">$</span><span class="n">db</span><span class="p">[</span><span class="err">&#39;</span><span class="k">default</span><span class="err">&#39;</span><span class="p">][</span><span class="err">&#39;</span><span class="n">dbdriver</span><span class="err">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">mssql</span><span class="err">&#39;</span><span class="p">;</span>
+</pre></div></li>
 <li><p>It is all done. Now get ready to connect database with modle as usual.</p></li>
 </ol>
 
-<h2><a name="3"></a>Setup for ODBC</h2>
+<h2><a name="4"></a>Setup for ODBC</h2>
 
 <ol>
 <li><p>odbcinst.ini</p>
 
 <p>Edit /etc/odbcinst.ini and your conf file should look like this.</p>
-
-<pre><code>[FreeTDS]
-Description     = MSSQL
-Driver      = /usr/lib/libtdsodbc.so.0
-Setup       = /usr/lib/libtdsS.so.2
-Driver64        = /usr/lib64/libtdsodbc.so.0
-Setup64     = /usr/lib64/libtdsS.so.2
-FileUsage       = 5
-UsageCount      = 3
-</code></pre></li>
-<li><p>test with "odbcinst -q -d"</p>
+<div class="highlight"><pre><span class="k">[FreeTDS]</span>
+<span class="na">Description</span>     <span class="o">=</span> <span class="s">MSSQL</span>
+<span class="na">Driver</span>      <span class="o">=</span> <span class="s">/usr/lib/libtdsodbc.so.0</span>
+<span class="na">Setup</span>       <span class="o">=</span> <span class="s">/usr/lib/libtdsS.so.2</span>
+<span class="na">Driver64</span>        <span class="o">=</span> <span class="s">/usr/lib64/libtdsodbc.so.0</span>
+<span class="na">Setup64</span>     <span class="o">=</span> <span class="s">/usr/lib64/libtdsS.so.2</span>
+<span class="na">FileUsage</span>       <span class="o">=</span> <span class="s">5</span>
+<span class="na">UsageCount</span>      <span class="o">=</span> <span class="s">3</span>
+</pre></div></li>
+<li><p>test with &quot;odbcinst -q -d&quot;</p>
 
 <p>The result will be like this</p>
-
-<pre><code>[PostgreSQL]
-[MySQL]
-[FreeTDS]
-</code></pre></li>
+<div class="highlight"><pre><span class="k">[PostgreSQL]</span>
+<span class="k">[MySQL]</span>
+<span class="k">[FreeTDS]</span>
+</pre></div></li>
 <li><p>odbc.ini</p>
 
 <p>Edit /etc/odbc.conf or ~/.odbc.ini</p>
-
-<pre><code>[MSSQL]
-Driver = FreeTDS
-Description = MSSQL
-Trace = No
-Server = dbhost
-Database = BioInfo
-TDS_Version = 8.0
-Port = 1433
-UID = UserID
-</code></pre></li>
-<li><p>test with "odbcinst -q -s"</p>
-
-<pre><code>[MSSQL]
-</code></pre></li>
+<div class="highlight"><pre><span class="k">[MSSQL]</span>
+<span class="na">Driver</span> <span class="o">=</span> <span class="s">FreeTDS</span>
+<span class="na">Description</span> <span class="o">=</span> <span class="s">MSSQL</span>
+<span class="na">Trace</span> <span class="o">=</span> <span class="s">No</span>
+<span class="na">Server</span> <span class="o">=</span> <span class="s">dbhost</span>
+<span class="na">Database</span> <span class="o">=</span> <span class="s">BioInfo</span>
+<span class="na">TDS_Version</span> <span class="o">=</span> <span class="s">8.0</span>
+<span class="na">Port</span> <span class="o">=</span> <span class="s">1433</span>
+<span class="na">UID</span> <span class="o">=</span> <span class="s">UserID</span>
+</pre></div></li>
+<li><p>test with &quot;odbcinst -q -s&quot;</p>
+<div class="highlight"><pre><span class="k">[MSSQL]</span>
+</pre></div></li>
 <li><p>test with osql</p>
 
-<p>Exexute the following statement: "osql -S MSSQL -U BIT -P BITBIT". This program will test your setting and tell you the result. If your configuration is success, this program will end up with isql execution result.</p>
+<p>Exexute the following statement: &quot;osql -S MSSQL -U BIT -P BITBIT&quot;. This program will test your setting and tell you the result. If your configuration is success, this program will end up with isql execution result.</p>
+<div class="highlight"><pre><span class="n">Configuration</span> <span class="n">looks</span> <span class="n">OK</span><span class="p">.</span>  <span class="n">Connection</span> <span class="n">details</span><span class="o">:</span>
 
-<pre><code>Configuration looks OK.  Connection details:
+                   <span class="nl">DSN:</span> <span class="n">MSSQL</span>
+              <span class="n">odbc</span><span class="p">.</span><span class="n">ini</span><span class="o">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="p">.</span><span class="n">odbc</span><span class="p">.</span><span class="n">ini</span>
+                <span class="nl">Driver:</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libtdsodbc</span><span class="p">.</span><span class="n">so</span><span class="mf">.0</span>
+       <span class="n">Server</span> <span class="n">hostname</span><span class="o">:</span> <span class="n">dbhostw</span>
+               <span class="nl">Address:</span> <span class="mf">1.1.1.1</span>
 
-
-<pre><code>               DSN: MSSQL
-          odbc.ini: /home/user/.odbc.ini
-            Driver: /usr/lib/libtdsodbc.so.0
-   Server hostname: dbhostw
-           Address: 1.1.1.1
-</code></pre>
-
-Attempting connection as UserID ...
-+ isql MSSQL UserID Passwd -v
-+---------------------------------------+
-| Connected!                            |
-|                                       |
-| sql-statement                         |
-| help [tablename]                      |
-| quit                                  |
-|                                       |
-+---------------------------------------+
-SQL&gt; 
-</code></pre></li>
+<span class="n">Attempting</span> <span class="n">connection</span> <span class="n">as</span> <span class="n">UserID</span> <span class="p">...</span>
+<span class="o">+</span> <span class="n">isql</span> <span class="n">MSSQL</span> <span class="n">UserID</span> <span class="n">Passwd</span> <span class="o">-</span><span class="n">v</span>
+<span class="o">+---------------------------------------+</span>
+<span class="o">|</span> <span class="n">Connected</span><span class="o">!</span>                            <span class="o">|</span>
+<span class="o">|</span>                                       <span class="o">|</span>
+<span class="o">|</span> <span class="n">sql</span><span class="o">-</span><span class="n">statement</span>                         <span class="o">|</span>
+<span class="o">|</span> <span class="n">help</span> <span class="p">[</span><span class="n">tablename</span><span class="p">]</span>                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">quit</span>                                  <span class="o">|</span>
+<span class="o">|</span>                                       <span class="o">|</span>
+<span class="o">+---------------------------------------+</span>
+<span class="n">SQL</span><span class="o">&gt;</span> 
+</pre></div></li>
 <li><p>test with perl</p>
+<div class="highlight"><pre><span class="c1">#!/usr/bin/perl</span>
+<span class="k">use</span> <span class="n">DBI</span><span class="p">;</span>
 
-<pre><code>#!/usr/bin/perl
-use DBI;
+<span class="nv">$dsn</span> <span class="o">=</span> <span class="s">&quot;DBI:ODBC:MSSQL&quot;</span><span class="p">;</span>
+<span class="nv">$dbh</span> <span class="o">=</span> <span class="n">DBI</span><span class="o">-&gt;</span><span class="nb">connect</span><span class="p">(</span><span class="nv">$dsn</span><span class="p">,</span> <span class="s">&#39;UserID&#39;</span><span class="p">,</span> <span class="s">&#39;Password&#39;</span><span class="p">);</span>
 
-
-$dsn = "DBI:ODBC:MSSQL";
-$dbh = DBI-&gt;connect($dsn, 'UserID', 'Password');
-
-
-$sth = $dbh-&gt;prepare("SQL");
-</code></pre></li>
+<span class="nv">$sth</span> <span class="o">=</span> <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s">&quot;SQL&quot;</span><span class="p">);</span>
+</pre></div></li>
 </ol>
 
-<h2><a name="4"></a>Reference</h2>
+<h2><a name="5"></a>Reference</h2>
 
 <ul>
 <li><a href="http://gheeknet.wordpress.com/2011/10/13/perl-to-microsoft-sql-server-2008-standard-via-odbc-using-freetds-drivers/">Gheek.net</a></li>
-<li><a href="http://freetds.schemamania.org/userguide/odbcdiagnose.htm">FreeTDS User Guide</a>  </li>
+<li><a href="http://freetds.schemamania.org/userguide/odbcdiagnose.htm">FreeTDS User Guide</a><br></li>
 </ul>
 
                         </div>
@@ -219,7 +220,7 @@ $sth = $dbh-&gt;prepare("SQL");
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						<div class="s1"><a href="#1">Using MSSQL with PHP and Codeigniter</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#2">Setup for FreeTDS and PHP</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#3">Setup for ODBC</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#4">Reference</a></div>
+						<div class="s2"><i class='icon-chevron-right'></i><a href="#1">    - FreeTDS</a></div><div class="s1"><a href="#2">Using MSSQL with PHP and Codeigniter</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#3">Setup for FreeTDS and PHP</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#4">Setup for ODBC</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#5">Reference</a></div>
 					</div>
 				</div>
             </div>

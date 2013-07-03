@@ -32,8 +32,11 @@ PubMed之Reference數目
 
 4. 執行
 
-        % grun.exe input.txt
+	``` bash
+	% grun.exe input.txt
+	```
 5. 編譯
 
-        % gmcs pubmed_tot_tool.cs ../utility/proxy.cs ../bio/PubMed.cs -out:gcount.exe -r:System.dll -r:System.Data.dll
-
+	``` bash
+	% gmcs pubmed_tot_tool.cs ../utility/proxy.cs ../bio/PubMed.cs -out:gcount.exe -r:System.dll -r:System.Data.dll
+	```
