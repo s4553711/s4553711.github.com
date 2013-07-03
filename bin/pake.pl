@@ -71,32 +71,24 @@ sub Generate {
 		my $yaml = '';
 
         while(<FH>){
-
             chomp;
             my $line = $_;
 
             if ($line =~ /^---/){
 
                 if ($comment_count == 0){
-
                     $comment_count += 1;
-
                 } elsif ($comment_count ==1){
 
                     # Get article setting
                     $yaml = YAML::Tiny->read_string($tmp_line);
-
                     $comment_count += 1;
-                
                     $tmp_line = '';
 
                     next;
-
                 }
             }
-
             $tmp_line .= "$line\n";
-            
         }
 
         # Initate Mojo::Template
@@ -118,7 +110,7 @@ sub Generate {
 				mkdir("../post/$folder") || "Pake> Error while create folder: post/$folder\n";
 			}
 
-			my ($final_str2,$fix_text) = find_menu(markdown($tmp_line));
+			my ($final_str2,$fix_text) = find_menu("$ENV{PAKE_BASE}/draft/$file");
 
         	open(OT2,">../post/$folder/$html_file.html")||die "Error Open $html_file.html\n";
 			push(@article_list,
@@ -132,12 +124,10 @@ sub Generate {
 			);
 
         	my $argv = {
-				title=>$yaml->[0]{title},
-				#content=>markdown($tmp_line),
-				content=>$fix_text,
-				date=>$yaml->[0]{date},
-				#menu=>find_menu(markdown($tmp_line))
-				menu=>$final_str2
+				title => $yaml->[0]{title},
+				content => $fix_text,
+				date => $yaml->[0]{date},
+				menu => $final_str2
 			};
 
 			# Prepare for the category
@@ -150,11 +140,8 @@ sub Generate {
         	print OT2 "$result";
 
 		} else {
-
 			print "Pake> Error: no folder name of the article\n";
-
 			return;
-
 		}
 
         close OT2;
@@ -193,10 +180,13 @@ sub Generate {
 }
 
 sub find_menu {
-	my ($text) = shift;
+	my ($file) = shift;
 
 	our $final_str ="";
 	our $anchor = 0;
+
+	my @tmp_text = `$ENV{PAKE_BASE}/bin/markdown.rb --parse-fenced_code_blocks $file`;
+	my $text = join('',@tmp_text);
 
 	sub replace_call_back {
 		my ($type,$inline_text) = @_;
@@ -221,21 +211,14 @@ sub find_menu {
 }
 
 my %opts = ();
-
 getopt(':pg', \%opts);
 
 if (exists $opts{p}){
-
     post($opts{p});
-
 } elsif (exists $opts{g}){
-    
     Generate();
-
 } elsif (exists $opts{d}){
-
 	deploy();
-
 } else {
 
     print "Usage> pake.pl -p \"Title\"  .. create post\n";
