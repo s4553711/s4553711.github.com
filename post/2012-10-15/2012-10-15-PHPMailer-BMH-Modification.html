@@ -112,22 +112,22 @@ categories:</p>
 
 <ol>
 <li><p>Download and include it in your custom library</p>
-<div class="highlight"><pre><span class="n">require_once</span><span class="p">(</span><span class="err">&#39;</span><span class="n">PHPMailer</span><span class="o">-</span><span class="n">BMH</span><span class="o">/</span><span class="n">class</span><span class="p">.</span><span class="n">phpmailer</span><span class="o">-</span><span class="n">bmh</span><span class="p">.</span><span class="n">php</span><span class="err">&#39;</span><span class="p">);</span>
-<span class="n">require_once</span><span class="p">(</span><span class="err">&#39;</span><span class="n">PHPMailer</span><span class="o">-</span><span class="n">BMH</span><span class="o">/</span><span class="n">callback</span> <span class="n">samples</span><span class="o">/</span><span class="n">callback_echo</span><span class="p">.</span><span class="n">php</span><span class="err">&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span class="x">require_once(&#39;PHPMailer-BMH/class.phpmailer-bmh.php&#39;);</span>
+<span class="x">require_once(&#39;PHPMailer-BMH/callback samples/callback_echo.php&#39;);</span>
 </pre></div></li>
 <li><p>Initialization and setup the server info</p>
-<div class="highlight"><pre><span class="err">$</span><span class="n">bmh</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BounceMailHandler</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="err">$</span><span class="n">bmh</span><span class="o">-&gt;</span><span class="n">mailhost</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">mailserver</span><span class="p">.</span><span class="n">com</span><span class="err">&#39;</span><span class="p">;</span>
-<span class="err">$</span><span class="n">bmh</span><span class="o">-&gt;</span><span class="n">mailbox_username</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">account_name</span><span class="err">&#39;</span><span class="p">;</span>
-<span class="err">$</span><span class="n">bmh</span><span class="o">-&gt;</span><span class="n">mailbox_password</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">passwd</span><span class="err">&#39;</span><span class="p">;</span>
-<span class="err">$</span><span class="n">bmh</span><span class="o">-&gt;</span><span class="n">port</span> <span class="o">=</span> <span class="mi">993</span><span class="p">;</span>
-<span class="err">$</span><span class="n">bmh</span><span class="o">-&gt;</span><span class="n">service</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">imap</span><span class="o">/</span><span class="n">ssl</span><span class="err">&#39;</span><span class="p">;</span>
-<span class="err">$</span><span class="n">bmh</span><span class="o">-&gt;</span><span class="n">service_option</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">novalidate</span><span class="o">-</span><span class="n">cert</span><span class="err">&#39;</span><span class="p">;</span>
-<span class="err">$</span><span class="n">bmh</span><span class="o">-&gt;</span><span class="n">testmode</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="c1">// if you are debugging, open it</span>
+<div class="highlight"><pre><span class="x">$bmh = new BounceMailHandler(1);</span>
+<span class="x">$bmh-&gt;mailhost = &#39;mailserver.com&#39;;</span>
+<span class="x">$bmh-&gt;mailbox_username = &#39;account_name&#39;;</span>
+<span class="x">$bmh-&gt;mailbox_password = &#39;passwd&#39;;</span>
+<span class="x">$bmh-&gt;port = 993;</span>
+<span class="x">$bmh-&gt;service = &#39;imap/ssl&#39;;</span>
+<span class="x">$bmh-&gt;service_option = &#39;novalidate-cert&#39;;</span>
+<span class="x">$bmh-&gt;testmode = true; // if you are debugging, open it</span>
 </pre></div></li>
 <li><p>Call the function</p>
-<div class="highlight"><pre><span class="err">$</span><span class="n">bmh</span><span class="o">-&gt;</span><span class="n">openMailbox</span><span class="p">();</span>
-<span class="err">$</span><span class="n">bmh</span><span class="o">-&gt;</span><span class="n">processMailbox</span><span class="p">();</span>
+<div class="highlight"><pre><span class="x">$bmh-&gt;openMailbox();</span>
+<span class="x">$bmh-&gt;processMailbox();</span>
 </pre></div></li>
 <li><p>Add Custom Rule
 Open phpmailer-bmh_rules.php in the PHPMailer-BMH folder and add the rule you want.</p></li>
@@ -136,11 +136,15 @@ Open phpmailer-bmh_rules.php in the PHPMailer-BMH folder and add the rule you wa
 <h3><a name="5"></a>Fix</h3>
 
 <p>While using PHPMailer-BMH as a filter to process campaign feedback, I have to move some mail to specificed mailbox. So I have to active the moveHard and ste the target mailbox name.</p>
-<div class="highlight"><pre><span class="err">$</span><span class="n">bmh</span><span class="o">-&gt;</span><span class="n">moveHard</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<div class="highlight"><pre><span class="err">```</span> <span class="n">php</span>
+<span class="err">$</span><span class="n">bmh</span><span class="o">-&gt;</span><span class="n">moveHard</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 <span class="err">$</span><span class="n">bmh</span><span class="o">-&gt;</span><span class="n">hardMailbox</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">INBOX</span><span class="p">.</span><span class="n">ihard</span><span class="err">&#39;</span><span class="p">;</span>
+<span class="err">```</span>
 </pre></div>
 <p>But I find there is problem while moving email to ihard mailbox. Althought PHPMailer-BMH require the mailbox name started with INBOX, after fixing mailbox name from &#39;INBOX.ihard&#39; to &#39;ihard&#39; the problem is fixed</p>
-<div class="highlight"><pre><span class="err">@</span><span class="n">imap_mail_move</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">_mailbox_link</span><span class="p">,</span> <span class="err">$</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;ihard&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span class="err">```</span> <span class="n">php</span>
+<span class="err">@</span><span class="n">imap_mail_move</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">_mailbox_link</span><span class="p">,</span> <span class="err">$</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;ihard&quot;</span><span class="p">);</span>
+<span class="err">```</span>
 </pre></div>
                         </div>
                     </div>

@@ -113,12 +113,12 @@ to pass the connecton from http://domain.name/plack to PSGI service at http://do
 
 <ul>
 <li><p>edit /etc/nginx/conf.d/default.conf and add the following statement</p>
-<div class="highlight"><pre><span class="n">location</span> <span class="o">/</span><span class="n">plack</span> <span class="p">{</span>
-    <span class="n">proxy_pass</span> <span class="n">http</span><span class="o">:</span><span class="c1">//127.0.0.1:5000/;</span>
-<span class="p">}</span>
+<div class="highlight"><pre>location /plack <span class="o">{</span>
+    proxy_pass http://127.0.0.1:5000/;
+<span class="o">}</span>
 </pre></div></li>
 <li><p>restart nginx</p>
-<div class="highlight"><pre><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rc</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">init</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">nginx</span> <span class="n">restart</span>
+<div class="highlight"><pre>/etc/rc.d/init.d/nginx restart
 </pre></div></li>
 </ul>
 
@@ -126,7 +126,7 @@ to pass the connecton from http://domain.name/plack to PSGI service at http://do
 
 <ul>
 <li><p>Install Plack with cpanm</p>
-<div class="highlight"><pre><span class="n">cpanm</span> <span class="n">Task</span><span class="o">::</span><span class="n">Plack</span>
+<div class="highlight"><pre>cpanm Task::Plack
 </pre></div></li>
 <li><p>Create plack.psgi</p></li>
 </ul>
@@ -135,7 +135,7 @@ to pass the connecton from http://domain.name/plack to PSGI service at http://do
 
 <ul>
 <li><p>Running the program</p>
-<div class="highlight"><pre><span class="n">plackup</span> <span class="n">plack</span><span class="p">.</span><span class="n">psgi</span>
+<div class="highlight"><pre>plackup plack.psgi
 </pre></div></li>
 <li><p>Data Source  </p>
 
@@ -150,17 +150,21 @@ to pass the connecton from http://domain.name/plack to PSGI service at http://do
 <p>The following content comes from <a href="http://mojolicio.us/perldoc/Mojolicious/Lite">mojolicious::lite doc</a>.</p>
 
 <h2><a name="6"></a>Install mojolicious</h2>
-<div class="highlight"><pre>    <span class="n">curl</span> <span class="n">get</span><span class="p">.</span><span class="n">mojolicio</span><span class="p">.</span><span class="n">us</span> <span class="o">|</span> <span class="n">sh</span>
+<div class="highlight"><pre><span class="err">```</span> <span class="n">bash</span>
+    <span class="n">curl</span> <span class="n">get</span><span class="p">.</span><span class="n">mojolicio</span><span class="p">.</span><span class="n">us</span> <span class="o">|</span> <span class="n">sh</span>
+<span class="err">```</span>
 </pre></div>
 <h2><a name="7"></a>A simple Code</h2>
-<div class="highlight"><pre>    <span class="c1">#!/usr/bin/perl</span>
-    <span class="k">use</span> <span class="nn">Mojolicious::</span><span class="n">Lite</span><span class="p">;</span>
+<div class="highlight"><pre><span class="sb">``` perl</span>
+<span class="sb">    #!/usr/bin/perl</span>
+<span class="sb">    use Mojolicious::Lite;</span>
 
-    <span class="n">get</span> <span class="s">&#39;/:foo&#39;</span> <span class="o">=&gt;</span> <span class="k">sub </span><span class="p">{</span>
-        <span class="k">my</span> <span class="nv">$self</span> <span class="o">=</span> <span class="nb">shift</span><span class="p">;</span>
-        <span class="k">my</span> <span class="nv">$foo</span> <span class="o">=</span> <span class="nv">$self</span><span class="o">-&gt;</span><span class="n">param</span><span class="p">(</span><span class="s">&#39;foo&#39;</span><span class="p">);</span>
-        <span class="nv">$self</span><span class="o">-&gt;</span><span class="n">render</span><span class="p">(</span><span class="n">text</span><span class="o">=&gt;</span><span class="s">&quot;This is $foo&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
+<span class="sb">    get &#39;/:foo&#39; =&gt; sub {</span>
+<span class="sb">        my $self = shift;</span>
+<span class="sb">        my $foo = $self-&gt;param(&#39;foo&#39;);</span>
+<span class="sb">        $self-&gt;render(text=&gt;&quot;This is $foo&quot;);</span>
+<span class="sb">    }</span>
+<span class="sb">```</span>
 </pre></div>
 <h2><a name="8"></a>Execute  </h2>
 <div class="highlight"><pre><span class="o">-</span> <span class="n">morbo</span> <span class="n">app</span><span class="p">.</span><span class="n">pl</span>
@@ -173,21 +177,21 @@ to pass the connecton from http://domain.name/plack to PSGI service at http://do
 <ul>
 <li><p>GET/POST:<br>
 You can use $self-&gt;param(&#39;user&#39;) to get the GET/POST parameter. There are also <a href="http://mojolicio.us/perldoc/Mojolicious/Controller#param">other ways</a> to get it too  </p>
-<div class="highlight"><pre><span class="cp"># Get</span>
-<span class="n">get</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">data</span><span class="err">&#39;</span> <span class="o">=&gt;</span> <span class="n">sub</span> <span class="p">{</span>
-    <span class="n">my</span> <span class="err">@</span><span class="n">values</span> <span class="o">=</span> <span class="err">$</span><span class="n">self</span><span class="o">-&gt;</span><span class="n">param</span><span class="p">;</span>  
-    <span class="n">my</span> <span class="p">(</span><span class="err">$</span><span class="n">foo</span><span class="p">,</span> <span class="err">$</span><span class="n">bar</span><span class="p">)</span> <span class="o">=</span> <span class="err">$</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">param</span><span class="p">([</span><span class="err">&#39;</span><span class="n">foo</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">bar</span><span class="err">&#39;</span><span class="p">]);</span>
-<span class="p">}</span>
-<span class="cp"># Post</span>
-<span class="n">post</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">post</span><span class="err">&#39;</span> <span class="o">=&gt;</span> <span class="n">sub</span> <span class="p">{</span>
-    <span class="p">..</span>
-<span class="p">}</span>
+<div class="highlight"><pre>    <span class="c1"># Get</span>
+    <span class="n">get</span> <span class="s">&#39;/data&#39;</span> <span class="o">=&gt;</span> <span class="k">sub </span><span class="p">{</span>
+        <span class="k">my</span> <span class="nv">@values</span> <span class="o">=</span> <span class="nv">$self</span><span class="o">-&gt;</span><span class="n">param</span><span class="p">;</span>  
+        <span class="k">my</span> <span class="p">(</span><span class="nv">$foo</span><span class="p">,</span> <span class="nv">$bar</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="n">param</span><span class="p">([</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="s">&#39;bar&#39;</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="c1"># Post</span>
+    <span class="n">post</span> <span class="s">&#39;/post&#39;</span> <span class="o">=&gt;</span> <span class="k">sub </span><span class="p">{</span>
+        <span class="o">..</span>
+    <span class="p">}</span>
 </pre></div></li>
 <li><p>Stash:
 Set the variables and use it in the template. First I set the variables one and associated the template file.</p>
-<div class="highlight"><pre><span class="err">$</span><span class="n">data</span> <span class="o">=</span> <span class="err">$</span><span class="n">self</span><span class="o">-&gt;</span><span class="n">param</span><span class="p">(</span><span class="err">&#39;</span><span class="n">data</span><span class="err">&#39;</span><span class="p">);</span>
-<span class="err">$</span><span class="n">self</span><span class="o">-&gt;</span><span class="n">stash</span><span class="p">(</span><span class="n">one</span><span class="o">=&gt;</span><span class="err">$</span><span class="n">data</span><span class="p">);</span>
-<span class="err">$</span><span class="n">self</span><span class="o">-&gt;</span><span class="n">render</span><span class="p">(</span><span class="n">template</span><span class="o">=&gt;</span><span class="err">&#39;</span><span class="n">tem</span><span class="err">&#39;</span><span class="p">,</span><span class="n">format</span><span class="o">=&gt;</span><span class="err">&#39;</span><span class="n">html</span><span class="err">&#39;</span><span class="p">);</span>
+<div class="highlight"><pre>    <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$self</span><span class="o">-&gt;</span><span class="n">param</span><span class="p">(</span><span class="s">&#39;data&#39;</span><span class="p">);</span>
+    <span class="nv">$self</span><span class="o">-&gt;</span><span class="n">stash</span><span class="p">(</span><span class="n">one</span><span class="o">=&gt;</span><span class="nv">$data</span><span class="p">);</span>
+    <span class="nv">$self</span><span class="o">-&gt;</span><span class="n">render</span><span class="p">(</span><span class="n">template</span><span class="o">=&gt;</span><span class="s">&#39;tem&#39;</span><span class="p">,</span><span class="nb">format</span><span class="o">=&gt;</span><span class="s">&#39;html&#39;</span><span class="p">);</span>
 </pre></div>
 <p>For more info about function render, you can find it in <a href="http://search.cpan.org/%7Esri/Mojolicious-3.44/lib/Mojolicious/Guides/Rendering.pod">this page</a>. Also if you want to know the detail of its syntax in the template file, please visit <a href="http://mojolicio.us/perldoc/Mojolicious/Guides/Rendering#Embedded_Perl">this page</a>.</p>
 
@@ -196,38 +200,38 @@ Set the variables and use it in the template. First I set the variables one and 
 </pre></div></li>
 <li><p>HTTP Header<br>
 Set the header  </p>
-<div class="highlight"><pre><span class="err">$</span><span class="n">self</span><span class="o">-&gt;</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">headers</span><span class="o">-&gt;</span><span class="n">header</span><span class="p">(</span><span class="err">&#39;</span><span class="n">X</span><span class="o">-</span><span class="n">Header</span><span class="err">&#39;</span> <span class="o">=&gt;</span> <span class="err">&#39;</span><span class="n">X</span><span class="o">-</span><span class="n">Header</span><span class="err">&#39;</span><span class="p">);</span>
+<div class="highlight"><pre>    <span class="nv">$self</span><span class="o">-&gt;</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">headers</span><span class="o">-&gt;</span><span class="n">header</span><span class="p">(</span><span class="s">&#39;X-Header&#39;</span> <span class="o">=&gt;</span> <span class="s">&#39;X-Header&#39;</span><span class="p">);</span>
 </pre></div>
 <p>Get the header info  </p>
-<div class="highlight"><pre><span class="err">$</span><span class="n">self</span><span class="o">-&gt;</span><span class="n">req</span><span class="o">-&gt;</span><span class="n">headers</span><span class="o">-&gt;</span><span class="n">user_agent</span><span class="p">;</span>
+<div class="highlight"><pre>    <span class="nv">$self</span><span class="o">-&gt;</span><span class="n">req</span><span class="o">-&gt;</span><span class="n">headers</span><span class="o">-&gt;</span><span class="n">user_agent</span><span class="p">;</span>
 </pre></div></li>
 <li><p>Layouts<br>
 Mojo provide the layouts that you can organize your template. Here is a example of tem.html.ep.</p>
-<div class="highlight"><pre><span class="c">% title &#39;This is a Title&#39;;</span>
-<span class="c">% layout &#39;header&#39;;</span>
-<span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;&lt;</span><span class="c">%= $format %&gt;&lt;/h1&gt;</span>
-<span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;&lt;</span><span class="c">%= $one %&gt;&lt;/h1&gt;</span>
-<span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="n">User</span> <span class="n">Agent</span><span class="p">:</span> <span class="o">&lt;</span><span class="c">%= $user_agent %&gt;&lt;/li&gt;</span>
-<span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+<div class="highlight"><pre>    % title &#39;This is a Title&#39;;
+    % layout &#39;header&#39;;
+    <span class="nt">&lt;h1&gt;</span><span class="err">&lt;</span>%= $format %&gt;<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;h1&gt;</span><span class="err">&lt;</span>%= $one %&gt;<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>User Agent: <span class="err">&lt;</span>%= $user_agent %&gt;<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
 </pre></div>
 <p>This template file use a layout named &quot;header.html.ep&quot; which defined in the foleder &quot;layouts/header.html.ep&quot;. And your header.html.ep may look like this.</p>
-<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="nt">&lt;html&gt;</span>
-<span class="nt">&lt;head&gt;</span>
-    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html; charset=utf-8&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;title&gt;</span><span class="cp">&lt;%=</span> <span class="n">title</span> <span class="cp">%&gt;</span><span class="nt">&lt;/title&gt;</span>
-<span class="nt">&lt;/head&gt;</span>
-<span class="nt">&lt;body&gt;</span><span class="cp">&lt;%=</span> <span class="n">content</span> <span class="cp">%&gt;</span><span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
+<div class="highlight"><pre>    <span class="cp">&lt;!DOCTYPE html&gt;</span>
+    <span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html; charset=utf-8&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span><span class="err">&lt;</span>%= title %&gt;<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span><span class="err">&lt;</span>%= content %&gt;<span class="nt">&lt;/body&gt;</span>
+    <span class="nt">&lt;/html&gt;</span>
 </pre></div>
 <p>So that the &quot;&lt;%= content %&gt;&quot; will be replaced with the content of tem.html.ep. There is more detail <a href="http://mojolicio.us/perldoc/Mojolicious/Guides/Rendering#Layouts">Here</a></p></li>
 <li><p>Logging<br>
 A glimpse of log. First you have to create a log folder and put this line in your program.</p>
-<div class="highlight"><pre><span class="n">app</span><span class="o">-&gt;</span><span class="n">log</span><span class="o">-&gt;</span><span class="n">level</span><span class="p">(</span><span class="err">&#39;</span><span class="n">debug</span><span class="err">&#39;</span><span class="p">);</span>
+<div class="highlight"><pre>    <span class="n">app</span><span class="o">-&gt;</span><span class="nb">log</span><span class="o">-&gt;</span><span class="n">level</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">);</span>
 </pre></div>
 <p>Also you can call it by yourself.</p>
-<div class="highlight"><pre><span class="err">$</span><span class="n">self</span><span class="o">-&gt;</span><span class="n">app</span><span class="o">-&gt;</span><span class="n">log</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">(</span><span class="err">&#39;</span><span class="n">tem</span> <span class="n">example</span> <span class="n">is</span> <span class="n">called</span><span class="err">&#39;</span><span class="p">);</span>
+<div class="highlight"><pre>    <span class="nv">$self</span><span class="o">-&gt;</span><span class="n">app</span><span class="o">-&gt;</span><span class="nb">log</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;tem example is called&#39;</span><span class="p">);</span>
 </pre></div>
 <p><a href="http://mojolicio.us/perldoc/Mojo/Log">More detail at Mojo::Log</a></p></li>
 </ul>
@@ -237,10 +241,13 @@ A glimpse of log. First you have to create a log folder and put this line in you
 <h2><a name="11"></a>Run it</h2>
 
 <p>I find the mojo app can run without changing any code. you can do this..</p>
-<div class="highlight"><pre>    <span class="n">plackup</span> <span class="n">app</span><span class="p">.</span><span class="n">pl</span>
+<div class="highlight"><pre><span class="err">```</span> <span class="n">perl</span>
+    <span class="n">plackup</span> <span class="n">app</span><span class="p">.</span><span class="n">pl</span>
+<span class="err">```</span>
 </pre></div>
 <p>Also you can use plack as middleware and wrap your program like this.</p>
-<div class="highlight"><pre>    <span class="n">use</span> <span class="n">Plack</span><span class="o">::</span><span class="n">Builder</span><span class="p">;</span>
+<div class="highlight"><pre><span class="err">```</span> <span class="n">perl</span>
+    <span class="n">use</span> <span class="n">Plack</span><span class="o">::</span><span class="n">Builder</span><span class="p">;</span>
     <span class="n">get</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">welcome</span><span class="err">&#39;</span> <span class="o">=&gt;</span> <span class="n">sub</span> <span class="p">{</span>
         <span class="p">..</span>
     <span class="p">}</span>
@@ -248,6 +255,7 @@ A glimpse of log. First you have to create a log folder and put this line in you
         <span class="n">enable</span> <span class="err">&#39;</span><span class="n">Deflater</span><span class="err">&#39;</span><span class="p">;</span>
         <span class="n">app</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">;</span>
     <span class="p">}</span>
+<span class="err">```</span>
 </pre></div>
 <p><a href="http://mojolicio.us/perldoc/Mojolicious/Guides/Cookbook#PSGIPlack">Here is more detail</a></p>
 
