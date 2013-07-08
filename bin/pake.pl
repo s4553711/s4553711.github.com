@@ -110,7 +110,7 @@ sub Generate {
 				mkdir("../post/$folder") || "Pake> Error while create folder: post/$folder\n";
 			}
 
-			my ($final_str2,$fix_text) = find_menu("$ENV{PAKE_BASE}/draft/$file");
+			my ($final_str2,$fix_text) = find_menu($tmp_line);
 
         	open(OT2,">../post/$folder/$html_file.html")||die "Error Open $html_file.html\n";
 			push(@article_list,
@@ -180,12 +180,17 @@ sub Generate {
 }
 
 sub find_menu {
-	my ($file) = shift;
+	my ($line) = shift;
 
 	our $final_str ="";
 	our $anchor = 0;
 
-	my @tmp_text = `$ENV{PAKE_BASE}/bin/markdown.rb --parse-fenced_code_blocks $file`;
+	# Create a tmp file for redcarpet and transformed into html
+	open my $tmp_ot,">",$ENV{PAKE_BASE}.'/bin/tmp_file.md';
+	print $tmp_ot $line;
+	close $tmp_ot;
+
+	my @tmp_text = `$ENV{PAKE_BASE}/bin/markdown.rb --parse-fenced_code_blocks $ENV{PAKE_BASE}/bin/tmp_file.md`;
 	my $text = join('',@tmp_text);
 
 	sub replace_call_back {
@@ -206,6 +211,7 @@ sub find_menu {
 	}
 
 	$text =~ s/<h(\d+)>(.*?)<\/h\d+>/&replace_call_back($1,$2)/eg;
+	unlink($ENV{PAKE_BASE}.'/bin/tmp_file.md');
 
 	return ($final_str,$text);
 }
