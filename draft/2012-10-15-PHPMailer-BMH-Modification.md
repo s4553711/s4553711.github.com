@@ -43,14 +43,14 @@ Bounced Mail Process
 ### Fix
 While using PHPMailer-BMH as a filter to process campaign feedback, I have to move some mail to specificed mailbox. So I have to active the moveHard and ste the target mailbox name.
 
-	``` php
-	$bmh->moveHard = true;
-	$bmh->hardMailbox = 'INBOX.ihard';
-	```
+``` php
+$bmh->moveHard = true;
+$bmh->hardMailbox = 'INBOX.ihard';
+```
 
 But I find there is problem while moving email to ihard mailbox. Althought PHPMailer-BMH require the mailbox name started with INBOX, after fixing mailbox name from 'INBOX.ihard' to 'ihard' the problem is fixed
 
-	``` php
-	@imap_mail_move($this->_mailbox_link, $x, "ihard");
-	```
+``` php
+@imap_mail_move($this->_mailbox_link, $x, "ihard");
+```
 

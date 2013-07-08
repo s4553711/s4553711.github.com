@@ -16,11 +16,13 @@ Setup for FreeTDS and PHP
 
 	Edit /etc/freetds.conf
 
-		[MSSQL]
-		host = dbhost
-		port = 1433
-		client charset = UTF-8
-		tds version = 8.0
+	``` bash
+	[MSSQL]
+	host = dbhost
+	port = 1433
+	client charset = UTF-8
+	tds version = 8.0
+	```
 
 2. Test with tsql
 
@@ -30,11 +32,13 @@ Setup for FreeTDS and PHP
 
 	Edit config/database.php
 
-		$db['default']['hostname'] = 'MSSQL';
-		$db['default']['username'] = 'USER';
-		$db['default']['password'] = 'PASSWD';
-		$db['default']['database'] = 'DataBaseName';
-		$db['default']['dbdriver'] = 'mssql';
+	``` php
+	$db['default']['hostname'] = 'MSSQL';
+	$db['default']['username'] = 'USER';
+	$db['default']['password'] = 'PASSWD';
+	$db['default']['database'] = 'DataBaseName';
+	$db['default']['dbdriver'] = 'mssql';
+	```
 
 3. It is all done. Now get ready to connect database with modle as usual.
 
@@ -44,37 +48,42 @@ Setup for ODBC
 
 	Edit /etc/odbcinst.ini and your conf file should look like this.
 
-		[FreeTDS]
-		Description     = MSSQL
-		Driver      = /usr/lib/libtdsodbc.so.0
-		Setup       = /usr/lib/libtdsS.so.2
-		Driver64        = /usr/lib64/libtdsodbc.so.0
-		Setup64     = /usr/lib64/libtdsS.so.2
-		FileUsage       = 5
-		UsageCount      = 3
+	``` bash
+	[FreeTDS]
+	Description     = MSSQL
+	Driver      = /usr/lib/libtdsodbc.so.0
+	Setup       = /usr/lib/libtdsS.so.2
+	Driver64        = /usr/lib64/libtdsodbc.so.0
+	Setup64     = /usr/lib64/libtdsS.so.2
+	FileUsage       = 5
+	UsageCount      = 3
+	```
 
 2. test with "odbcinst -q -d"
 
 	The result will be like this
 
-		[PostgreSQL]
-		[MySQL]
-		[FreeTDS]
-
+	``` bash
+	[PostgreSQL]
+	[MySQL]
+	[FreeTDS]
+	```
 
 3. odbc.ini
 
 	Edit /etc/odbc.conf or ~/.odbc.ini
 
-		[MSSQL]
-		Driver = FreeTDS
-		Description = MSSQL
-		Trace = No
-		Server = dbhost
-		Database = BioInfo
-		TDS_Version = 8.0
-		Port = 1433
-		UID = UserID
+	``` bash
+	[MSSQL]
+	Driver = FreeTDS
+	Description = MSSQL
+	Trace = No
+	Server = dbhost
+	Database = BioInfo
+	TDS_Version = 8.0
+	Port = 1433
+	UID = UserID
+	```
 
 4. test with "odbcinst -q -s"
 

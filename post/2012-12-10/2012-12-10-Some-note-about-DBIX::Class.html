@@ -95,19 +95,9 @@
 							</div>
                         </div>
                         <div class="article-body">
-							<hr>
+							<h1><a name="1"></a>Basic</h1>
 
-<p>layout: post
-title: Some note about DBIX::Class
-date: 2012-12-10 10:25:05
-categories:
-    -   perl</p>
-
-<h2><a name="1"></a>    -   DBIx::Class</h2>
-
-<h1><a name="2"></a>Basic</h1>
-
-<h2><a name="3"></a>Connection</h2>
+<h2><a name="2"></a>Connection</h2>
 
 <p>It is a example of using SQL server. The first argument can be changed to another DSN you want.  </p>
 <div class="highlight"><pre><span class="k">my</span> <span class="nv">$schema</span> <span class="o">=</span> <span class="nn">Tool::DB::ORM::GeneTex::</span><span class="n">Bio</span><span class="o">-&gt;</span><span class="nb">connect</span><span class="p">(</span>
@@ -118,7 +108,7 @@ categories:
     <span class="p">}</span>
 <span class="p">);</span>
 </pre></div>
-<h2><a name="4"></a>Select</h2>
+<h2><a name="3"></a>Select</h2>
 
 <ul>
 <li><p>By search  </p>
@@ -138,7 +128,7 @@ categories:
 </pre></div></li>
 </ul>
 
-<h2><a name="5"></a>Update</h2>
+<h2><a name="4"></a>Update</h2>
 
 <p>We can set the data with another value and update to database by this way.  </p>
 <div class="highlight"><pre><span class="nv">$entity</span><span class="o">-&gt;</span><span class="n">set_column</span><span class="p">(</span><span class="s">&#39;column1&#39;</span><span class="p">,</span><span class="s">&#39;abc2&#39;</span><span class="p">);</span>
@@ -146,7 +136,7 @@ categories:
     <span class="nv">$entity</span><span class="o">-&gt;</span><span class="n">update</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>
-<h2><a name="6"></a>Insert</h2>
+<h2><a name="5"></a>Insert</h2>
 <div class="highlight"><pre><span class="k">my</span> <span class="nv">$ad</span> <span class="o">=</span> <span class="nv">$schema</span><span class="o">-&gt;</span><span class="n">resultset</span><span class="p">(</span><span class="s">&#39;ResultSet_you_choose&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">create</span><span class="p">(</span>
     <span class="p">{</span>
         <span class="n">Accn</span> <span class="o">=&gt;</span> <span class="s">&#39;data1&#39;</span>
@@ -154,7 +144,7 @@ categories:
 <span class="p">);</span>
 <span class="nv">$ad</span><span class="o">-&gt;</span><span class="n">update</span><span class="p">();</span>
 </pre></div>
-<h2><a name="7"></a>Debug</h2>
+<h2><a name="6"></a>Debug</h2>
 
 <p>There are several ways to show debug info</p>
 <div class="highlight"><pre><span class="nv">$schema</span><span class="o">-&gt;</span><span class="n">storage</span><span class="o">-&gt;</span><span class="n">debug</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
@@ -164,7 +154,7 @@ categories:
 <p>Also you can print out the connect info like this</p>
 <div class="highlight"><pre><span class="nv">$schema</span><span class="o">-&gt;</span><span class="n">storage</span><span class="o">-&gt;</span><span class="n">connect_info</span><span class="p">;</span>
 </pre></div>
-<h2><a name="8"></a>More WHERE Clauses</h2>
+<h2><a name="7"></a>More WHERE Clauses</h2>
 
 <ul>
 <li><p>OR</p>
@@ -223,7 +213,7 @@ categories:
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						<div class="s2"><i class='icon-chevron-right'></i><a href="#1">    -   DBIx::Class</a></div><div class="s1"><a href="#2">Basic</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#3">Connection</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#4">Select</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#5">Update</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#6">Insert</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#7">Debug</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#8">More WHERE Clauses</a></div>
+						<div class="s1"><a href="#1">Basic</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#2">Connection</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#3">Select</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#4">Update</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#5">Insert</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#6">Debug</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#7">More WHERE Clauses</a></div>
 					</div>
 				</div>
             </div>

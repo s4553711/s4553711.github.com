@@ -95,32 +95,19 @@
 							</div>
                         </div>
                         <div class="article-body">
-							<hr>
-
-<p>layout: post
-title: Create empty branches
-date: 2012-11-27 19:09:33
-categories:</p>
-
-<h2><a name="1"></a>    - git</h2>
-
-<h1><a name="2"></a>Create Empty branch without parent</h1>
+							<h1><a name="1"></a>Create Empty branch without parent</h1>
 
 <p>Originally we can do it with:</p>
-<div class="highlight"><pre><span class="err">```</span> <span class="n">bash</span>
-<span class="n">git</span> <span class="n">checkout</span> <span class="o">--</span><span class="n">orphan</span> <span class="n">version2</span>
-<span class="err">```</span>
+<div class="highlight"><pre>git checkout --orphan version2
 </pre></div>
 <p>But if the git version &lt; 1.7.2, we have to do this with another way</p>
-<div class="highlight"><pre><span class="err">```</span> <span class="n">bash</span>
-<span class="n">git</span> <span class="n">symbolic</span><span class="o">-</span><span class="n">ref</span> <span class="n">HEAD</span> <span class="n">refs</span><span class="o">/</span><span class="n">heads</span><span class="o">/</span><span class="n">newbranch</span> 
-<span class="n">rm</span> <span class="p">.</span><span class="n">git</span><span class="o">/</span><span class="n">index</span> 
-<span class="n">git</span> <span class="n">clean</span> <span class="o">-</span><span class="n">fdx</span> 
-<span class="p">..</span>
-<span class="p">..</span>
-<span class="n">git</span> <span class="n">add</span> <span class="n">your</span> <span class="n">files</span> 
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="err">&#39;</span><span class="n">Initial</span> <span class="n">commit</span><span class="err">&#39;</span>
-<span class="err">```</span>
+<div class="highlight"><pre>git symbolic-ref HEAD refs/heads/newbranch 
+rm .git/index 
+git clean -fdx 
+..
+..
+git add your files 
+git commit -m <span class="s1">&#39;Initial commit&#39;</span>
 </pre></div>
 <p>Data Source:  </p>
 
@@ -134,7 +121,7 @@ categories:</p>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						<div class="s2"><i class='icon-chevron-right'></i><a href="#1">    - git</a></div><div class="s1"><a href="#2">Create Empty branch without parent</a></div>
+						<div class="s1"><a href="#1">Create Empty branch without parent</a></div>
 					</div>
 				</div>
             </div>
