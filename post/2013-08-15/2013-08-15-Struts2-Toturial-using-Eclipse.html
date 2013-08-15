@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Struts2 Toturial using Eclipse</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/pygment_trac.css">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
+        <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+        <style>
+            #main-body{
+                margin-top: 40px;
+			}
+			.article_menu{
+				margin: 10px 0 10px 5px;
+				padding: 5px 0 10px 0;
+				border: 1px solid #c4c4c4;
+				box-shadow:0 0 10px #c4c4c4;
+			}
+			.article_menu>.s1{
+				margin-left: 10px;
+				margin-right:10px;
+				padding: 5px 5px 5px;
+				border-bottom: 1px solid silver;
+			}
+			.article_menu>.s2{
+				margin-left: 10px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+			.article_menu>.s3{
+				margin-left: 20px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+			.article_menu>.s4{
+				margin-left: 30px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+            .article{
+                margin: 5px;
+            }
+            .article>.title{
+                margin: 5px 0 5px 5px;
+                padding-left: 5px;
+				border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body{
+                margin: 5px 0 5px 5px;
+                padding-left: 30px;
+            }
+            .article>.article-body h1{
+				font-size: 2em;
+                border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body h2{
+				font-size: 1.8em;
+                color: #626262;
+            }
+            .article>.article-body h3{
+				font-size: 1.6em;
+			}
+            .article>.article-body h4{
+				font-size: 1.4em;
+			}
+            .article>.article-body h5{
+				font-size: 1.2em;
+			}
+        </style>
+    </head>
+    <body>
+       <div class="container">
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="../../article_list.html">CK Doc</a>
+                     <ul class="nav">
+                        <li><a href="../../article_list.html">Home</a></li>
+                        <li class="active"><a href="../../article_list.html">Articles</a></li>
+                        <li><a href="../../category.html">Category</a></li>
+                        <li><a href="../../about.html">About me</a></li>
+                     </ul>
+                 </div>
+                 </div>
+            </div>
+            <div id="main-body">
+            <div class="row">
+                <div class="span9">
+                    <div class="article row">
+                        <div class="title">
+                            <h1 class="title-name">Struts2 Toturial using Eclipse</h1>
+							<div class="row">
+								<div class="span4"><i>2013-08-15 14:14:30</i></div>
+							</div>
+                        </div>
+                        <div class="article-body">
+							<h1><a name="1"></a>Tutorial</h1>
+
+<h2><a name="2"></a>Tree View of this tutorial</h2>
+
+<p><img src="http://i.imgur.com/Sv3NUbQ.png" alt="Struts2 Tree View"></p>
+
+<h2><a name="3"></a>Let Start</h2>
+
+<ul>
+<li>Download <a href="http://ftp.mirror.tw/pub/apache//struts/binaries/struts-2.3.15.1-all.zip">Struts2</a> and extract it.</li>
+<li>Create Dynamic Web Project in eclipse</li>
+<li><p>Copy lib in Struts2 lib folder to <strong><em>WebContent/WEB-INF/lib</em></strong></p>
+
+<ul>
+<li>commons-fileupload-1.3.jar</li>
+<li>commons-io-2.0.1.jar</li>
+<li>commons-lang-2.4.jar</li>
+<li>commons-lang3-3.1.jar</li>
+<li>commons-logging-1.1.3.jar</li>
+<li>commons-logging-api-1.1.jar</li>
+<li>freemarker-2.3.19.jar</li>
+<li>javassist-3.11.0.GA.jar</li>
+<li>ognl-3.0.6.jar</li>
+<li>struts2-core-2.3.15.1.jar</li>
+<li>xwork-core-2.3.15.1.jar</li>
+</ul></li>
+<li><p>Create web.xml under folder WEB_INF</p></li>
+</ul>
+<div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;web-app</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;http://java.sun.com/xml/ns/javaee&quot;</span> <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot;</span> <span class="na">id=</span><span class="s">&quot;WebApp_ID&quot;</span> <span class="na">version=</span><span class="s">&quot;2.5&quot;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;display-name&gt;</span>Struts 2<span class="nt">&lt;/display-name&gt;</span>
+   <span class="nt">&lt;filter&gt;</span>
+      <span class="nt">&lt;filter-name&gt;</span>struts2<span class="nt">&lt;/filter-name&gt;</span>
+      <span class="nt">&lt;filter-class&gt;</span>
+         org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+      <span class="nt">&lt;/filter-class&gt;</span>
+   <span class="nt">&lt;/filter&gt;</span>
+
+   <span class="nt">&lt;filter-mapping&gt;</span>
+      <span class="nt">&lt;filter-name&gt;</span>struts2<span class="nt">&lt;/filter-name&gt;</span>
+      <span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>
+   <span class="nt">&lt;/filter-mapping&gt;</span>
+   <span class="nt">&lt;welcome-file-list&gt;</span>
+      <span class="nt">&lt;welcome-file&gt;</span>index<span class="nt">&lt;/welcome-file&gt;</span>
+   <span class="nt">&lt;/welcome-file-list&gt;</span>   
+<span class="nt">&lt;/web-app&gt;</span>
+</pre></div>
+<ul>
+<li>Create Action</li>
+</ul>
+
+<p>The actions below are used to get parameter submitted from form through browser and output to the result page.</p>
+
+<p><strong>VcfAction.java</strong></p>
+<div class="highlight"><pre><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">bioit</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">VcfAction</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">VcfAction</span><span class="o">()</span> <span class="o">{</span>    
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">execute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&quot;success&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span> <span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span> <span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p><strong>InitPage.java</strong></p>
+<div class="highlight"><pre><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">bioit</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InitPage</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">InitPage</span> <span class="o">()</span> <span class="o">{</span>    
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">execute</span> <span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&quot;success&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<ul>
+<li>Create JSP under WebContent</li>
+</ul>
+
+<p><strong>index.jsp</strong></p>
+<div class="highlight"><pre><span class="err">&lt;</span>%@ page contentType=&quot;text/html; charset=UTF-8&quot; %&gt;
+<span class="err">&lt;</span>%@ taglib prefix=&quot;s&quot; uri=&quot;/struts-tags&quot;%&gt;
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Index Page<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;s:form</span> <span class="na">action=</span><span class="s">&quot;hello&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;s:textfield</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span>  <span class="na">label=</span><span class="s">&quot;Your Name&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;s:submit/&gt;</span>
+    <span class="nt">&lt;/s:form&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+<p><strong>report.jsp</strong></p>
+<div class="highlight"><pre><span class="err">&lt;</span>%@ page contentType=&quot;text/html; charset=UTF-8&quot; %&gt;
+<span class="err">&lt;</span>%@ taglib prefix=&quot;s&quot; uri=&quot;/struts-tags&quot;%&gt;
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Index Page<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;p&gt;</span>
+    Hi your name is <span class="nt">&lt;s:property</span> <span class="na">value=</span><span class="s">&quot;name&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+<ul>
+<li>Create Struts2.xml under <strong>WEB-INF/classes</strong></li>
+</ul>
+<div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE struts PUBLIC</span>
+<span class="cp">   &quot;-//Apache Software Foundation//DTD Struts Configuration 2.0//EN&quot;</span>
+<span class="cp">   &quot;http://struts.apache.org/dtds/struts-2.0.dtd&quot;&gt;</span>
+<span class="nt">&lt;struts&gt;</span>
+    <span class="nt">&lt;constant</span> <span class="na">name=</span><span class="s">&quot;struts.devMode&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;package</span> <span class="na">name=</span><span class="s">&quot;helloworld&quot;</span> <span class="na">extends=</span><span class="s">&quot;struts-default&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;action</span> <span class="na">name=</span><span class="s">&quot;index&quot;</span> <span class="na">class=</span><span class="s">&quot;com.bioit.InitPage&quot;</span> <span class="na">method=</span><span class="s">&quot;execute&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">name=</span><span class="s">&quot;success&quot;</span><span class="nt">&gt;</span>/index.jsp<span class="nt">&lt;/result&gt;</span>
+        <span class="nt">&lt;/action&gt;</span> 
+
+      <span class="nt">&lt;action</span> <span class="na">name=</span><span class="s">&quot;hello&quot;</span> <span class="na">class=</span><span class="s">&quot;com.bioit.VcfAction&quot;</span>  <span class="na">method=</span><span class="s">&quot;execute&quot;</span><span class="nt">&gt;</span>          
+            <span class="nt">&lt;result</span> <span class="na">name=</span><span class="s">&quot;success&quot;</span><span class="nt">&gt;</span>/report.jsp<span class="nt">&lt;/result&gt;</span>
+      <span class="nt">&lt;/action&gt;</span>
+    <span class="nt">&lt;/package&gt;</span>
+<span class="nt">&lt;/struts&gt;</span>
+</pre></div>
+<h2><a name="4"></a>Reference</h2>
+
+<p><a href="http://viralpatel.net/blogs/tutorial-create-struts-2-application-eclipse-example/comment-page-4/">Link1</a></p>
+
+                        </div>
+                    </div>
+                </div>
+				<div class="span3">
+					<div class="article_menu">
+						<div class="s1"><a href="#1">Tutorial</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#2">Tree View of this tutorial</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#3">Let Start</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#4">Reference</a></div>
+					</div>
+				</div>
+            </div>
+            </div>
+       </div>
+    </body>
+</html>
