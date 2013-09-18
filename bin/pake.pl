@@ -220,7 +220,7 @@ sub find_menu {
 }
 
 my %opts = ();
-getopt(':pg', \%opts);
+getopt(':pgd', \%opts);
 
 if (exists $opts{p}){
     post($opts{p});
