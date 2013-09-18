@@ -14,6 +14,7 @@ The Bwa and Bowtie are both very popular choice in this field so I will start fr
 ### Problems
 When I was compiling Bwa, some error message came up.
 > bam_tview_curses.c:5:20: fatal error: curses.h: No such file or directory
+
 It mean that you have to install libncurses5-dev
 ``` bash
 sudo apt-get install libncurses5-dev

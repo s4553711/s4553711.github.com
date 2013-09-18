@@ -105,12 +105,13 @@ The Bwa and Bowtie are both very popular choice in this field so I will start fr
 <p>When I was compiling Bwa, some error message came up.</p>
 
 <blockquote>
-<p>bam<em>tview</em>curses.c:5:20: fatal error: curses.h: No such file or directory
-It mean that you have to install libncurses5-dev
+<p>bam<em>tview</em>curses.c:5:20: fatal error: curses.h: No such file or directory</p>
+</blockquote>
+
+<p>It mean that you have to install libncurses5-dev
 <code>bash
 sudo apt-get install libncurses5-dev
 </code></p>
-</blockquote>
 
 <p>Some errors are about the sse2 support, so I add the <strong>-msse2</strong> to CFLAG in configure</p>
 
