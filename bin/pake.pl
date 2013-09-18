@@ -39,11 +39,14 @@ sub post {
 }
 
 sub deploy {
+	my ($str) = @_;
+	my $comment = $str eq '' ? "Site updated" : $str;
+
 	`git add ../article_list.html`;
 	`git add ../category.html`;
 	`git add ../draft/*`;
 	`git add ../post/*`;
-	`git commit -m 'Site updated'`;
+	`git commit -m '$comment'`;
 	`git push origin master`;
 }
 
@@ -224,7 +227,7 @@ if (exists $opts{p}){
 } elsif (exists $opts{g}){
     Generate();
 } elsif (exists $opts{d}){
-	deploy();
+	deploy($opts{d});
 } else {
 
     print "Usage> pake.pl -p \"Title\"  .. create post\n";
