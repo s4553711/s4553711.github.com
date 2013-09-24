@@ -95,13 +95,126 @@
 							</div>
                         </div>
                         <div class="article-body">
-							
+							<h1><a name="1"></a>TheSchwartz Setup</h1>
+
+<h2><a name="2"></a>Install Program</h2>
+
+<ul>
+<li><p>Using cpanm to install in the path ~/perl5</p>
+<div class="highlight"><pre>cpanm install TheSchwartz --local-lib<span class="o">=</span>~/perl5
+</pre></div></li>
+<li><p>Database Setup</p>
+<div class="highlight"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">funcmap</span> <span class="p">(</span>
+    <span class="n">funcid</span>         <span class="nb">INT</span> <span class="n">UNSIGNED</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+    <span class="n">funcname</span>       <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="k">UNIQUE</span><span class="p">(</span><span class="n">funcname</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">job</span> <span class="p">(</span>
+    <span class="n">jobid</span>           <span class="nb">BIGINT</span> <span class="n">UNSIGNED</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+    <span class="n">funcid</span>          <span class="nb">INT</span> <span class="n">UNSIGNED</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">arg</span>             <span class="n">MEDIUMBLOB</span><span class="p">,</span>
+    <span class="n">uniqkey</span>         <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">insert_time</span>     <span class="nb">INTEGER</span> <span class="n">UNSIGNED</span><span class="p">,</span>
+    <span class="n">run_after</span>       <span class="nb">INTEGER</span> <span class="n">UNSIGNED</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">grabbed_until</span>   <span class="nb">INTEGER</span> <span class="n">UNSIGNED</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">priority</span>        <span class="nb">SMALLINT</span> <span class="n">UNSIGNED</span><span class="p">,</span>
+    <span class="n">coalesce</span>        <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="k">INDEX</span> <span class="p">(</span><span class="n">funcid</span><span class="p">,</span> <span class="n">run_after</span><span class="p">),</span>
+    <span class="k">UNIQUE</span><span class="p">(</span><span class="n">funcid</span><span class="p">,</span> <span class="n">uniqkey</span><span class="p">),</span>
+    <span class="k">INDEX</span> <span class="p">(</span><span class="n">funcid</span><span class="p">,</span> <span class="n">coalesce</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">note</span> <span class="p">(</span>
+    <span class="n">jobid</span>           <span class="nb">BIGINT</span> <span class="n">UNSIGNED</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">notekey</span>         <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">jobid</span><span class="p">,</span> <span class="n">notekey</span><span class="p">),</span>
+    <span class="n">value</span>           <span class="n">MEDIUMBLOB</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">error</span> <span class="p">(</span>
+    <span class="n">error_time</span>      <span class="nb">INTEGER</span> <span class="n">UNSIGNED</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">jobid</span>           <span class="nb">BIGINT</span> <span class="n">UNSIGNED</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">message</span>         <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">funcid</span>          <span class="nb">INT</span> <span class="n">UNSIGNED</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="k">INDEX</span> <span class="p">(</span><span class="n">funcid</span><span class="p">,</span> <span class="n">error_time</span><span class="p">),</span>
+    <span class="k">INDEX</span> <span class="p">(</span><span class="n">error_time</span><span class="p">),</span>
+    <span class="k">INDEX</span> <span class="p">(</span><span class="n">jobid</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">exitstatus</span> <span class="p">(</span>
+    <span class="n">jobid</span>           <span class="nb">BIGINT</span> <span class="n">UNSIGNED</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">funcid</span>          <span class="nb">INT</span> <span class="n">UNSIGNED</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">status</span>          <span class="nb">SMALLINT</span> <span class="n">UNSIGNED</span><span class="p">,</span>
+    <span class="n">completion_time</span> <span class="nb">INTEGER</span> <span class="n">UNSIGNED</span><span class="p">,</span>
+    <span class="n">delete_after</span>    <span class="nb">INTEGER</span> <span class="n">UNSIGNED</span><span class="p">,</span>
+    <span class="k">INDEX</span> <span class="p">(</span><span class="n">funcid</span><span class="p">),</span>
+    <span class="k">INDEX</span> <span class="p">(</span><span class="n">delete_after</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div></li>
+</ul>
+
+<h2><a name="3"></a>Usage</h2>
+
+<ul>
+<li><p>First Running</p>
+
+<p>This worker is name by Myworker. When this worker is called, this program will print out the jobid and funcid of this process.
+You can also send a arguemnts to MyWorker and use $job->arg to receive the argument.</p>
+<div class="highlight"><pre><span class="nb">package</span> <span class="n">MyWorker</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">Data::</span><span class="n">Dumper</span><span class="p">;</span>
+<span class="k">use</span> <span class="n">base</span> <span class="sx">qw(TheSchwartz::Worker TheSchwartz::Job)</span><span class="p">;</span>  
+
+<span class="k">sub </span><span class="nf">work</span> <span class="p">{</span>
+    <span class="k">my</span> <span class="nv">$class</span> <span class="o">=</span> <span class="nb">shift</span><span class="p">;</span>
+    <span class="k">my</span> <span class="nn">TheSchwartz::</span><span class="n">Job</span> <span class="nv">$job</span> <span class="o">=</span> <span class="nb">shift</span><span class="p">;</span>
+    <span class="k">print</span> <span class="s">&quot;Log&gt; Get Work ID: &quot;</span><span class="o">.</span><span class="nv">$job</span><span class="o">-&gt;</span><span class="n">jobid</span><span class="o">.</span><span class="s">&quot;, function id: &quot;</span><span class="o">.</span><span class="nv">$job</span><span class="o">-&gt;</span><span class="n">funcid</span><span class="o">.</span><span class="s">&quot;\n&quot;</span><span class="p">;</span>
+    <span class="nv">$job</span><span class="o">-&gt;</span><span class="n">completed</span><span class="p">();</span>
+<span class="p">}</span>   
+
+<span class="nb">package</span> <span class="n">main</span><span class="p">;</span>
+<span class="k">use</span> <span class="n">base</span> <span class="sx">qw(TheSchwartz)</span><span class="p">;</span>
+<span class="k">my</span> <span class="nv">$client</span> <span class="o">=</span> <span class="n">TheSchwartz</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span> <span class="n">databases</span> <span class="o">=&gt;</span>
+    <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="n">dsn</span> <span class="o">=&gt;</span> <span class="s">&#39;dbi:mysql:db_schwartz;host=localhost&#39;</span><span class="p">,</span>
+            <span class="n">user</span> <span class="o">=&gt;</span> <span class="s">&#39;root&#39;</span><span class="p">,</span>
+            <span class="n">pass</span> <span class="o">=&gt;</span> <span class="s">&#39;pass&#39;</span><span class="p">,</span>
+        <span class="p">}</span>   
+    <span class="p">]</span> <span class="p">);</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="n">can_do</span><span class="p">(</span><span class="s">&#39;MyWorker&#39;</span><span class="p">);</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="n">work</span><span class="p">();</span>
+</pre></div>
+<p>Here is a example of job submitted. This program will send a argument (arrayref) to the worker and receive by worker <strong>MyWorker</strong></p>
+<div class="highlight"><pre><span class="c1">#!/usr/bin/perl</span>
+<span class="k">use</span> <span class="n">base</span> <span class="sx">qw(TheSchwartz TheSchwartz::Job)</span><span class="p">;</span>
+<span class="k">my</span> <span class="nv">$client</span> <span class="o">=</span> <span class="n">TheSchwartz</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span> <span class="n">databases</span> <span class="o">=&gt;</span>
+    <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="n">dsn</span> <span class="o">=&gt;</span> <span class="s">&#39;dbi:mysql:db_schwartz;host=localhost&#39;</span><span class="p">,</span>
+            <span class="n">user</span> <span class="o">=&gt;</span> <span class="s">&#39;root&#39;</span><span class="p">,</span>
+            <span class="n">pass</span> <span class="o">=&gt;</span> <span class="s">&#39;pass&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">]</span> <span class="p">);</span>
+
+<span class="k">my</span> <span class="nv">$job</span> <span class="o">=</span> <span class="nn">TheSchwartz::</span><span class="n">Job</span><span class="o">-&gt;</span><span class="n">new_from_array</span><span class="p">(</span><span class="s">&#39;MyWorker&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="n">foo</span> <span class="o">=&gt;</span> <span class="s">&#39;bar&#39;</span> <span class="p">]);</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="n">insert</span><span class="p">(</span><span class="nv">$job</span><span class="p">);</span>
+</pre></div></li>
+</ul>
+
+<h2><a name="4"></a>Reference</h2>
+
+<ol>
+<li><a href="http://wiki.dwscoalition.org/wiki/index.php/TheSchwartz">TheSchwartz</a></li>
+<li><a href="http://search.cpan.org/%7Esixapart/TheSchwartz-1.10/lib/TheSchwartz.pm">CPAN</a></li>
+</ol>
+
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						
+						<div class="s1"><a href="#1">TheSchwartz Setup</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#2">Install Program</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#3">Usage</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#4">Reference</a></div>
 					</div>
 				</div>
             </div>

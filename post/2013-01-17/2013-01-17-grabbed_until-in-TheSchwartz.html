@@ -95,13 +95,26 @@
 							</div>
                         </div>
                         <div class="article-body">
-							
+							<h2><a name="1"></a>Some problems about job retstart</h2>
+
+<p>When I was trying to restart a submitted job that has been interrupted by myself, it did not restart it as it claimed. Because I can not get more information on its CPAN page, so I decided to trace the source code and found out it.</p>
+
+<p>First, I went into the TheSchwartz.pm and find the <strong>work</strong> subroutine and found it indeeded search for job queued in the database at the line 280 (subroutine <strong>find<em>job</em>for_workers</strong>). The comment of this subroutine explained how it works:</p>
+
+<ol>
+<li>funcname is in the list of abilities this $client supports;</li>
+<li>the job is scheduled to be run (run_after is in the past);</li>
+<li>no one else is working on the job (grabbed_until is in the past).</li>
+</ol>
+
+<p>According to its rule, I found the problem is arised from the <strong>grabbed_unitl</strong>. It seems that as someone called this worker(as I did before), this job would not to be called within 1 hours(I guessed). So in order to call the interrupted job any time I want, I decided to marked line 283 at the TheSchwartz.pm until I found a better solution to do it.</p>
+
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						
+						<div class="s2"><i class='icon-chevron-right'></i><a href="#1">Some problems about job retstart</a></div>
 					</div>
 				</div>
             </div>

@@ -95,13 +95,40 @@
 							</div>
                         </div>
                         <div class="article-body">
-							
+							<h1><a name="1"></a>SQL</h1>
+
+<h2><a name="2"></a>Tips</h2>
+
+<ul>
+<li><p>Reset Table Identity<br>
+<a href="http://blog.sqlauthority.com/2007/03/15/sql-server-dbcc-reseed-table-identity-value-reset-table-identity/">Source</a></p>
+<div class="highlight"><pre><span class="n">DBCC</span> <span class="n">CHECKIDENT</span> <span class="p">(</span><span class="k">table_name</span><span class="p">,</span> <span class="n">reseed</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div></li>
+<li><p>Temp Table<br>
+Cretaing a temp table with 3 columns.</p>
+<div class="highlight"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">#</span><span class="n">TEMP</span>
+<span class="p">(</span>
+    <span class="n">COL1</span> <span class="nb">INT</span><span class="p">,</span>
+    <span class="n">COL2</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+    <span class="n">COL3</span> <span class="n">DATETIME</span> <span class="k">DEFAULT</span> <span class="n">GETDATE</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="k">GO</span>
+</pre></div>
+<p>Getting value from temp table</p>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">#</span><span class="n">TEMP</span>
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="o">#</span><span class="n">TEMP</span>
+</pre></div>
+<p>List all temp table</p>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">create_date</span> <span class="k">FROM</span> <span class="n">TempDB</span><span class="p">.</span><span class="n">sys</span><span class="p">.</span><span class="n">tables</span> <span class="k">WHERE</span> <span class="n">name</span> <span class="k">LIKE</span> <span class="s1">&#39;#%&#39;</span>
+</pre></div></li>
+</ul>
+
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						
+						<div class="s1"><a href="#1">SQL</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#2">Tips</a></div>
 					</div>
 				</div>
             </div>

@@ -95,13 +95,43 @@
 							</div>
                         </div>
                         <div class="article-body">
-							
+							<p>It is a github-like wiki system which use git as a version control system. The following steps are the quick start to create it.</p>
+
+<h3><a name="1"></a>Install</h3>
+
+<ol>
+<li>First install rvm with ruby 1.9.3. (the ruby 2.0.0 will have problem with grit-2.5)</li>
+<li>Install with gem. (this step may take a while)<br>
+<code>bash
+$ gem install gollum
+</code></li>
+<li>Create project folder and empty repo<br>
+<code>bash
+$ mkdir wiki; cd wiki;
+$ git init
+</code></li>
+<li>Start program<br>
+<code>bash
+$ gollum
+</code></li>
+<li>Open the <strong>http://localhost:4567</strong> with your browser and now you can start to edit the first wiki page.</li>
+</ol>
+
+<h3><a name="2"></a>Reference</h3>
+
+<ol>
+<li><a href="https://github.com/gollum/gollum">Gollum</a></li>
+<li><a href="http://sailxjx.github.io/blog/blog/2012/07/12/ti-yan-gollum/">体验gollum</a></li>
+<li><a href="https://github.com/scttnlsn/dandelion/issues/31">Issue about ruby-2.0.0 with grit-2.5.0</a></li>
+<li><a href="http://www.openfoundry.org/tw/tech-column/8513-rvm-ruby-environment-version-manager">RVM - Ruby enVironment (Version) Manager</a></li>
+</ol>
+
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						
+						<div class="s3"><i class='icon-minus'></i><a href="#1">Install</a></div><div class="s3"><i class='icon-minus'></i><a href="#2">Reference</a></div>
 					</div>
 				</div>
             </div>

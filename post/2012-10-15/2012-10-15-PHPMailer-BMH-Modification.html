@@ -95,13 +95,50 @@
 							</div>
                         </div>
                         <div class="article-body">
-							
+							<h1><a name="1"></a>PHPMailer-BMH Modification</h1>
+
+<h2><a name="2"></a>Bounced Mail Process</h2>
+
+<h3><a name="3"></a>Conjugation with Codeigniter</h3>
+
+<ol>
+<li><p>Download and include it in your custom library</p>
+<div class="highlight"><pre><span class="x">require_once(&#39;PHPMailer-BMH/class.phpmailer-bmh.php&#39;);</span>
+<span class="x">require_once(&#39;PHPMailer-BMH/callback samples/callback_echo.php&#39;);</span>
+</pre></div></li>
+<li><p>Initialization and setup the server info</p>
+<div class="highlight"><pre><span class="x">$bmh = new BounceMailHandler(1);</span>
+<span class="x">$bmh-&gt;mailhost = &#39;mailserver.com&#39;;</span>
+<span class="x">$bmh-&gt;mailbox_username = &#39;account_name&#39;;</span>
+<span class="x">$bmh-&gt;mailbox_password = &#39;passwd&#39;;</span>
+<span class="x">$bmh-&gt;port = 993;</span>
+<span class="x">$bmh-&gt;service = &#39;imap/ssl&#39;;</span>
+<span class="x">$bmh-&gt;service_option = &#39;novalidate-cert&#39;;</span>
+<span class="x">$bmh-&gt;testmode = true; // if you are debugging, open it</span>
+</pre></div></li>
+<li><p>Call the function</p>
+<div class="highlight"><pre><span class="x">$bmh-&gt;openMailbox();</span>
+<span class="x">$bmh-&gt;processMailbox();</span>
+</pre></div></li>
+<li><p>Add Custom Rule
+Open phpmailer-bmh_rules.php in the PHPMailer-BMH folder and add the rule you want.</p></li>
+</ol>
+
+<h3><a name="4"></a>Fix</h3>
+
+<p>While using PHPMailer-BMH as a filter to process campaign feedback, I have to move some mail to specificed mailbox. So I have to active the moveHard and ste the target mailbox name.</p>
+<div class="highlight"><pre><span class="x">$bmh-&gt;moveHard = true;</span>
+<span class="x">$bmh-&gt;hardMailbox = &#39;INBOX.ihard&#39;;</span>
+</pre></div>
+<p>But I find there is problem while moving email to ihard mailbox. Althought PHPMailer-BMH require the mailbox name started with INBOX, after fixing mailbox name from &#39;INBOX.ihard&#39; to &#39;ihard&#39; the problem is fixed</p>
+<div class="highlight"><pre><span class="x">@imap_mail_move($this-&gt;_mailbox_link, $x, &quot;ihard&quot;);</span>
+</pre></div>
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						
+						<div class="s1"><a href="#1">PHPMailer-BMH Modification</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#2">Bounced Mail Process</a></div><div class="s3"><i class='icon-minus'></i><a href="#3">Conjugation with Codeigniter</a></div><div class="s3"><i class='icon-minus'></i><a href="#4">Fix</a></div>
 					</div>
 				</div>
             </div>

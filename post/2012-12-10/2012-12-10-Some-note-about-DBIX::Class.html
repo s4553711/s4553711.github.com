@@ -95,13 +95,125 @@
 							</div>
                         </div>
                         <div class="article-body">
-							
+							<h1><a name="1"></a>Basic</h1>
+
+<h2><a name="2"></a>Connection</h2>
+
+<p>It is a example of using SQL server. The first argument can be changed to another DSN you want.  </p>
+<div class="highlight"><pre><span class="k">my</span> <span class="nv">$schema</span> <span class="o">=</span> <span class="nn">Tool::DB::ORM::GeneTex::</span><span class="n">Bio</span><span class="o">-&gt;</span><span class="nb">connect</span><span class="p">(</span>
+    <span class="s">&quot;DBI:ODBC:driver={SQL Server};Server=db;Database=database;UID=UID;PWD=PID&quot;</span><span class="p">,</span>
+    <span class="p">{</span>   
+        <span class="n">LongReadLen</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">LongTruncOk</span> <span class="o">=&gt;</span> <span class="mi">1</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+<h2><a name="3"></a>Select</h2>
+
+<ul>
+<li><p>By search  </p>
+<div class="highlight"><pre><span class="k">my</span> <span class="nv">$rs</span> <span class="o">=</span> <span class="nv">$schema</span><span class="o">-&gt;</span><span class="n">resultset</span><span class="p">(</span><span class="s">&#39;PJ&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">search</span><span class="p">({</span>
+    <span class="n">key1</span> <span class="o">=&gt;</span> <span class="s">&#39;abc&#39;</span><span class="p">,</span>
+    <span class="n">key2</span> <span class="o">=&gt;</span> <span class="s">&#39;def&#39;</span>
+<span class="p">});</span>
+<span class="k">while</span><span class="p">(</span><span class="k">my</span> <span class="nv">$entity</span> <span class="o">=</span> <span class="nv">$rs</span><span class="o">-&gt;</span><span class="k">next</span><span class="p">){</span>
+    <span class="k">print</span> <span class="nv">$entity</span><span class="o">-&gt;</span><span class="n">column</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></li>
+<li><p>By find  </p>
+
+<p>This statement will find the data with the primary key equal to &quot;abc&quot;</p>
+<div class="highlight"><pre><span class="k">my</span> <span class="nv">$entity</span> <span class="o">=</span> <span class="nv">$schema</span><span class="o">-&gt;</span><span class="n">resultset</span><span class="p">(</span><span class="s">&#39;PJ&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;abc&#39;</span><span class="p">);</span>
+<span class="k">print</span> <span class="nv">$entity</span><span class="o">-&gt;</span><span class="n">column</span><span class="p">;</span>
+</pre></div></li>
+</ul>
+
+<h2><a name="4"></a>Update</h2>
+
+<p>We can set the data with another value and update to database by this way.  </p>
+<div class="highlight"><pre><span class="nv">$entity</span><span class="o">-&gt;</span><span class="n">set_column</span><span class="p">(</span><span class="s">&#39;column1&#39;</span><span class="p">,</span><span class="s">&#39;abc2&#39;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$entity</span><span class="o">-&gt;</span><span class="n">is_changed</span><span class="p">){</span>
+    <span class="nv">$entity</span><span class="o">-&gt;</span><span class="n">update</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h2><a name="5"></a>Insert</h2>
+<div class="highlight"><pre><span class="k">my</span> <span class="nv">$ad</span> <span class="o">=</span> <span class="nv">$schema</span><span class="o">-&gt;</span><span class="n">resultset</span><span class="p">(</span><span class="s">&#39;ResultSet_you_choose&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">create</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="n">Accn</span> <span class="o">=&gt;</span> <span class="s">&#39;data1&#39;</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+<span class="nv">$ad</span><span class="o">-&gt;</span><span class="n">update</span><span class="p">();</span>
+</pre></div>
+<h2><a name="6"></a>Debug</h2>
+
+<p>There are several ways to show debug info</p>
+<div class="highlight"><pre><span class="nv">$schema</span><span class="o">-&gt;</span><span class="n">storage</span><span class="o">-&gt;</span><span class="n">debug</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="ow">or</span>
+<span class="n">export</span> <span class="n">DBIC_TRACE</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+<p>Also you can print out the connect info like this</p>
+<div class="highlight"><pre><span class="nv">$schema</span><span class="o">-&gt;</span><span class="n">storage</span><span class="o">-&gt;</span><span class="n">connect_info</span><span class="p">;</span>
+</pre></div>
+<h2><a name="7"></a>More WHERE Clauses</h2>
+
+<ul>
+<li><p>OR</p>
+<div class="highlight"><pre><span class="n">Field</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+</pre></div></li>
+<li><p>Combined AND/OR</p>
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Institution</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s">&#39;!=&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="nb">undef</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">]</span> <span class="p">},</span>
+    <span class="o">-</span><span class="ow">or</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="n">city</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="nb">undef</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">],</span>
+        <span class="n">state</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="nb">undef</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">},</span>
+</pre></div></li>
+<li><p>NOT</p>
+<div class="highlight"><pre><span class="n">Field</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s">&#39;!=&#39;</span> <span class="o">=&gt;</span> <span class="s">&#39;ABC&#39;</span><span class="p">}</span>
+</pre></div></li>
+<li><p>DISTINCT</p>
+<div class="highlight"><pre><span class="p">{},{</span>
+    <span class="n">columns</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="sx">qw/FieldA FieldB/</span><span class="p">],</span>
+    <span class="n">distinct</span> <span class="o">=&gt;</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre></div></li>
+<li><p>Sub-query</p>
+
+<p>Defined the sub-query statement</p>
+<div class="highlight"><pre><span class="k">my</span> <span class="nv">$collection</span> <span class="o">=</span> <span class="nv">$job</span><span class="o">-&gt;</span><span class="n">search</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="n">fieldA</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="n">distinct</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">columns</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="sx">qw/ID/</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+<p>Execution the main query statement within the result of sub-query</p>
+<div class="highlight"><pre><span class="k">my</span> <span class="nv">$final_list</span> <span class="o">=</span> <span class="nv">$job</span><span class="o">-&gt;</span><span class="n">search</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="n">ID</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="s">&#39;-in&#39;</span> <span class="o">=&gt;</span> <span class="nv">$collection</span><span class="o">-&gt;</span><span class="n">get_column</span><span class="p">(</span><span class="s">&#39;ID&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">as_query</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="n">distinct</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">columns</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="sx">qw/ID/</span><span class="p">]</span>
+    <span class="p">},</span>
+<span class="p">);</span>
+</pre></div></li>
+</ul>
+
+<p>For more information, please refer to <a href="http://search.cpan.org/perldoc?SQL%3A%3AAbstract#WHERE_CLAUSES">SQL::Abstract</a></p>
+
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						
+						<div class="s1"><a href="#1">Basic</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#2">Connection</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#3">Select</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#4">Update</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#5">Insert</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#6">Debug</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#7">More WHERE Clauses</a></div>
 					</div>
 				</div>
             </div>

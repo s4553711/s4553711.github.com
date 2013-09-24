@@ -95,13 +95,86 @@
 							</div>
                         </div>
                         <div class="article-body">
-							
+							<h1><a name="1"></a>Content</h1>
+
+<h2><a name="2"></a>Step 1</h2>
+
+<p>create a class to store form data </p>
+<div class="highlight"><pre><span class="cm">/*</span>
+<span class="cm"> * This is Customer object used to store data from form</span>
+<span class="cm"> */</span>
+<span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">tut</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Customer</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span><span class="o">[]</span> <span class="n">hobby</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setHobby</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">hobby</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getHobby</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">hobby</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h2><a name="3"></a>Step 2</h2>
+
+<p>In the action class, implements the ModelDriven with customer class and a getModel function.</p>
+<div class="highlight"><pre><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">tut</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.tut.Customer</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloAction</span> <span class="kd">extends</span> <span class="n">ActionSupport</span> <span class="kd">implements</span> <span class="n">ModelDriven</span><span class="o">&lt;</span><span class="n">Customer</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="c1">// Declare the Customer object</span>
+    <span class="kd">private</span> <span class="n">Customer</span> <span class="n">model</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Customer</span><span class="o">();</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&quot;success&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// get model</span>
+    <span class="kd">public</span> <span class="n">Customer</span> <span class="nf">getModel</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">model</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h2><a name="4"></a>Step 3</h2>
+
+<p>In your index page, create a form with textfield and checkboxlist.</p>
+<div class="highlight"><pre><span class="nt">&lt;s:form</span> <span class="na">action=</span><span class="s">&quot;doit&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;s:textfield</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;s:checkboxlist</span> <span class="na">name=</span><span class="s">&quot;hobby&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;s:submit/&gt;</span>
+<span class="nt">&lt;/s:form&gt;</span>
+</pre></div>
+<h2><a name="5"></a>Step 4</h2>
+
+<p>In the result page.</p>
+<div class="highlight"><pre><span class="nt">&lt;s:property</span> <span class="na">value=</span><span class="s">&quot;name&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;s:property</span> <span class="na">value=</span><span class="s">&quot;hobby&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+<h1><a name="6"></a>Reference</h1>
+
+<p><a href="http://www.dzone.com/tutorials/java/struts-2/struts-2-example/struts-2-model-driven-action-example-1.html">Link1</a><br>
+<a href="http://www.mkyong.com/struts2/struts-2-modeldriven-example/">Link2</a><br>
+<a href="http://blog.yam.com/wsc0918/article/19944613">Link3</a>  </p>
+
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						
+						<div class="s1"><a href="#1">Content</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#2">Step 1</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#3">Step 2</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#4">Step 3</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#5">Step 4</a></div><div class="s1"><a href="#6">Reference</a></div>
 					</div>
 				</div>
             </div>

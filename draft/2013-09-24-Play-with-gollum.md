@@ -6,9 +6,11 @@ categories:
 	- ruby
 	- gollum
 ---
+
 It is a github-like wiki system which use git as a version control system. The following steps are the quick start to create it.
 
 ### Install ###
+
 1. First install rvm with ruby 1.9.3. (the ruby 2.0.0 will have problem with grit-2.5)
 2. Install with gem. (this step may take a while)  
 ``` bash
@@ -19,7 +21,7 @@ $ gem install gollum
 $ mkdir wiki; cd wiki;
 $ git init
 ```
-4. Start program
+4. Start program  
 ``` bash
 $ gollum
 ```

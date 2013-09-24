@@ -95,13 +95,33 @@
 							</div>
                         </div>
                         <div class="article-body">
-							
+							<h1><a name="1"></a>Create Empty branch without parent</h1>
+
+<p>Originally we can do it with:</p>
+<div class="highlight"><pre>git checkout --orphan version2
+</pre></div>
+<p>But if the git version &lt; 1.7.2, we have to do this with another way</p>
+<div class="highlight"><pre>git symbolic-ref HEAD refs/heads/newbranch 
+rm .git/index 
+git clean -fdx 
+..
+..
+git add your files 
+git commit -m <span class="s1">&#39;Initial commit&#39;</span>
+</pre></div>
+<p>Data Source:  </p>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/5689960/how-do-i-create-a-commit-without-a-parent-in-git">StackOverflow</a></li>
+<li><a href="http://schacon.github.com/gitbook/5_creating_new_empty_branches.html">shacon</a><br></li>
+</ul>
+
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						
+						<div class="s1"><a href="#1">Create Empty branch without parent</a></div>
 					</div>
 				</div>
             </div>
