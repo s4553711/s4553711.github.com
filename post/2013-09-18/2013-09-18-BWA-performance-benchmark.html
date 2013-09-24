@@ -95,82 +95,13 @@
 							</div>
                         </div>
                         <div class="article-body">
-							<h1><a name="1"></a>Objection</h1>
-
-<p>I recently learned about some NGS techniques and find the most important steps are sequence alignment and de novo assembly.
-The Bwa and Bowtie are both very popular choice in this field so I will start from bwa. Here is some tests I have done.</p>
-
-<h3><a name="2"></a>Problems</h3>
-
-<p>When I was compiling Bwa, some error message came up.</p>
-
-<blockquote>
-<p>bam<em>tview</em>curses.c:5:20: fatal error: curses.h: No such file or directory</p>
-</blockquote>
-
-<p>It mean that you have to install libncurses5-dev
-<code>bash
-sudo apt-get install libncurses5-dev
-</code></p>
-
-<p>Some errors are about the sse2 support, so I add the <strong>-msse2</strong> to CFLAG in configure</p>
-
-<h3><a name="3"></a>Test Machine</h3>
-
-<ul>
-<li>VM: Core i7-2900 @ 3.4GHz, 3954 Ram</li>
-<li>Dev: ntel(R) Xeon(R) CPU X5670@ 2.93GHz, 96735 Ram</li>
-</ul>
-
-<h3><a name="4"></a>Test Data</h3>
-
-<ul>
-<li>Index
-
-<ul>
-<li>[main] Real time: 169.073 sec; CPU: 146.793 sec (my vm)</li>
-<li>[main] Real time: 206.512 sec; CPU: 203.299 sec (dev)</li>
-</ul></li>
-<li>Align with MEM
-
-<ul>
-<li>Real time: 25.229 sec; CPU: 21.173 sec (my vm)</li>
-<li>Real time: 22.795 sec; CPU: 21.885 sec (dev)</li>
-<li>Real time: 13.739 sec; CPU: 23.481 sec (dev 2 threads)</li>
-<li>Real time: 7.749 sec; CPU: 23.182 sec (dev 4 threads)</li>
-<li>Real time: 4.891 sec; CPU: 24.171 sec (dev 8 threads)</li>
-<li>Real time: 3.945 sec; CPU: 29.117 sec (dev 16 threads)</li>
-</ul></li>
-<li>Align with aln
-
-<ul>
-<li>Real time: 33.600 sec; CPU: 29.070 sec (my vm)</li>
-<li>Real time: 31.259 sec; CPU: 31.201 sec (dev)</li>
-<li>Real time: 18.859 sec; CPU: 34.206 sec (dev 2 threads)</li>
-<li>Real time: 9.952 sec; CPU: 34.614 sec (dev 4 threads)</li>
-<li>Real time: 5.563 sec; CPU: 35.721 sec (dev 8 threads)</li>
-<li>Real time: 4.048 sec; CPU: 42.602 sec (dev 16 threads)</li>
-</ul></li>
-<li>Generate alignments in the SAM
-
-<ul>
-<li>Real time: 8.590 sec; CPU: 1.364 sec (my vm)</li>
-<li>Real time: 2.201 sec; CPU: 1.404 sec (dev)</li>
-</ul></li>
-</ul>
-
-<p><img src="http://i.imgur.com/V5QaDUd.png" alt="Performance"></p>
-
-<h3><a name="5"></a>Reference</h3>
-
-<p><a href="http://bio-bwa.sourceforge.net/bwa.shtml">Manual of Bwa</a></p>
-
+							
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						<div class="s1"><a href="#1">Objection</a></div><div class="s3"><i class='icon-minus'></i><a href="#2">Problems</a></div><div class="s3"><i class='icon-minus'></i><a href="#3">Test Machine</a></div><div class="s3"><i class='icon-minus'></i><a href="#4">Test Data</a></div><div class="s3"><i class='icon-minus'></i><a href="#5">Reference</a></div>
+						
 					</div>
 				</div>
             </div>

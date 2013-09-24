@@ -95,68 +95,13 @@
 							</div>
                         </div>
                         <div class="article-body">
-							<p>Here are some functions of bash that I use in current job. It is very important to take advantage of the convenience of bash script to achieve some jobs in efficient way.</p>
-
-<h4><a name="1"></a>if/else</h4>
-<div class="highlight"><pre><span class="k">if</span> <span class="o">[[</span> confition <span class="o">]]</span>;
-<span class="k">then</span>
-<span class="k">    </span>date
-<span class="k">else</span>
-<span class="k">    </span>date
-<span class="k">fi</span>
-</pre></div>
-<h4><a name="2"></a>Parse file content</h4>
-<div class="highlight"><pre><span class="nv">IFS</span><span class="o">=</span><span class="s1">$&#39;\n&#39;</span>
-<span class="nv">FILENAME</span><span class="o">=</span><span class="nv">$1</span>
-<span class="k">while </span><span class="nb">read </span>line
-<span class="k">do</span>
-<span class="k">    </span><span class="nb">echo</span> <span class="nv">$line</span>
-<span class="k">done</span> &lt; <span class="nv">$FILENAME</span>
-</pre></div>
-<h4><a name="3"></a>Read return info from process</h4>
-<div class="highlight"><pre><span class="nv">IFS</span><span class="o">=</span><span class="s1">$&#39;\n&#39;</span>
-<span class="nv">RESULT</span><span class="o">=</span><span class="k">$(</span>/path/script.sh<span class="k">)</span>
-
-<span class="k">for </span>tmp_line in <span class="nv">$RESULT</span>
-<span class="k">do</span>
-<span class="k">    </span><span class="nb">echo</span> <span class="nv">$tmp_line</span>
-<span class="k">done</span>
-</pre></div>
-<h4><a name="4"></a>Grep</h4>
-<div class="highlight"><pre>grep -c <span class="s1">&#39;^info&#39;</span> <span class="c"># find the counts of match</span>
-grep -v <span class="s1">&#39;^info&#39;</span> <span class="c"># inverse-match</span>
-</pre></div>
-<h4><a name="5"></a>build variable names from other variables in bash</h4>
-<div class="highlight"><pre><span class="nv">FLAG1</span><span class="o">=</span><span class="s2">&quot;Text1&quot;</span>
-<span class="nv">FLAG2</span><span class="o">=</span><span class="s2">&quot;Text2&quot;</span>
-<span class="nv">FLAG3</span><span class="o">=</span><span class="s2">&quot;Text3&quot;</span>
-<span class="nv">FLAG4</span><span class="o">=</span><span class="s2">&quot;Text4&quot;</span>
-<span class="k">for </span>t in <span class="o">{</span>1..4<span class="o">}</span>
-<span class="k">do</span>
-<span class="k">    </span><span class="nv">TEST_SET</span><span class="o">=</span><span class="s2">&quot;FLAG&quot;</span><span class="k">${</span><span class="nv">t</span><span class="k">}</span>
-    <span class="nb">echo</span> <span class="k">${</span><span class="p">!TEST_SET</span><span class="k">}</span>
-<span class="k">done</span>
-</pre></div>
-<h4><a name="6"></a>For loop</h4>
-<div class="highlight"><pre><span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="nv">$1</span>; i&lt;<span class="o">=</span><span class="nv">$2</span>; i++<span class="o">))</span> <span class="k">do</span>
-<span class="k">    </span><span class="nb">echo</span> <span class="nv">$Variables</span>
-<span class="k">done</span>
-</pre></div>
-<h4><a name="7"></a>Add 1 to a variable</h4>
-<div class="highlight"><pre><span class="nv">Error_SIG</span><span class="o">=</span>1
-<span class="nv">Error_SIG</span><span class="o">=</span><span class="k">$((</span> <span class="nv">$Error_SIG</span> <span class="o">+</span> <span class="m">1</span> <span class="k">))</span>
-<span class="nb">echo</span> <span class="nv">$Error_SIG</span>     <span class="c"># echo 2</span>
-</pre></div>
-<h4><a name="8"></a>Color output</h4>
-<div class="highlight"><pre><span class="nb">printf</span> <span class="s2">&quot;\e[32mPass\e[0m\n&quot;</span>
-<span class="nb">echo</span> -e <span class="s2">&quot;\e[32mPass\e[0m\n&quot;</span>
-</pre></div>
+							
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						<div class="s4"><i class='icon-minus'></i><a href="#1">if/else</a></div><div class="s4"><i class='icon-minus'></i><a href="#2">Parse file content</a></div><div class="s4"><i class='icon-minus'></i><a href="#3">Read return info from process</a></div><div class="s4"><i class='icon-minus'></i><a href="#4">Grep</a></div><div class="s4"><i class='icon-minus'></i><a href="#5">build variable names from other variables in bash</a></div><div class="s4"><i class='icon-minus'></i><a href="#6">For loop</a></div><div class="s4"><i class='icon-minus'></i><a href="#7">Add 1 to a variable</a></div><div class="s4"><i class='icon-minus'></i><a href="#8">Color output</a></div>
+						
 					</div>
 				</div>
             </div>

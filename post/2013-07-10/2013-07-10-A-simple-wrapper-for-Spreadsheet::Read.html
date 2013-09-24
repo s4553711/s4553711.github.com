@@ -95,97 +95,13 @@
 							</div>
                         </div>
                         <div class="article-body">
-							<h2><a name="1"></a>Main Story</h2>
-
-<p>Recently I have massively use Spreadsheet::Read in my work to parse input data from user in xls or xlsx with header, so this simple wrapper is created to simplify my job. Below is my package.</p>
-<div class="highlight"><pre><span class="nb">package</span> <span class="nn">Tool::DB::</span><span class="n">ExcelHelper</span><span class="p">;</span>
-<span class="k">use</span> <span class="n">utf8</span><span class="p">;</span>
-<span class="k">use</span> <span class="n">strict</span><span class="p">;</span>
-<span class="k">use</span> <span class="n">warnings</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nn">Spreadsheet::</span><span class="n">Read</span><span class="p">;</span>
-<span class="k">use</span> <span class="n">Encode</span> <span class="sx">qw(decode encode is_utf8)</span><span class="p">;</span>
-
-<span class="k">our</span> <span class="nv">$VERSION</span> <span class="o">=</span> <span class="s">&quot;1.00&quot;</span><span class="p">;</span>
-
-<span class="k">sub </span><span class="nf">new</span> <span class="p">{</span>
-    <span class="k">my</span> <span class="p">(</span><span class="nv">$class</span><span class="p">)</span> <span class="o">=</span> <span class="nv">@_</span><span class="p">;</span>
-    <span class="k">my</span> <span class="nv">$self</span> <span class="o">=</span> <span class="nb">bless</span><span class="p">({},</span><span class="nv">$class</span><span class="p">);</span>
-
-    <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">row</span><span class="p">}</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="nb">pos</span><span class="p">}</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">reflect_pos</span><span class="p">}</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">tmp_content</span><span class="p">}</span> <span class="o">=</span> <span class="nb">undef</span><span class="p">;</span>
-
-    <span class="k">return</span> <span class="nv">$self</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">sub </span><span class="nf">AUTOLOAD</span> <span class="p">{</span>
-    <span class="k">my</span> <span class="p">(</span><span class="nv">$name</span><span class="p">)</span> <span class="o">=</span> <span class="k">our</span> <span class="nv">$AUTOLOAD</span> <span class="o">=~</span><span class="sr"> /::(\w+)$/</span><span class="p">;</span>
-    <span class="k">my</span> <span class="nv">$self</span> <span class="o">=</span> <span class="nb">shift</span><span class="p">;</span>
-
-    <span class="k">unless</span> <span class="p">(</span><span class="nb">exists</span> <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">tmp_content</span><span class="p">}{</span><span class="nv">$name</span><span class="p">}</span> <span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nb">undef</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">tmp_content</span><span class="p">}{</span><span class="nv">$name</span><span class="p">};</span>
-<span class="p">}</span>
-
-<span class="k">sub </span><span class="nf">Read</span> <span class="p">{</span>
-    <span class="k">my</span> <span class="p">(</span><span class="nv">$self</span><span class="p">,</span><span class="nv">$input</span><span class="p">,</span><span class="nv">$schema</span><span class="p">)</span> <span class="o">=</span> <span class="nv">@_</span><span class="p">;</span>
-    <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">schema</span><span class="p">}</span> <span class="o">=</span> <span class="nv">$schema</span><span class="p">;</span>
-    <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">refs</span><span class="p">}</span> <span class="o">=</span> <span class="n">ReadData</span><span class="p">(</span><span class="nv">$input</span><span class="p">,</span> <span class="n">dfmt</span><span class="o">=&gt;</span><span class="s">&#39;yyyy/mm/dd&#39;</span><span class="p">);</span>
-    <span class="k">for</span> <span class="k">my</span> <span class="nv">$cols</span> <span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">refs</span><span class="p">}</span><span class="o">-&gt;</span><span class="p">[</span><span class="mi">1</span><span class="p">]{</span><span class="n">maxcol</span><span class="p">}){</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">defined</span><span class="p">(</span><span class="nv">$schema</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;UTF-8&#39;</span><span class="p">,</span><span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">refs</span><span class="p">}</span><span class="o">-&gt;</span><span class="p">[</span><span class="mi">1</span><span class="p">]{</span><span class="n">cr2cell</span><span class="p">(</span><span class="nv">$cols</span><span class="p">,</span><span class="mi">1</span><span class="p">)})})){</span>
-            <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="nb">pos</span><span class="p">}{</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;UTF-8&#39;</span><span class="p">,</span><span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">refs</span><span class="p">}</span><span class="o">-&gt;</span><span class="p">[</span><span class="mi">1</span><span class="p">]{</span><span class="n">cr2cell</span><span class="p">(</span><span class="nv">$cols</span><span class="p">,</span><span class="mi">1</span><span class="p">)})}</span> <span class="o">=</span> <span class="nv">$cols</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">sub </span><span class="nf">get_next</span> <span class="p">{</span>
-    <span class="k">my</span> <span class="p">(</span><span class="nv">$self</span><span class="p">)</span> <span class="o">=</span> <span class="nv">@_</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span> <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">row</span><span class="p">}</span> <span class="o">&lt;=</span> <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">refs</span><span class="p">}</span><span class="o">-&gt;</span><span class="p">[</span><span class="mi">1</span><span class="p">]{</span><span class="n">maxrow</span><span class="p">}){</span>
-        <span class="k">foreach</span> <span class="k">my</span> <span class="nv">$tmp_col</span> <span class="p">(</span><span class="nb">keys</span> <span class="nv">%</span><span class="p">{</span><span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="nb">pos</span><span class="p">}}){</span>
-            <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">tmp_content</span><span class="p">}{</span><span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">schema</span><span class="p">}{</span><span class="nv">$tmp_col</span><span class="p">}}</span> <span class="o">=</span> 
-                <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">refs</span><span class="p">}</span><span class="o">-&gt;</span><span class="p">[</span><span class="mi">1</span><span class="p">]{</span><span class="n">cr2cell</span><span class="p">(</span> <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="nb">pos</span><span class="p">}{</span><span class="nv">$tmp_col</span><span class="p">},</span><span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">row</span><span class="p">}</span> <span class="p">)};</span>
-        <span class="p">}</span>
-        <span class="nv">$self</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">row</span><span class="p">}</span><span class="o">++</span><span class="p">;</span>
-        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="mi">1</span><span class="p">;</span>
-</pre></div>
-<h2><a name="2"></a>Usage</h2>
-
-<p>And the usage is simple too. You just need to constructed a schema to tell the program how to read the excel file. I assume that there is a excel file with header like this:</p>
-
-<p><img src="http://i.imgur.com/wpHQChC.png" alt="Imgur"></p>
-
-<p>Then using the sample code to read the data in the column.</p>
-<div class="highlight"><pre><span class="k">use</span> <span class="nn">Tool::DB::</span><span class="n">ExcelHelper</span><span class="p">;</span>
-
-<span class="k">my</span> <span class="nv">$xls_schema</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">No</span> <span class="o">=&gt;</span> <span class="s">&#39;ID&#39;</span><span class="p">,</span>
-    <span class="n">Gene</span> <span class="o">=&gt;</span> <span class="s">&#39;GeneSymbol&#39;</span>
-<span class="p">};</span>
-
-<span class="k">my</span> <span class="nv">$tool</span> <span class="o">=</span> <span class="nn">Tool::DB::</span><span class="n">ExcelHelper</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">();</span>
-<span class="nv">$tool</span><span class="o">-&gt;</span><span class="n">Read</span><span class="p">(</span><span class="s">&#39;input.xlsx&#39;</span><span class="p">,</span><span class="nv">$xls_schema</span><span class="p">);</span>
-
-<span class="k">while</span><span class="p">(</span><span class="nv">$tool</span><span class="o">-&gt;</span><span class="n">get_next</span><span class="p">()){</span>
-    <span class="k">print</span> <span class="nv">$tool</span><span class="o">-&gt;</span><span class="n">ID</span><span class="o">.</span><span class="s">&quot;\n&quot;</span><span class="p">;</span>
-    <span class="k">print</span> <span class="nv">$tool</span><span class="o">-&gt;</span><span class="n">GeneSymbol</span><span class="o">.</span><span class="s">&quot;\n&quot;</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
+							
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						<div class="s2"><i class='icon-chevron-right'></i><a href="#1">Main Story</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#2">Usage</a></div>
+						
 					</div>
 				</div>
             </div>
