@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rexify for automation</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/pygment_trac.css">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
+        <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+        <style>
+            #main-body{
+                margin-top: 40px;
+			}
+			.article_menu{
+				margin: 10px 0 10px 5px;
+				padding: 5px 0 10px 0;
+				border: 1px solid #c4c4c4;
+				box-shadow:0 0 10px #c4c4c4;
+			}
+			.article_menu>.s1{
+				margin-left: 10px;
+				margin-right:10px;
+				padding: 5px 5px 5px;
+				border-bottom: 1px solid silver;
+			}
+			.article_menu>.s2{
+				margin-left: 10px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+			.article_menu>.s3{
+				margin-left: 20px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+			.article_menu>.s4{
+				margin-left: 30px;
+				margin-right:10px;
+				padding: 2px 5px 2px;
+			}
+            .article{
+                margin: 5px;
+            }
+            .article>.title{
+                margin: 5px 0 5px 5px;
+                padding-left: 5px;
+				border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body{
+                margin: 5px 0 5px 5px;
+                padding-left: 30px;
+            }
+            .article>.article-body h1{
+				font-size: 2em;
+                border-bottom: 2px solid #c4c4c4;
+            }
+            .article>.article-body h2{
+				font-size: 1.8em;
+                color: #626262;
+            }
+            .article>.article-body h3{
+				font-size: 1.6em;
+			}
+            .article>.article-body h4{
+				font-size: 1.4em;
+			}
+            .article>.article-body h5{
+				font-size: 1.2em;
+			}
+        </style>
+    </head>
+    <body>
+       <div class="container">
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="../../article_list.html">CK Doc</a>
+                     <ul class="nav">
+                        <li><a href="../../article_list.html">Home</a></li>
+                        <li class="active"><a href="../../article_list.html">Articles</a></li>
+                        <li><a href="../../category.html">Category</a></li>
+                        <li><a href="../../about.html">About me</a></li>
+                     </ul>
+                 </div>
+                 </div>
+            </div>
+            <div id="main-body">
+            <div class="row">
+                <div class="span9">
+                    <div class="article row">
+                        <div class="title">
+                            <h1 class="title-name">Rexify for automation</h1>
+							<div class="row">
+								<div class="span4"><i>2013-10-23 11:26:06</i></div>
+							</div>
+                        </div>
+                        <div class="article-body">
+							<h3><a name="1"></a>Introduction</h3>
+
+<p>A tool based on perl to automate many task with deployment or server constructor. There are other similar tools like puppet or vargant but I think it is the best choice if you are fimilar with perl. You can also extend it with many perl modules from cpan. So it is worthy to give a try to reduce your routine job by using <strong>Rex</strong> .</p>
+
+<h3><a name="2"></a>Example</h3>
+
+<p>Create a script file called <strong>Rexfile</strong> with content like this.  </p>
+<div class="highlight"><pre><span class="n">user</span> <span class="s">&quot;user&quot;</span><span class="p">;</span>
+<span class="n">sudo_password</span> <span class="s">&quot;pass&quot;</span><span class="p">;</span>
+
+<span class="n">desc</span> <span class="s">&quot;Get Disk Free&quot;</span><span class="p">;</span>
+<span class="n">task</span> <span class="s">&quot;test_sample&quot;</span><span class="p">,</span> <span class="k">sub </span><span class="p">{</span>
+    <span class="n">say</span> <span class="s">&#39;Start install new package&#39;</span><span class="p">;</span>
+    <span class="n">sudo</span> <span class="k">sub </span><span class="p">{</span>
+        <span class="n">install</span> <span class="s">&#39;patch gcc-c++ patch readline-devel libyaml-devel libffi-devel libtool bison perl-ExtUtils-MakeMaker curl&#39;</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<p>Then execute the following command in the same directory with Rexfile.  </p>
+<div class="highlight"><pre><span class="n">rex</span> <span class="o">-</span><span class="n">H</span> <span class="mf">192.168.6.188</span> <span class="o">-</span><span class="n">u</span> <span class="n">user</span> <span class="o">-</span><span class="n">p</span> <span class="n">pass</span> <span class="n">test_sample</span>
+</pre></div>
+<p>OK, the command line above means perform the task called <strong>test_sample</strong> on host 192.168.6.188 with user <strong>user</strong> and password <strong>password</strong>. The task is defined in the rexfile. In this example, this task will yum the package we want with sudo. Also we can do many other things...  </p>
+
+<p>Execution Command  </p>
+<div class="highlight"><pre>run <span class="s1">&#39;ls -al&#39;</span>
+</pre></div>
+<p>File Editing  </p>
+<div class="highlight"><pre>my <span class="nv">$fh</span>;
+<span class="nb">eval</span> <span class="o">{</span>
+    <span class="nv">$fh</span> <span class="o">=</span> file_append<span class="o">(</span><span class="s2">&quot;/home/rd/.bashrc&quot;</span><span class="o">)</span>;
+<span class="o">}</span>;
+<span class="nv">$fh</span>-&gt;write<span class="o">(</span><span class="s2">&quot;[[ -s \&quot;\$HOME/.rvm/scripts/rvm\&quot; ]] &amp;&amp; source \&quot;\$HOME/.rvm/scripts/rvm\&quot;\n&quot;</span><span class="o">)</span>;
+</pre></div>
+<p>File Creating based on Template</p>
+<div class="highlight"><pre><span class="k">my</span> <span class="nv">$data_content</span> <span class="o">=</span> <span class="n">template</span><span class="p">(</span><span class="s">&quot;templates/etc/database.tpl&quot;</span><span class="p">,</span> 
+    <span class="n">username</span> <span class="o">=&gt;</span> <span class="s">&quot;redmine&quot;</span><span class="p">,</span> 
+    <span class="n">password</span> <span class="o">=&gt;</span> <span class="s">&#39;redmine&#39;</span>
+<span class="p">);</span>
+<span class="n">file</span> <span class="s">&quot;/home/rd/redmine-2.3/config/database.yml&quot;</span><span class="p">,</span> <span class="n">content</span> <span class="o">=&gt;</span> <span class="nv">$data_content</span><span class="p">;</span>
+</pre></div>
+<p>Sed</p>
+<div class="highlight"><pre>sed qr<span class="o">{</span><span class="nv">lang</span> <span class="o">=</span> STDIN.gets.chomp!<span class="o">}</span>, <span class="s2">&quot;lang = &#39;en&#39;&quot;</span>, <span class="s2">&quot;/home/rd/redmine-2.3/lib/tasks/load_default_data.rake&quot;</span>;
+</pre></div>
+<p>Change own or group</p>
+<div class="highlight"><pre>chown <span class="s2">&quot;rd&quot;</span>, <span class="s2">&quot;/home/rd/passenger.te&quot;</span>;
+chgrp <span class="s2">&quot;rd&quot;</span>, <span class="s2">&quot;/home/rd/passenger.pp&quot;</span>;
+</pre></div>
+<h3><a name="3"></a>Reference</h3>
+
+<ol>
+<li><a href="http://rexify.org/">Offical site of Rex</a></li>
+</ol>
+
+                        </div>
+                    </div>
+                </div>
+				<div class="span3">
+					<div class="article_menu">
+						<div class="s3"><i class='icon-minus'></i><a href="#1">Introduction</a></div><div class="s3"><i class='icon-minus'></i><a href="#2">Example</a></div><div class="s3"><i class='icon-minus'></i><a href="#3">Reference</a></div>
+					</div>
+				</div>
+            </div>
+            </div>
+       </div>
+    </body>
+</html>
