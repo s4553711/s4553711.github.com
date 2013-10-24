@@ -160,7 +160,7 @@
 <li><p>First Running</p>
 
 <p>This worker is name by Myworker. When this worker is called, this program will print out the jobid and funcid of this process.
-You can also send a arguemnts to MyWorker and use $job->arg to receive the argument.</p>
+You can also send a arguemnts to MyWorker and use $job-&gt;arg to receive the argument.</p>
 <div class="highlight"><pre><span class="nb">package</span> <span class="n">MyWorker</span><span class="p">;</span>
 <span class="k">use</span> <span class="nn">Data::</span><span class="n">Dumper</span><span class="p">;</span>
 <span class="k">use</span> <span class="n">base</span> <span class="sx">qw(TheSchwartz::Worker TheSchwartz::Job)</span><span class="p">;</span>  
