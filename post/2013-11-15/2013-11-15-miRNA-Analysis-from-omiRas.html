@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>BWA performance benchmark</title>
+        <title>miRNA Analysis from omiRas</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
         <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/pygment_trac.css">
@@ -89,88 +89,52 @@
                 <div class="span9">
                     <div class="article row">
                         <div class="title">
-                            <h1 class="title-name">BWA performance benchmark</h1>
+                            <h1 class="title-name">miRNA Analysis from omiRas</h1>
 							<div class="row">
-								<div class="span4"><i>2013-09-18 16:51:28</i></div>
+								<div class="span4"><i>2013-11-15 16:10:40</i></div>
 							</div>
                         </div>
                         <div class="article-body">
-							<h1><a name="1"></a>Objection</h1>
+							<h1><a name="1"></a>Thoughts</h1>
 
-<p>I recently learned about some NGS techniques and find the most important steps are sequence alignment and de novo assembly.
-The Bwa and Bowtie are both very popular choice in this field so I will start from bwa. Here is some tests I have done.</p>
+<p>今天下午看到另一個miRNA的differential expression分析的服務，叫做omiRas，稍微研究一下他的<a href="http://tools.genxpro.net/omiras/">Workflow</a>也跟我們的做一個比較。  </p>
 
-<h3><a name="2"></a>Problems</h3>
+<p><img src="http://i.imgur.com/TdW5zrt.png" alt="WorkFlow"></p>
 
-<p>When I was compiling Bwa, some error message came up.</p>
+<h1><a name="2"></a>omiRas</h1>
 
-<blockquote>
-<p>bam<em>tview</em>curses.c:5:20: fatal error: curses.h: No such file or directory</p>
-</blockquote>
-
-<p>It mean that you have to install libncurses5-dev
-<code>bash
-sudo apt-get install libncurses5-dev
-</code></p>
-
-<p>Some errors are about the sse2 support, so I add the <strong>-msse2</strong> to CFLAG in configure</p>
-
-<h3><a name="3"></a>Test Machine</h3>
+<h2><a name="3"></a>Simple Steps</h2>
 
 <ul>
-<li>VM: Core i7-2900 @ 3.4GHz, 3954 Ram</li>
-<li>Dev: ntel(R) Xeon(R) CPU X5670@ 2.93GHz, 96735 Ram</li>
+<li>Read pre-processing<br>
+這部份其實跟miRDeep2做的事情是差不多的，把adapter拿掉b然後把重複的Sequence清一清，最後再拿Bowtie把資料mapping到genome上面，找mirdeep2的mapper.pl就可以做類似的事情。第4步是annotation及normalization，關於normalization我不熟，可能要再看paper一下。Quantification則是把mapping到非coding區域的reads拿給mirDeep2做De Novel預測，並且把所有表現的資料整理mapping的資訊及分佈，給下一步differential expression分析用<br></li>
+<li>Combination of expression results and differential expression<br>
+有表現的ncRNAs會被拿去DEseq做分析，產生differential expression的結果<br></li>
+<li>Visualization
+就是顯示結果</li>
 </ul>
 
-<h3><a name="4"></a>Test Data</h3>
+<p>與我目前的單位比較，其實大家做的事情勢差不多的，但是我們是直接將Differential expression及miRNA分析這兩塊獨立開來。用來Differential expression的分析工具我也不是很確定，但應該是tophat及cufflinks。</p>
 
-<ul>
-<li>Index
+<h2><a name="4"></a>Expression Result</h2>
 
-<ul>
-<li>[main] Real time: 169.073 sec; CPU: 146.793 sec (my vm)</li>
-<li>[main] Real time: 206.512 sec; CPU: 203.299 sec (dev)</li>
-</ul></li>
-<li>Align with MEM
+<p><a href="http://tools.genxpro.net/omiras/0be30597ffef/results/expression/a/Wt_r1_fastq/">Expression Table</a><br>
+<a href="http://tools.genxpro.net/omiras/0be30597ffef/results/plots/a/Wt_r1_fastq/">Mapping Statistics</a>  </p>
 
-<ul>
-<li>Real time: 25.229 sec; CPU: 21.173 sec (my vm)</li>
-<li>Real time: 22.795 sec; CPU: 21.885 sec (dev)</li>
-<li>Real time: 13.739 sec; CPU: 23.481 sec (dev 2 threads)</li>
-<li>Real time: 7.749 sec; CPU: 23.182 sec (dev 4 threads)</li>
-<li>Real time: 4.891 sec; CPU: 24.171 sec (dev 8 threads)</li>
-<li>Real time: 3.945 sec; CPU: 29.117 sec (dev 16 threads)</li>
-</ul></li>
-<li>Align with aln
+<p>Mappng Statistics會顯示RNA的區域(Intergenic, intronic, exonic, ncRNA)及ncRNA的種類比例(premiRNA, tRNA, rRNA, snoRNA, scRNA),這部份在我們的pipeline並沒有(雖然有mapping到genome的資訊,但是對於mapping annotation的表示我們就沒有再進一步顯示)。Sequence Length Distribution則是基本的檢驗read的依據,所以大家都一樣。Expression Table就差不多了,只是他們還有計算normalized<em>mapping</em>loci這項數據，我想應該是把read出現在不同loci的次數作normalization。</p>
 
-<ul>
-<li>Real time: 33.600 sec; CPU: 29.070 sec (my vm)</li>
-<li>Real time: 31.259 sec; CPU: 31.201 sec (dev)</li>
-<li>Real time: 18.859 sec; CPU: 34.206 sec (dev 2 threads)</li>
-<li>Real time: 9.952 sec; CPU: 34.614 sec (dev 4 threads)</li>
-<li>Real time: 5.563 sec; CPU: 35.721 sec (dev 8 threads)</li>
-<li>Real time: 4.048 sec; CPU: 42.602 sec (dev 16 threads)</li>
-</ul></li>
-<li>Generate alignments in the SAM
+<p>之前一直在想還需要再加上些什麼分析，現在看來其實做的事情都大同小異，只是怎樣把這些大家都需要的工具做良好的安排及包裝，方便大家使用。或許之後可以把differential expression及miRNA的pipeline結果合併顯示，不知道這樣會不會比較有幫助些。</p>
 
-<ul>
-<li>Real time: 8.590 sec; CPU: 1.364 sec (my vm)</li>
-<li>Real time: 2.201 sec; CPU: 1.404 sec (dev)</li>
-</ul></li>
-</ul>
+<h1><a name="5"></a>Refs</h1>
 
-<p><img src="http://i.imgur.com/V5QaDUd.png" alt="Performance"></p>
-
-<h3><a name="5"></a>Reference</h3>
-
-<p><a href="http://bio-bwa.sourceforge.net/bwa.shtml">Manual of Bwa</a></p>
+<p><a href="http://bioinformatics.oxfordjournals.org/content/early/2013/08/23/bioinformatics.btt457.abstract">Paper</a></p>
 
                         </div>
                     </div>
                 </div>
 				<div class="span3">
 					<div class="article_menu">
-						<div class="s1"><a href="#1">Objection</a></div><div class="s3"><i class='icon-minus'></i><a href="#2">Problems</a></div><div class="s3"><i class='icon-minus'></i><a href="#3">Test Machine</a></div><div class="s3"><i class='icon-minus'></i><a href="#4">Test Data</a></div><div class="s3"><i class='icon-minus'></i><a href="#5">Reference</a></div>
+						<div class="s1"><a href="#1">Thoughts</a></div><div class="s1"><a href="#2">omiRas</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#3">Simple Steps</a></div><div class="s2"><i class='icon-chevron-right'></i><a href="#4">Expression Result</a></div><div class="s1"><a href="#5">Refs</a></div>
 					</div>
 				</div>
 			</div>
