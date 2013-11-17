@@ -1,7 +1,8 @@
 #!/usr/bin/perl
 #use lib "/home/ec2-user/perl5/lib/perl5";
 package Pake;
-use Text::Markdown 'markdown';
+#use Text::Markdown 'markdown';
+use Text::Markdown::Hoedown;
 use Mojo::Template;
 use YAML::Tiny;
 
@@ -193,7 +194,7 @@ sub find_menu {
 	print $tmp_ot $line;
 	close $tmp_ot;
 
-	my @tmp_text = `$ENV{PAKE_BASE}/bin/markdown.rb --parse-fenced_code_blocks $ENV{PAKE_BASE}/bin/tmp_file.md`;
+	my @tmp_text = `$ENV{PAKE_BASE}/bin/markdown.rb --parse-fenced_code_blocks --parse-footnotes --parse-tables $ENV{PAKE_BASE}/bin/tmp_file.md`;
 	my $text = join('',@tmp_text);
 
 	sub replace_call_back {
@@ -214,6 +215,7 @@ sub find_menu {
 	}
 
 	$text =~ s/<h(\d+)>(.*?)<\/h\d+>/&replace_call_back($1,$2)/eg;
+	$text =~ s/<table>/<table class=\"table table-condensed table-striped table-bordered\">/g;
 	unlink($ENV{PAKE_BASE}.'/bin/tmp_file.md');
 
 	return ($final_str,$text);
