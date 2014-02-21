@@ -1,129 +1,56 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title><%=$_[0]->{title}%></title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css">
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js" type="text/javascript"></script>
-        <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
-		<style>
-			body {
-				background: #444;
-			}
-            #main-body{
-				margin: 60px auto 0;
-				border: 1px solid #EEE;
-				border-radius: 15px;
-				background: #eee;
-				width: 960px;
-			}
-			.body-layout{
-				padding: 0;
-				margin: 0 auto;
-			}
-            .article{
-                margin: 5px;
-            }
-            .article>.title{
-                margin: 5px 0 5px 5px;
-                padding-left: 5px;
-				border-bottom: 2px solid #c4c4c4;
-            }
-            .article>.article-body{
-                margin: 5px 0 5px 5px;
-                padding-left: 30px;
-            }
-            .article>.article-body h1{
-				font-size: 2em;
-                border-bottom: 2px solid #c4c4c4;
-            }
-            .article>.article-body h2{
-				font-size: 1.8em;
-                color: #626262;
-            }
-            .article>.article-body h3{
-				font-size: 1.6em;
-			}
-            .article>.article-body h4{
-				font-size: 1.4em;
-			}
-            .article>.article-body h5{
-				font-size: 1.2em;
-			}
-			.article-list{
-				width: 940px;
-				margin: 0 auto;
-				padding: 5px 0;
-				border-bottom: 1px solid #DDD;
-				border-top: 1px solid white;
-			}
-			.article-list a.title{
-				font-weight: bold;
-				font-size: 1.5em;
-				font-family: sans-serif;
-				color: #444;
-			}
-			.article-list img{
-				margin: 5px 10px;
-			}
-			.article-list-date{
-				font-size: 1em;
-				margin-left: 10px;
-				font-style: italic;
-			}
-			.article-list-summary{
-				margin: 10px 0 0 10px;
-			}
-			.footer{
-				color: white;
-				width: 200px;
-				margin: 0 auto;
-			}
-        </style>
-    </head>
-    <body>
-       <div class="container">
-            <div class="navbar navbar-fixed-top">
-                <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="#">CK Doc</a>
-                     <ul class="nav">
-                        <li><a href="#">Home</a></li>
-                        <li class="active"><a href="article_list.html">Articles</a></li>
-                        <li><a href="category.html">Category</a></li>
-                        <li><a href="about.html">About me</a></li>
-                     </ul>
-                 </div>
-                 </div>
-            </div>
-            <div id="main-body">
-            	<div class="row body-layout">
-					<% for my $i (@{$_[0]->{list}}) {%>
-							<div class="article-list">
-								<div class="row">
-									<div class="span6">
-										<a class="title" href="<%=$i->{file}%>"><img width="30" src="images/article.png"><%=$i->{title}%></a>
-									</div>
-									<div class="span2">
-										<span class="article-list-date"><i class="icon-time"></i><%=$i->{date}%>&nbsp;
-										<!--<i class="icon-pencil"></i> s4553711&nbsp;--!>
-										<!--<i class="icon-folder-open"></i>--!>
-										<!--<% for my $j (@{$i->{category}}) {%>--!>
-										<!--	<font color="#08c"><%=$j%></font>--!>
-										<!--<%}%>--!>
-										</span>
-									</div>
-								</div>
-								<!--<div class="row">--!>
-								<!--	<div class="span10">--!>
-								<!--		<p class="article-list-summary"><%=$i->{summary}%></p>--!>
-								<!--	</div>--!>
-								<!--</div>--!>
-							</div>
-					<%}%>
-            	</div>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+		<title><%=$_[0]->{title}%></title>
+		<link rel="stylesheet" href="stylesheets/pure-min.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" charset="utf-8">
+		
+	</head>
+	<body>
+		<div class="pure-g-r" id="layout">
+			<div class="pure-u-1-4" id="menu-bar">
+				<div id="header">
+					<h1 class="heading">Blog</h1>
+					<h3 class="sub-heading">Sub title</h3>
+					<div class="pure-menu pure-menu-open">
+					<ul>
+						<li><a href="article_list.html">Articles</a></li>
+						<li><a href="category.html">Category</a></li>
+						<li><a href="about.html">About</a></li>
+					</ul>
+					</div>
+				</div>
 			</div>
-			<div class="footer">Copyright @ 2013 s4553711</div>
-       </div>
-    </body>
+			<div class="pure-u-3-4 content-region">
+				<div id="post-region">
+					<% for my $i (@{$_[0]->{list}}) {%>
+					<div class="post">
+						<div class="post-header">
+							<h2 class="header"><a href="<%=$i->{file}%>"><%=$i->{title}%></a></h2>
+							<div class="post-meta">
+								By CK,Lee @ <%=$i->{date}%>
+								<% my $tagCt = 1; %>
+								<% for my $j (@{$i->{category}}) {%>
+									<% my $tagColor = ""; %>
+									<% if ($tagCt%3 == 1) { %>
+										<% $tagColor = "tag-cyan"; %>
+									<% } elsif ($tagCt%3 == 2) { %>
+										<% $tagColor = "tag-blue"; %>
+									<% } %>
+									<a class="tag <%=$tagColor%>" href="#"><%=$j%></a>
+									<% $tagCt++; %>
+								<%}%>
+							</div>
+						</div>
+						<div class="post-des">
+							<%=$i->{summary}%>
+						</div>
+					</div>
+					<%}%>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>

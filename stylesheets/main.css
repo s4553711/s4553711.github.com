@@ -1,0 +1,67 @@
+html, body {
+}
+#layout {
+}
+#header {
+	width: 250px;
+	color: white;
+	margin: 100px auto;
+}
+#header > h1,h3 {
+	text-align: right;
+	margin: 10px 0;
+	text-transform: uppercase;
+}
+#header > .sub-heading {
+	color: rgb(176, 202, 219);
+}
+#menu-bar {
+	background: rgb(61, 79, 93);
+}
+#post-region {
+	padding: 30px;
+}
+.post {
+	margin: 0;
+	min-height:120px;
+	border-bottom: 1px solid #eee;
+}
+.post > .post-header {
+	margin: 5px 0;
+}
+.post > .post-header > .header {
+	margin: 5px 0;
+}
+.post > .post-header > .header > a{
+	text-decoration: none;
+	color: black;
+}
+.post > .post-header > .post-meta {
+	color: #999;
+	font-size: 90%;
+	margin: 0;
+}
+.post > .post-des {
+	line-height: 1.8em;
+}
+.tag {
+	margin: 0;
+	display: inline-block;
+	padding: .3em 1em;
+	background: #df2d4f;
+	font-size: 80%;
+	color: #fff;
+	text-decoration: none;
+}
+.tag-cyan {
+	background: #5aba59;
+}
+.tag-blue {
+	background: #4d85d1;
+}
+/* 
+ * For pure.css
+ */
+.pure-menu {
+}
+

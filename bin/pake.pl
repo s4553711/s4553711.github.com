@@ -123,7 +123,7 @@ sub Generate {
 					title => $yaml->[0]{title},
 					date => $yaml->[0]{date},
 					category => $yaml->[0]{categories},
-					summary => "this is the summary about this article"
+					summary => $yaml->[0]{summary} ne '' ? $yaml->[0]{summary} : "this is the summary about this article"
 				}
 			);
 
@@ -135,8 +135,22 @@ sub Generate {
 			};
 
 			# Prepare for the category
+			my $count_tag = 1;
 			foreach my $item (@{$yaml->[0]{categories}}){
-				push(@{$category{lc($item)}},{url=>"post/$folder/$html_file.html",title=>$yaml->[0]{title},date=>$yaml->[0]{date}});
+				my $tagColor = "";
+				if ($count_tag%3 == 1) {
+					$tagColor = "tag-cyan";
+				} elsif ($count_tag%3 == 2) {
+					$tagColor =  "tag-blue"
+				} else {
+					$tagColor = "";
+				}	
+				push(@{$category{lc($item)}},{
+					url=>"post/$folder/$html_file.html",
+					title=>$yaml->[0]{title},date=>$yaml->[0]{date},
+					tagColor => $tagColor
+				});
+				$count_tag++;
 			}
 
 			# Rendering the article page
