@@ -68,6 +68,7 @@ bavaria-ticket
 | 2014-01-25 | Zermatt | Munchen | [Link](http://i.imgur.com/BxvkZxN.png) | 73\*2 CHF (61*2 CHF) | [Detail Price Info](http://i.imgur.com/ozPljZG.png) |
 | 2014-01-28 | Munchen | Heidelberg | [Link](http://i.imgur.com/lch6HHI.png) | 49 € | |
 | 2014-01-30 | Heidelberg | Frankfurt(Main)Hbf | [Link](http://i.imgur.com/mjUr6Fw.png) | 29 € | |
+| 2014-01-30 | Frankfurt(Main)Hbf | Köln | [Link](http://i.imgur.com/oOexY3A.png) | 29 € | Round-trip |
 
 粗略估計城市間移動火車費用 6188.52 + 7445.13 = 13633.65，平均每人**6816.825** NTD
 
@@ -135,9 +136,10 @@ bavaria-ticket
 
 ### Frankfurt  
 
+1/30 head to Koln and return at 6 or 7pm.
+
 | Term        | From           | To  |Price|Pass Price|Note|
 | ------------- |:-------------:| -----:|-----:|-----:|-----:|
-| 1/31 法蘭克福到柯隆 | 法蘭克福 | 科隆 | 58 € | | 兩人來回，回來時間有點趕(方案一) |
 | 1/31 科隆餐廳 | | | ||[FRUTH](http://wanwanlan.pixnet.net/blog/post/68839377-%E7%A7%91%E9%9A%86%EF%BC%A0%E6%AD%B7%E5%8F%B2%E6%82%A0%E4%B9%85%E7%9A%84%E3%80%8Efr%C3%9Ch%E3%80%8F%E9%A4%90%E5%BB%B3-%EF%BC%8B4711)|
 
 # 觀光資訊

@@ -2,6 +2,7 @@
 layout: post
 title: miRNA Analysis from omiRas
 date: 2013-11-15 16:10:40
+summary: A study about bioinformatics tool for miRNA analysis called omiRas.
 categories:
 	- bioinformatics
 	- RNA
