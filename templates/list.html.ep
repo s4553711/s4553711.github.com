@@ -13,8 +13,8 @@
 			<div class="pure-u-1-4" id="menu-bar">
 				<div id="header">
 					<h1 class="heading">Blog</h1>
-					<h3 class="sub-heading">Sub title</h3>
-					<div class="pure-menu pure-menu-open">
+					<h3 class="sub-heading">Personal recording</h3>
+					<div class="pure-menu pure-menu-open" id="heading-menu">
 					<ul>
 						<li><a href="article_list.html">Articles</a></li>
 						<li><a href="category.html">Category</a></li>

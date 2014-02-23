@@ -14,6 +14,20 @@ html, body {
 }
 #header > .sub-heading {
 	color: rgb(176, 202, 219);
+	text-transform: none;
+}
+#heading-menu {
+	background: rgb(61, 79, 93);
+	border: none;
+	text-align: right;
+}
+#heading-menu ul li a {
+	color: #fff;
+	padding-right: 0;
+}
+#heading-menu ul li a:hover {
+	background: silver;
+	padding-right: 10px;
 }
 #menu-bar {
 	background: rgb(61, 79, 93);
