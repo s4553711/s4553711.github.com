@@ -45,6 +45,7 @@ sub deploy {
 
 	`git add ../article_list.html`;
 	`git add ../category.html`;
+	`git add ../works.html`;
 	`git add ../draft/*`;
 	`git add ../post/*`;
 	`git commit -m '$comment'`;
