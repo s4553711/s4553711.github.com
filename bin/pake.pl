@@ -195,6 +195,19 @@ sub Generate {
 	print OT3 $list_content;
 
 	close OT3;
+
+	page_render();
+}
+
+sub page_render {
+	my $template = Mojo::Template->new;
+	my $set = {
+		title=>'My Works'
+	};
+	my $tmp_content = $template->render_file('../templates/works.html.ep',$set);
+    open STREAM,">../works.html" || die "Error Open works.html\n";
+	print STREAM $tmp_content;
+	close STREAM;
 }
 
 sub find_menu {

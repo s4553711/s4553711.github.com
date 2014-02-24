@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+		<title><%=$_[0]->{title}%></title>
+		<link rel="stylesheet" href="stylesheets/pure-min.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" charset="utf-8">
+		<style type="text/css" media="screen">
+			#menu-bar {
+				position: fixed;
+				top: 0;
+				bottom: 0;
+			}
+			#content-region {
+				margin-left: 25%;
+			}
+			.works-region {
+				padding: 30px;
+				height:100%;
+			}
+			.work-header {
+				text-align: left;
+				text-transform: none;
+				margin: 10px 0;
+				padding: 5px 0;
+				border-bottom: 1px solid #eee;
+				color: black;
+			}
+			.work-header > a{ 
+				text-decoration: none;
+				color: black;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="pure-g-r" id="layout">
+			<div class="pure-u-1-4" id="menu-bar">
+				<div id="header">
+					<h1 class="heading">Blog</h1>
+					<h3 class="sub-heading">Personal recording</h3>
+					<div class="pure-menu pure-menu-open" id="heading-menu">
+					<ul>
+						<li><a href="article_list.html">Articles</a></li>
+						<li><a href="category.html">Category</a></li>
+						<li><a href="works.html">Some Works</a></li>
+						<li><a href="about.html">About</a></li>
+					</ul>
+					</div>
+				</div>
+			</div>
+			<div class="pure-u-3-4" id="content-region">
+				<div class="works-region">
+					<div>
+					<h3 class="work-header"><a href="http://s4.twbbs.org/album/">Flickr Photo Sets Viewer</a></h3>
+					<div class="work-description">
+						A site to browse my public photo sets in <a href="http://www.flickr.com">Flick</a> with its API support. The main goal of this tool is to provide a tool for quickly searching public photos grouped by sets. I have created a backend to perform query to flick and a simple javascript app for UI and communicate with backend. Here are its detail information:
+						<p>
+							<h4>Frontend</h4>
+							<ul>
+								<li>Backbone.js</li>
+								<li>jQuery</li>
+								<li>Bootstrap</li>
+							</ul>
+							<h4>Backend</h4>
+							<ul>
+								<li><a href="http://mojolicio.us/">Mojolicious</a> (Perl Web Framework)</li>
+								<li><a href="http://search.cpan.org/dist/Flickr-API2/">Flickr::API2</a></li>
+								<li><a href="http://s4.twbbs.org/tech_blog/blog/2014/02/10/flickr-api-for-accessing-photo-in-set/">Extension of Flickr::API2 for performing query of public photosets</a></li>
+							</ul>
+					</div>
+					</div>
+					<div>
+						<h3 class="work-header"><a href="https://github.com/s4553711/ck-job-manager">CK-Job-Manager</a></h3>
+						<div class="work-description">
+							A simple job management built on top of Perl. This project is inspired by <a href="http://search.cpan.org/~sixapart/TheSchwartz-1.10/lib/TheSchwartz.pm">TheSchwartz</a> and hope to create a light-weight job management that user can handle its job more easily without much effort. <a href="https://github.com/s4553711/ck-job-manager">Here</a> are the detail about its info.
+						</div>
+					</div>
+					<div>
+						<h3 class="work-header"><a href="https://github.com/s4553711/s4553711.github.com/wiki">Pake</a></h3>
+						<div class="work-description">
+							A micro-blog developed in Perl which is used to construct the web site you see right now.
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
